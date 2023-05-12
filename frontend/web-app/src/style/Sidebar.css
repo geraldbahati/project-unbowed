@@ -1,0 +1,18 @@
+.sidebar__drawer {
+    /* Styles for the component */
+    height: 100vh;
+}
+
+/* Media query for large screens */
+@media screen and (min-width: 768px) {
+    .sidebar__drawer {
+        width: calc(100vw / 3);
+    }
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 767px) {
+    .sidebar__drawer {
+        width: calc(100vw / (2 / 3));
+    }
+}
