@@ -1,8 +1,0 @@
-version: "Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)"
-options: "617e146c719d36b7ffbae5a263b0c06e286c702a135813c758862f97c5ecabae"
-build_start_time: [1683817253, 528491000]
-build_end_time: [1683817253, 561887000]
-inputs:
-  "/Users/geraldbahati/Desktop/project-unbowed/frontend/mobile-app/unbowed_flutter/macos/Flutter/GeneratedPluginRegistrant.swift": !private [1683817239, 928970931]
-  "/Users/geraldbahati/Desktop/project-unbowed/frontend/mobile-app/unbowed_flutter/macos/Runner/AppDelegate.swift": !private [1651404187, 264312979]
-  "/Users/geraldbahati/Desktop/project-unbowed/frontend/mobile-app/unbowed_flutter/macos/Runner/MainFlutterWindow.swift": !private [1651404187, 265702500]
