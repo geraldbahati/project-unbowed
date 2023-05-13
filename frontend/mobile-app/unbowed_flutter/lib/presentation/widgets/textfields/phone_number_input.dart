@@ -9,17 +9,20 @@ class PhoneTextField extends StatelessWidget {
       padding: EdgeInsets.all(8.0),
       child: TextField(
         decoration: InputDecoration(
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.0),
-                ),
-                borderSide: BorderSide(
-                  width: 2.0,
-                )),
-            hintText: "Phone Number",
-            prefixText: "+254 | ",
-            prefixIcon: Icon(Icons.phone),
-            prefixIconColor: Colors.black),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(30.0),
+            ),
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 2.0,
+            ),
+          ),
+          hintText: "Phone Number",
+          prefixText: "+254 | ",
+          prefixIcon: Icon(Icons.phone),
+          prefixIconColor: Colors.black,
+        ),
         keyboardType: TextInputType.phone,
       ),
     );
