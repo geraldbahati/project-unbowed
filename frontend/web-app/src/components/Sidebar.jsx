@@ -1,121 +1,56 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
+import React, { useState, useEffect } from "react";
+import { Avatar, IconButton } from "@mui/material";
 import {
-    CgMenu,
-    CgProfile,
-    CgOptions,
-    IoNotificationsOutline,
+    MdDonutLarge,
+    BsChat,
+    FiMoreVertical,
+    IoSearchOutline,
 } from "react-icons/all";
-import {
-    Button,
-    Drawer,
-    List,
-    ListItemButton,
-    ListItemText,
-} from "@mui/material";
 
-import "../style/Sidebar.css";
+import SidebarChat from "./SidebarChat";
+import { roomData } from "../assets/data";
+import "../styles/Sidebar.css";
 
-const arrOptions = [
-    { name: "Profile", icon: <CgProfile />, link: "profile/" },
-    { name: "Settings", icon: <CgOptions />, link: "options/" },
-    {
-        name: "notifications",
-        icon: <IoNotificationsOutline />,
-        link: "music/",
-    },
-];
+const Sidebar = () => {
+    const [rooms, setRooms] = useState([]);
 
-const allOptions = [
-    { name: "Feed", link: "feed/" },
-    { name: "Tracks", link: "tracks/" },
-    { name: "Distribution", link: "distribution/" },
-    { name: "Publishing", link: "publishing/" },
-    { name: "Beat ID", link: "beat-id/" },
-    { name: "Gift Cards", link: "gift-cards/" },
-];
+    useEffect(() => {
+        setRooms(
+            roomData.map((data) => ({
+                id: data.id,
+                name: data.name,
+            }))
+        );
+    }, [roomData]);
 
-const authOptions = [
-    { name: "Sign in", icon: <LockOpenIcon />, link: "login/" },
-    { name: "Sign up", icon: <HowToRegIcon />, link: "register/" },
-];
-
-const Sidebar = (props) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-
-    const theme = useTheme();
-    const isLargeScreen = useMediaQuery(theme.breakpoints.up("lg"));
     return (
         <div className="sidebar">
-            <Button
-                startIcon={<CgMenu />}
-                onClick={() => {
-                    setOpen(true);
-                }}
-            />
-            <Drawer
-                open={open}
-                onClose={() => setOpen(false)}
-                className="sidebar__drawer"
-                PaperProps={{
-                    style: {
-                        width: isLargeScreen ? "25%" : "66.67%",
-                    },
-                }}
-            >
-                <List>
-                    {allOptions.map((item) => (
-                        <ListItemButton
-                            onClick={() => {
-                                setOpen(false);
-                                navigate(item.link);
-                            }}
-                        >
-                            <ListItemText
-                                primary={item.name}
-                                style={{ marginLeft: 5, marginRight: 5 }}
-                            />
-                        </ListItemButton>
-                    ))}
-                    <hr />
-                    {arrOptions.map((item) => (
-                        <ListItemButton
-                            onClick={() => {
-                                setOpen(false);
-                                navigate(item.link);
-                            }}
-                        >
-                            {item.icon}
-                            <ListItemText
-                                primary={item.name}
-                                style={{ marginLeft: 15 }}
-                            />
-                        </ListItemButton>
-                    ))}
-                    <hr />
-                    {authOptions.map((item) => (
-                        <ListItemButton
-                            onClick={() => {
-                                setOpen(false);
-                                navigate(item.link);
-                            }}
-                        >
-                            {item.icon}
-                            <ListItemText
-                                primary={item.name}
-                                style={{ marginLeft: 15 }}
-                            />
-                        </ListItemButton>
-                    ))}
-                </List>
-            </Drawer>
+            <div className="sidebar__header">
+                <Avatar />
+                <div className="sidebar__headerRight">
+                    <IconButton>
+                        <MdDonutLarge />
+                    </IconButton>
+                    <IconButton>
+                        <BsChat />
+                    </IconButton>
+                    <IconButton>
+                        <FiMoreVertical />
+                    </IconButton>
+                </div>
+            </div>
+            <div className="sidebar__search">
+                <div className="sidebar__searchContainer">
+                    <IoSearchOutline className="sidebar__searchIcon" />
+                    <input type="text" placeholder="Search or start new chat" />
+                </div>
+            </div>
+            <div className="sidebar__chat">
+                <SidebarChat addNewChat={true} />
+                {rooms.map((room) => (
+                    <SidebarChat key={room.id} id={room.id} name={room.name} />
+                ))}
+            </div>
         </div>
     );
 };

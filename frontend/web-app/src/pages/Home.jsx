@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Sidebar } from "../components";
+import { Menu } from "../components";
 
 const Home = () => {
     return (
         <>
             <h1>Home</h1>
-            <Sidebar />
+            <Menu />
         </>
     );
 };
