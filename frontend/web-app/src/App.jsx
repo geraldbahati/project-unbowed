@@ -10,6 +10,7 @@ import {
     Login,
     Register,
     Settings,
+    Verify,
 } from "./pages";
 
 const App = () => {
@@ -18,12 +19,17 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path="/" element={<Landing />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/chats" element={<Chats />} />
-                    <Route path="/conversation" element={<Conversation />} />
-                    <Route path="/settings" element={<Settings />} />
+                    <Route exact path="/login" element={<Login />} />
+                    <Route exact path="/register" element={<Register />} />
+                    <Route exact path="/verification" element={<Verify />} />
+                    <Route exact path="/home" element={<Home />} />
+                    <Route exact path="/chats" element={<Chats />} />
+                    <Route
+                        exact
+                        path="/conversation"
+                        element={<Conversation />}
+                    />
+                    <Route exact path="/settings" element={<Settings />} />
                 </Routes>
             </Router>
         </div>

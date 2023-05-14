@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     Avatar,
     Alert,
@@ -46,11 +46,10 @@ const theme = createTheme();
 const Register = () => {
     const dispatch = useDispatch();
 
+    const navigate = useNavigate();
+
     const [user, setUser] = useState({
-        username: "",
-        email: "",
-        password1: "",
-        password2: "",
+        phone: "",
     });
 
     const [signupError, setSignupError] = useState("");
@@ -65,6 +64,16 @@ const Register = () => {
         );
     };
 
+    const formatPhoneNumber = useCallback(() => {
+        if (!phone.startsWith("+254")) {
+            setUser({
+                phone: "+254" + user.phone,
+            });
+        }
+    }, [user.phone]);
+
+    //
+
     const handleChange = (event) => {
         const { name, value, checked, type } = event.target;
         setUser((prevState) => {
@@ -75,35 +84,28 @@ const Register = () => {
         });
     };
 
-    const handleSumbit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        // console.log(user);
-        //axios post logic
         const data = new FormData(event.currentTarget);
-        if (data.get("password1") == data.get("password2")) {
-            try {
-                setSignupStatus("pending");
-                // dispatch(userLogin(user.username, user.password));
-                let username = user.username;
-                let email = user.email;
-                let password1 = user.password1;
-                let password2 = user.password2;
-                dispatch(
-                    userReg({ username, email, password1, password2 })
-                ).unwrap();
-                setUser({
-                    username: "",
-                    password: "",
-                });
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setSignupStatus("idle");
-            }
-        } else {
-            console.log("Passords did not match! Try again");
-            setSignupError("Passords did not match! Try again");
-        }
+        // if (data.get("phone")) {
+        //     try {
+        //         setSignupStatus("pending");
+
+        //         let phone = user.phone;
+        //         dispatch(userReg({ phone })).unwrap();
+        //         setUser({
+        //             phone: "",
+        //         });
+        //     } catch (err) {
+        //         console.log(err);
+        //     } finally {
+        //         setSignupStatus("idle");
+        //     }
+        // } else {
+        //     console.log("The number entered is invalid. Try again");
+        //     setSignupError("The number entered is invalid. Try again");
+        // }
+        navigate("/verification");
     };
 
     return (
@@ -122,60 +124,37 @@ const Register = () => {
                         <LockPersonOutlined />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        Sign Up
                     </Typography>
                     <Box
                         component="form"
-                        onSubmit={handleSumbit}
+                        onSubmit={handleSubmit}
                         noValidate
                         sx={{ mt: 1 }}
                     >
+                        <Typography
+                            component="h6"
+                            variant="h6"
+                            sx={{
+                                mt: 2,
+                                mb: 2,
+                            }}
+                        >
+                            Enter your phone number
+                        </Typography>
                         <TextField
                             margin="normal"
+                            type="number"
                             required
                             fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
+                            id="phone"
+                            label="Phone Number"
+                            name="phone"
                             autoFocus
+                            onFocus={formatPhoneNumber}
+                            onBlur={formatPhoneNumber}
                         />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="email"
-                            label="Email"
-                            name="email"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Password"
-                            name="password1"
-                            type="password"
-                            id="password1"
-                            autoFocus
-                            autoComplete="current-password"
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Confirm Password"
-                            name="password2"
-                            type="password"
-                            id="password2"
-                            autoFocus
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={
-                                <Checkbox value="remember" color="primary" />
-                            }
-                            label="Remember me"
-                        />
+
                         <div
                             style={{
                                 display: "flex",
@@ -189,11 +168,21 @@ const Register = () => {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign up
+                                Next
                             </Button>
                         </div>
 
-                        <Grid item>
+                        <Grid
+                            item
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "space between",
+                                alignItems: "center",
+                                position: "absolute",
+                                bottom: 20,
+                            }}
+                        >
                             <p>Already have an account with us? </p>
                             <MuiLink href="/login" variant="body2">
                                 {"Sign in"}
@@ -201,7 +190,6 @@ const Register = () => {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );
