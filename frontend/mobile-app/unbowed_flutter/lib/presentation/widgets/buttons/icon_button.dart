@@ -12,7 +12,7 @@ class CustomIconButton extends StatelessWidget {
       alignment: Alignment.center,
       transformAlignment: Alignment.center,
       child: Container(
-        color: Color(0xff333333),
+        color: Colors.transparent,
         child: Container(
           width: 150,
           height: 150,
