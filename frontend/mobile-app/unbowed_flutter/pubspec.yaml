@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   sizer: ^2.0.15
   flutter_bloc: ^8.1.2
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

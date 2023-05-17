@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/router/my_routes.dart';
-import 'package:unbowed_flutter/presentation/views/register_pages/register_page.dart';
+import 'presentation/router/my_routes.dart';
+import 'presentation/views/landing_pages/landing1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
                 primarySwatch: Colors.blue,
               ),
               // onGenerateRoute: _appRouter.onGenerateRoute,
-              home: RegisterPage(),
+              home: LandingPage(),
             ));
   }
 }
