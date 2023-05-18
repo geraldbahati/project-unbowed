@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 TextStyle appBarTextStyle = TextStyle(
@@ -6,4 +7,16 @@ TextStyle appBarTextStyle = TextStyle(
   fontSize: 22.sp,
   fontWeight: FontWeight.bold,
   fontFamily: "Poppins",
+);
+
+final titleTextStyle = GoogleFonts.poppins(
+  color: const Color.fromRGBO(3, 5, 61, 1),
+  fontSize: 24.sp,
+  fontWeight: FontWeight.bold,
+);
+
+final contextTextStyle = GoogleFonts.poppins(
+  color: const Color.fromRGBO(3, 5, 61, 1),
+  fontSize: 12.sp,
+  fontWeight: FontWeight.w500,
 );

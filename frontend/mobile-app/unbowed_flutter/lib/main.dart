@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
+import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
 import 'presentation/router/my_routes.dart';
 import 'presentation/views/landing_pages/landing1.dart';
 
@@ -35,6 +37,7 @@ class _MyAppState extends State<MyApp> {
               ),
               // onGenerateRoute: _appRouter.onGenerateRoute,
               home: LandingPage(),
+              // home: ExclamationAnimation(),
             ));
   }
 }
