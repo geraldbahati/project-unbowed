@@ -1,14 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
     Avatar,
     Alert,
     Button,
-    CssBaseline,
     TextField,
-    FormControlLabel,
-    Checkbox,
     Link as MuiLink,
     Grid,
     Box,
@@ -23,25 +21,17 @@ import { userReg } from "../features/auth/signupSlice";
 import { userRegStatus } from "../features/auth/signupSlice";
 import { userRegError } from "../features/auth/signupSlice";
 
-const Copyright = (props) => {
-    return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            {...props}
-        >
-            {"Copyright Wizzbeats ©"}
-            <MuiLink color="inherit" href="#">
-                WizzBeats
-            </MuiLink>
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-};
-
 const theme = createTheme();
+
+const animationVariants = {
+    hidden: {
+        x: "50vw",
+    },
+    visible: {
+        x: 0,
+        transition: { type: "spring", duration: 2.5 },
+    },
+};
 
 const Register = () => {
     const dispatch = useDispatch();
@@ -63,14 +53,6 @@ const Register = () => {
             </Alert>
         );
     };
-
-    const formatPhoneNumber = useCallback(() => {
-        if (!phone.startsWith("+254")) {
-            setUser({
-                phone: "+254" + user.phone,
-            });
-        }
-    }, [user.phone]);
 
     //
 
@@ -111,10 +93,13 @@ const Register = () => {
     return (
         <ThemeProvider theme={theme}>
             <Container>
-                <CssBaseline />
-                <Box
-                    sx={{
+                <motion.div
+                    variants={animationVariants}
+                    initial="hidden"
+                    animate="visible"
+                    style={{
                         marginTop: 8,
+                        marginBottom: 4,
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
@@ -151,11 +136,12 @@ const Register = () => {
                             label="Phone Number"
                             name="phone"
                             autoFocus
-                            onFocus={formatPhoneNumber}
-                            onBlur={formatPhoneNumber}
                         />
 
-                        <div
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 3 }}
                             style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -170,26 +156,22 @@ const Register = () => {
                             >
                                 Next
                             </Button>
-                        </div>
-
-                        <Grid
-                            item
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                justifyContent: "space between",
-                                alignItems: "center",
-                                position: "absolute",
-                                bottom: 20,
-                            }}
-                        >
-                            <p>Already have an account with us? </p>
-                            <MuiLink href="/login" variant="body2">
-                                {"Sign in"}
-                            </MuiLink>
-                        </Grid>
+                        </motion.div>
                     </Box>
-                </Box>
+                </motion.div>
+                {/* <motion.div
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "absolute",
+                        bottom: 20,
+                    }}
+                >
+                    <p>Already have an account with us? </p>
+                    <a href="/login">Sign in</a>
+                </motion.div> */}
             </Container>
         </ThemeProvider>
     );

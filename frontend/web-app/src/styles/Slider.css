@@ -1,0 +1,50 @@
+.slider {
+    overflow: hidden;
+}
+
+.slider__container {
+    display: flex;
+}
+
+.slider__text {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.slider__imageList {
+    width: 500;
+    height: 450;
+}
+
+/* Styles for screens with a maximum width of 768 pixels */
+@media (max-width: 768px) {
+    /* CSS rules for smaller screens */
+    .slider {
+        margin: 0 20px;
+    }
+    .slider__imageListItem {
+        width: auto;
+        max-height: 100%;
+    }
+}
+
+/* Styles for screens with a minimum width of 992 pixels */
+@media (min-width: 992px) {
+    /* CSS rules for larger screens */
+    .slider__images {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        height: 80%;
+        width: 70vw;
+        max-height: 320px;
+    }
+
+    .slider__imageListItem {
+        width: auto;
+        max-height: 60%;
+    }
+}

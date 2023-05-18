@@ -12,6 +12,7 @@ import {
     Settings,
     Verify,
 } from "./pages";
+import { Carousel } from "./components";
 
 const App = () => {
     return (
@@ -30,6 +31,7 @@ const App = () => {
                         element={<Conversation />}
                     />
                     <Route exact path="/settings" element={<Settings />} />
+                    <Route exact path="/test" element={<Carousel />} />
                 </Routes>
             </Router>
         </div>
