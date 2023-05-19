@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:unbowed_flutter/presentation/styles/custom_box_decorators.dart';
+import '../../animations/exclamation.dart';
+import '../../styles/custom_box_decorators.dart';
+
+import '../../animations/chat.dart';
+import '../../animations/circles.dart';
+
+enum AnimationType { chat, exclamation, circles }
 
 class CustomAnimationContainer extends StatelessWidget {
+  final AnimationType animationType;
   final double height;
   final double width;
   final BoxDecoration? boxDecoration;
-  final Widget animation;
 
-  const CustomAnimationContainer({
+  final int? milliseconds;
+
+  const CustomAnimationContainer(
+    this.animationType, {
     super.key,
     required this.height,
     required this.width,
-    required this.animation,
     this.boxDecoration,
+    this.milliseconds,
   });
 
   @override
@@ -22,8 +31,28 @@ class CustomAnimationContainer extends StatelessWidget {
       width: width,
       decoration: boxDecoration ?? animatedBoxDecoration,
       child: Center(
-        child: animation,
+        child: getAnimation(),
       ),
     );
+  }
+
+  Widget getAnimation() {
+    switch (animationType) {
+      case AnimationType.chat:
+        return ChatAnimation(
+          milliseconds: milliseconds,
+        );
+      case AnimationType.exclamation:
+        return ExclamationAnimation(
+          milliseconds: milliseconds,
+        );
+
+      case AnimationType.circles:
+        return CirclesAnimation(
+          milliseconds: milliseconds,
+        );
+      default:
+        return const Placeholder();
+    }
   }
 }

@@ -224,6 +224,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "smooth_page_indicator",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/smooth_page_indicator-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "source_span",
       "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/source_span-1.9.1",
       "packageUri": "lib/",
@@ -296,7 +302,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-05-17T23:43:16.011480Z",
+  "generated": "2023-05-19T15:03:27.191036Z",
   "generator": "pub",
   "generatorVersion": "3.0.0"
 }

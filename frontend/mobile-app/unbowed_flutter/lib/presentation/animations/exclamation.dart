@@ -4,7 +4,12 @@ import 'package:unbowed_flutter/presentation/constants.dart';
 import 'package:unbowed_flutter/presentation/styles/theme.dart';
 
 class ExclamationAnimation extends StatefulWidget {
-  const ExclamationAnimation({super.key});
+  final int? milliseconds;
+
+  const ExclamationAnimation({
+    super.key,
+    this.milliseconds,
+  });
 
   @override
   State<ExclamationAnimation> createState() => _ExclamationAnimationState();
@@ -23,9 +28,6 @@ class _ExclamationAnimationState extends State<ExclamationAnimation>
       if (status == AnimationStatus.completed) {
         // When the animation completes, resize the icon back to its original size.
         _controller.reverse();
-      } else if (status == AnimationStatus.dismissed) {
-        // When the animation completes, resize the icon back to its original size.
-        _controller.forward();
       }
     });
   }
@@ -34,7 +36,7 @@ class _ExclamationAnimationState extends State<ExclamationAnimation>
   void initState() {
     // TODO: implement initState
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 800),
+      duration: Duration(milliseconds: widget.milliseconds ?? 400),
       vsync: this,
     );
 
@@ -66,7 +68,7 @@ class _ExclamationAnimationState extends State<ExclamationAnimation>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 800),
+      duration: Duration(milliseconds: widget.milliseconds ?? 400),
       width: _widthAnimation.value,
       height: _heightAnimation.value,
       child: Image.asset(
