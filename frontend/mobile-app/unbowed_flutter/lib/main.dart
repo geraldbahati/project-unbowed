@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/router/my_routes.dart';
+import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
+import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
+import 'package:unbowed_flutter/presentation/views/landing_pages/landing_page_view.dart';
+import 'presentation/router/my_routes.dart';
+import 'presentation/views/landing_pages/landing1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,7 +36,9 @@ class _MyAppState extends State<MyApp> {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              onGenerateRoute: _appRouter.onGenerateRoute,
+              // onGenerateRoute: _appRouter.onGenerateRoute,
+              home: LandingView(),
+              // home: ExclamationAnimation(),
             ));
   }
 }
