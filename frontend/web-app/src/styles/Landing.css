@@ -3,5 +3,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     margin: 0 12px;
+}
+
+.landing > h2,
+a {
+    margin: 5px;
 }

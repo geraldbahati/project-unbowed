@@ -1,5 +1,5 @@
 import car1 from "./images/1.jpg";
-import car2 from "./images/2.jpg";
+import car2 from "./images/resizedImage.png";
 import car3 from "./images/3.jpg";
 import car4 from "./images/4.jpg";
 import car5 from "./images/5.jpg";

@@ -13,6 +13,9 @@
     align-items: center;
     padding: 20px 0;
 }
+.slider__text > h1 {
+    color: #03053d;
+}
 
 .slider__imageList {
     width: 500;
@@ -28,6 +31,14 @@
     .slider__imageListItem {
         width: auto;
         max-height: 100%;
+    }
+    .slider__text {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        padding: 6px 0;
+        text-align: center;
     }
 }
 

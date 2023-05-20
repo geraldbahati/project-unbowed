@@ -1,38 +1,61 @@
 import React, { useState, useEffect } from "react";
-import "../styles/Carousel.css"; // Import the CSS file
+import { AnimatePresence, motion } from "framer-motion";
 
-import { imageData } from "../assets/data";
-
-const Carousel = () => {
-    const [currentSlide, setCurrentSlide] = useState(0);
+const Carousel = ({ children }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const carouselItems = React.Children.toArray(children);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentSlide((prevSlide) => (prevSlide + 1) % 2);
-        }, 3000);
+            handleScroll("next");
+        }, 10000);
 
         return () => {
             clearInterval(interval);
         };
     }, []);
 
+    const handleScroll = (direction) => {
+        let nextIndex;
+        if (direction === "next") {
+            nextIndex = (currentIndex + 1) % carouselItems.length;
+        } else {
+            nextIndex =
+                (currentIndex - 1 + carouselItems.length) %
+                carouselItems.length;
+        }
+        setCurrentIndex(nextIndex);
+    };
+
     return (
-        <div className="carousel">
-            <div className="carousel-inner">
-                <div
-                    className={`carousel-slide ${
-                        currentSlide === 0 ? "active" : "inactive"
-                    }`}
+        <div>
+            <AnimatePresence initial={false} custom={currentIndex} wait>
+                <motion.div
+                    key={currentIndex}
+                    initial={{ opacity: 0, x: "100vw", y: 0 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    exit={{ opacity: 0, x: "-100vw", y: 0 }}
+                    transition={{ duration: 2, type: "tween" }}
                 >
-                    <img src={imageData[1].img} alt="Image 1" />
-                </div>
-                <div
-                    className={`carousel-slide ${
-                        currentSlide === 1 ? "active" : "inactive"
-                    }`}
-                >
-                    <img src={imageData[2].img} alt="Image 2" />
-                </div>
+                    {carouselItems[currentIndex]}
+                </motion.div>
+            </AnimatePresence>
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+                {carouselItems.map((_, index) => (
+                    <div
+                        key={index}
+                        style={{
+                            width: "10px",
+                            height: "10px",
+                            borderRadius: "50%",
+                            background: index === currentIndex ? "red" : "gray",
+                            margin: "5px",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => setCurrentIndex(index)}
+                    />
+                ))}
             </div>
         </div>
     );
