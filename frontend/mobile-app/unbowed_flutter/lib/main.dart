@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
+import 'package:unbowed_flutter/presentation/animations/scroll_down.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing_page_view.dart';
 import 'presentation/router/my_routes.dart';
@@ -37,8 +38,8 @@ class _MyAppState extends State<MyApp> {
                 primarySwatch: Colors.blue,
               ),
               // onGenerateRoute: _appRouter.onGenerateRoute,
-              home: LandingView(),
-              // home: ExclamationAnimation(),
+              home: const LandingView(),
+              // home: ScrollDownAnimation(),
             ));
   }
 }

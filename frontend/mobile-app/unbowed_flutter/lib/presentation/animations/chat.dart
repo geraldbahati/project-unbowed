@@ -116,10 +116,10 @@ class _ChatAnimationState extends State<ChatAnimation>
                   alignment: Alignment.center,
                   transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
                   child: Image.asset(
-                    width: 14.88.w,
-                    height: 6.33.h,
+                    width: 18.w,
+                    height: 6.5.h,
                     commentIcon,
-                    // fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                     color: lightBlue,
                   ),
                 ),
@@ -135,10 +135,11 @@ class _ChatAnimationState extends State<ChatAnimation>
                   alignment: Alignment.center,
                   transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
                   child: Image.asset(
-                    width: 14.88.w,
-                    height: 6.33.h,
+                    width: 18.w,
+                    height: 6.5.h,
                     chatIcon,
                     color: darkBlue,
+                    fit: BoxFit.fill,
                   ),
                 ),
               );

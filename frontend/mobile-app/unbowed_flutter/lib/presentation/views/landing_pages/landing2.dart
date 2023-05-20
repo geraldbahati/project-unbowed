@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../animations/scroll_down.dart';
 import '../../styles/custom_box_decorators.dart';
 import '../../styles/text_styling.dart';
 
@@ -22,6 +23,7 @@ class LandingPage2 extends StatelessWidget {
               width: 82.1.w,
               height: 41.2.h,
               decoration: greyBoxDecoration,
+              // child: ScrollDownAnimation(),
             ),
 
             SizedBox(height: 4.077.h),
