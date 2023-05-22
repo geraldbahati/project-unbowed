@@ -35,6 +35,7 @@ class _CirclesAnimationState extends State<CirclesAnimation>
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
     _milliseconds = widget.milliseconds ?? 500;
 
     _controller = AnimationController(
@@ -63,7 +64,14 @@ class _CirclesAnimationState extends State<CirclesAnimation>
     );
 
     _playAnimation();
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

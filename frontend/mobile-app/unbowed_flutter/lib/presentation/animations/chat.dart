@@ -34,6 +34,8 @@ class _ChatAnimationState extends State<ChatAnimation>
   @override
   void initState() {
     // TODO: implement initState
+    super.initState();
+
     _chatController = AnimationController(
       duration: Duration(milliseconds: widget.milliseconds ?? 1000),
       vsync: this,
@@ -88,15 +90,13 @@ class _ChatAnimationState extends State<ChatAnimation>
         CurvedAnimation(parent: _chatController, curve: Curves.easeInOut));
 
     _playDelayedAnimation();
-
-    super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    _chatController.dispose();
 
+    _chatController.dispose();
     super.dispose();
   }
 
@@ -116,9 +116,9 @@ class _ChatAnimationState extends State<ChatAnimation>
                   alignment: Alignment.center,
                   transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
                   child: Image.asset(
+                    commentIcon,
                     width: 18.w,
                     height: 6.5.h,
-                    commentIcon,
                     fit: BoxFit.fill,
                     color: lightBlue,
                   ),
@@ -135,11 +135,11 @@ class _ChatAnimationState extends State<ChatAnimation>
                   alignment: Alignment.center,
                   transform: Matrix4.identity()..scale(-1.0, 1.0, 1.0),
                   child: Image.asset(
+                    chatIcon,
                     width: 18.w,
                     height: 6.5.h,
-                    chatIcon,
-                    color: darkBlue,
                     fit: BoxFit.fill,
+                    color: darkBlue,
                   ),
                 ),
               );

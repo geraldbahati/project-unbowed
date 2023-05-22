@@ -23,6 +23,7 @@ class _BounceInAnimationState extends State<BounceInAnimation>
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
 
     _controller = AnimationController(
@@ -38,12 +39,12 @@ class _BounceInAnimationState extends State<BounceInAnimation>
 
     _animation = tween.animate(curve);
     _playAnimation();
-    super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+
     _controller.dispose();
     super.dispose();
   }

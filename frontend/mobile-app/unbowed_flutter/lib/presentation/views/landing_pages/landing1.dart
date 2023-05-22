@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../animations/scroll_down.dart';
+import '../../animations/slide_in.dart';
 import '../../styles/custom_box_decorators.dart';
 import '../../styles/text_styling.dart';
 import '../../widgets/containers/animation_container.dart';
@@ -139,13 +139,11 @@ class LandingPage extends StatelessWidget {
               height: 22.5.h,
               // color: Colors.grey,
               child: Stack(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SlideDownAnimation(
                     initialPosition: Alignment.topCenter,
-                    finalPosition: const Alignment(0, -0.4),
-                    durationInMilliseconds: 400,
+                    finalPosition: const Alignment(0, -0.35),
+                    durationInMilliseconds: 300,
                     delayInMilliSeconds: 300,
                     applyOpacity: true,
                     child: Text(
@@ -157,8 +155,8 @@ class LandingPage extends StatelessWidget {
                   SlideDownAnimation(
                     initialPosition: const Alignment(0, 0.35),
                     finalPosition: Alignment.bottomCenter,
-                    durationInMilliseconds: 400,
-                    delayInMilliSeconds: 800,
+                    durationInMilliseconds: 250,
+                    delayInMilliSeconds: 400,
                     applyOpacity: true,
                     child: Text(
                       "Collaborate, create and keep track of your project, easily and effectively.",

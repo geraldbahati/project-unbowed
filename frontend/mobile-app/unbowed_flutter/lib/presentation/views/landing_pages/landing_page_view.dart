@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/styles/theme.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing1.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
-
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../styles/text_styling.dart';
 
 class LandingView extends StatefulWidget {
@@ -13,6 +14,22 @@ class LandingView extends StatefulWidget {
 }
 
 class _LandingViewState extends State<LandingView> {
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _pageController = PageController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +58,30 @@ class _LandingViewState extends State<LandingView> {
       ),
 
       // landing widgets
-      body: PageView(
-        children: const [
-          LandingPage(),
-          LandingPage2(),
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            children: const [
+              LandingPage(),
+              LandingPage2(),
+            ],
+          ),
+          // dot indicator
+          Align(
+            alignment: const Alignment(-0.75, 0.75),
+            child: SmoothPageIndicator(
+              controller: _pageController,
+              count: 2,
+              effect: const ScrollingDotsEffect(
+                activeDotColor: darkBlue,
+                dotColor: Color.fromRGBO(26, 150, 220, 0.5),
+                dotHeight: 8,
+                dotWidth: 8,
+                spacing: 8,
+              ),
+            ),
+          ),
         ],
       ),
 

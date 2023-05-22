@@ -46,6 +46,7 @@ class _SlideDownAnimationState extends State<SlideDownAnimation>
 
   @override
   void initState() {
+    super.initState();
     // TODO: implement initState
     _animationController = AnimationController(
       vsync: this,
@@ -85,28 +86,18 @@ class _SlideDownAnimationState extends State<SlideDownAnimation>
 
     _animation = tween.animate(curve);
     _playAnimation();
-
-    super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
+
     _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // return AnimatedAlign(
-    //   alignment: _animation.value,
-    //   duration: Duration(milliseconds: widget.durationInMilliseconds),
-    //   child: Opacity(
-    //     opacity: widget.applyOpacity ? _opacityAnimation.value : 1,
-    //     child: widget.child,
-    //   ),
-    // );
-
     return AnimatedBuilder(
       animation: _animation,
       builder: (context, child) {
