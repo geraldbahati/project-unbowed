@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SlideDownAnimation extends StatefulWidget {
+class SlideInAnimation extends StatefulWidget {
   final Alignment initialPosition;
   final Alignment finalPosition;
   final int durationInMilliseconds;
@@ -9,7 +9,7 @@ class SlideDownAnimation extends StatefulWidget {
   final bool applyOpacity;
   final Offset offset;
 
-  const SlideDownAnimation({
+  const SlideInAnimation({
     super.key,
     this.initialPosition = Alignment.center,
     this.finalPosition = Alignment.center,
@@ -21,10 +21,10 @@ class SlideDownAnimation extends StatefulWidget {
   });
 
   @override
-  State<SlideDownAnimation> createState() => _SlideDownAnimationState();
+  State<SlideInAnimation> createState() => _SlideInAnimationState();
 }
 
-class _SlideDownAnimationState extends State<SlideDownAnimation>
+class _SlideInAnimationState extends State<SlideInAnimation>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Animation<Alignment> _animation;

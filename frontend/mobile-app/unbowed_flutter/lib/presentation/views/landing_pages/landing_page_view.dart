@@ -35,7 +35,7 @@ class _LandingViewState extends State<LandingView> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white24,
+        backgroundColor: Colors.transparent,
         leading: Padding(
           padding: EdgeInsets.only(left: 5.5.w),
           child: IconButton(

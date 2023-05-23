@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
 import 'package:unbowed_flutter/presentation/animations/slide_in.dart';
+import 'package:unbowed_flutter/presentation/styles/theme.dart';
+import 'package:unbowed_flutter/presentation/views/chat_pages/chatroom.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing_page_view.dart';
 import 'presentation/router/my_routes.dart';
@@ -34,12 +36,12 @@ class _MyAppState extends State<MyApp> {
         builder: (context, orientation, deviceType) => MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Unbowed',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
+              theme: lightTheme,
+              darkTheme: darkTheme,
+
               // onGenerateRoute: _appRouter.onGenerateRoute,
               home: const LandingView(),
-              // home: ScrollDownAnimation(),
+              // home: ChatRoomView(),
             ));
   }
 }

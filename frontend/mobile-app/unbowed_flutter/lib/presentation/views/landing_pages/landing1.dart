@@ -20,7 +20,7 @@ class LandingPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // images part
-            SlideDownAnimation(
+            SlideInAnimation(
               offset: const Offset(0, -50),
               durationInMilliseconds: 400,
               child: Column(
@@ -140,7 +140,7 @@ class LandingPage extends StatelessWidget {
               // color: Colors.grey,
               child: Stack(
                 children: [
-                  SlideDownAnimation(
+                  SlideInAnimation(
                     initialPosition: Alignment.topCenter,
                     finalPosition: const Alignment(0, -0.35),
                     durationInMilliseconds: 300,
@@ -152,7 +152,7 @@ class LandingPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SlideDownAnimation(
+                  SlideInAnimation(
                     initialPosition: const Alignment(0, 0.35),
                     finalPosition: Alignment.bottomCenter,
                     durationInMilliseconds: 250,
