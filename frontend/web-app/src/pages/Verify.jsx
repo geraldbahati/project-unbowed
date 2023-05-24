@@ -1,24 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import {
     Avatar,
-    Alert,
     Button,
-    CssBaseline,
     TextField,
-    FormControlLabel,
-    Checkbox,
-    Link as MuiLink,
-    Grid,
     Box,
     Typography,
     Container,
-    AlertTitle,
+    InputAdornment,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { LockPersonOutlined } from "@mui/icons-material";
+import { LockPersonOutlined, Message } from "@mui/icons-material";
+
+import { setSuccess } from "../features/auth/verifySlice";
 
 const animationVariants = {
     hidden: {
@@ -33,7 +29,46 @@ const animationVariants = {
 const theme = createTheme();
 
 const Verify = () => {
-    const handleSubmit = (e) => {};
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const [error, setError] = useState("");
+    const [status, setStatus] = useState("idle");
+
+    const handleChange = (event) => {
+        const { name, value, checked, type } = event.target;
+        setUser((prevState) => {
+            return {
+                ...prevState,
+                [name]: type === "checkbox" ? checked : value,
+            };
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        // if (data.get("phone")) {
+        //     try {
+        //         setSignupStatus("pending");
+
+        //         let phone = user.phone;
+        //         dispatch(userReg({ phone })).unwrap();
+        //         setUser({
+        //             phone: "",
+        //         });
+        //     } catch (err) {
+        //         console.log(err);
+        //     } finally {
+        //         setSignupStatus("idle");
+        //     }
+        // } else {
+        //     setSignupError("The number entered is invalid. Try again");
+        // }
+        dispatch(setSuccess(false));
+        navigate("/success");
+        // return <Success isSuccessful={true} />;
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -44,6 +79,7 @@ const Verify = () => {
                     animate="visible"
                 >
                     <Box
+                        onSubmit={handleSubmit}
                         sx={{
                             marginTop: 8,
                             display: "flex",
@@ -82,6 +118,13 @@ const Verify = () => {
                                 label="Code"
                                 name="code"
                                 autoFocus
+                                InputProps={{
+                                    startAdornment: (
+                                        <InputAdornment position="start">
+                                            <Message />
+                                        </InputAdornment>
+                                    ),
+                                }}
                             />
 
                             <motion.div

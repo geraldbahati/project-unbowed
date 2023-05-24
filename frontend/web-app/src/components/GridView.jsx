@@ -10,7 +10,6 @@ import {
 
 import "../styles/GridView.css";
 import { imageData } from "../assets/data";
-import image from "../assets/images/resizedImage.png";
 
 const animationVariants = {
     hidden: {
@@ -41,7 +40,11 @@ const GridView = () => {
                 </motion.div>
             </div>
             <div className="grid__two">
-                <img src={image} alt="" />
+                <img
+                    src={imageData[5].img}
+                    alt=""
+                    style={{ maxWidth: "120px" }}
+                />
             </div>
             <div className="grid__three"></div>
             <div className="grid__four">4</div>
@@ -55,7 +58,6 @@ const GridView = () => {
                     transition={{
                         type: "spring",
                         repeat: "infinity",
-                        repeatType: "reverse",
                         duration: 4,
                     }}
                 >
@@ -69,7 +71,6 @@ const GridView = () => {
                     transition={{
                         type: "spring",
                         repeat: "infinity",
-                        repeatType: "reverse",
                         duration: 4,
                     }}
                 >

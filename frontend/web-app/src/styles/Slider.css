@@ -48,7 +48,8 @@
     .slider__images {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
         height: 80%;
         width: 70vw;
         max-height: 320px;

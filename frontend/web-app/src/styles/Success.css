@@ -1,11 +1,10 @@
-.landing {
+.success {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.landing > h2,
-a {
-    margin: 5px;
+.success > * {
+    margin: 8px 0;
 }

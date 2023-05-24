@@ -11,17 +11,28 @@ import {
     Grid,
     Box,
     Typography,
+    InputAdornment,
     Container,
     AlertTitle,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { LockPersonOutlined } from "@mui/icons-material";
+
+import { LockPersonOutlined, Phone } from "@mui/icons-material";
 
 import { userReg } from "../features/auth/signupSlice";
 import { userRegStatus } from "../features/auth/signupSlice";
 import { userRegError } from "../features/auth/signupSlice";
 
 const theme = createTheme();
+
+// const useStyles = makeStyles({
+//     root: {
+//         "& .MuiInputBase-input": {
+//             width: "150%", // Set the width to 100%
+//             boxSizing: "border-box", // Ensure padding and border are included in the width
+//         },
+//     },
+// });
 
 const animationVariants = {
     hidden: {
@@ -128,14 +139,24 @@ const Register = () => {
                             Enter your phone number
                         </Typography>
                         <TextField
-                            margin="normal"
-                            type="number"
-                            required
-                            fullWidth
                             id="phone"
                             label="Phone Number"
                             name="phone"
+                            type="number"
+                            required
+                            margin="normal"
+                            // className={classes.root} // Apply the custom styles
+                            // size="large"
+                            // fullWidth
+
                             autoFocus
+                            InputProps={{
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <Phone />
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
 
                         <motion.div

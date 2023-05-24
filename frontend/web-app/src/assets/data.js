@@ -1,9 +1,9 @@
-import car1 from "./images/1.jpg";
-import car2 from "./images/resizedImage.png";
-import car3 from "./images/3.jpg";
-import car4 from "./images/4.jpg";
-import car5 from "./images/5.jpg";
-import car6 from "./images/6.jpg";
+import image1 from "./images/gameboy.png";
+import image2 from "./images/hiring.png";
+import image3 from "./images/question.png";
+import image4 from "./images/robot.png";
+import image5 from "./images/speaking.png";
+import image6 from "./images/sci-fi.png";
 
 export const add = (id, name) => {
     let len = roomData.push({
@@ -26,37 +26,37 @@ export let roomData = [
 export const imageData = [
     {
         id: 1,
-        img: car1,
+        img: image1,
         title: "Image",
         author: "author",
     },
     {
         id: 2,
-        img: car2,
+        img: image2,
         title: "Image",
         author: "author",
     },
     {
         id: 3,
-        img: car3,
+        img: image3,
         title: "Image",
         author: "author",
     },
     {
         id: 4,
-        img: car4,
+        img: image4,
         title: "Image",
         author: "author",
     },
     {
         id: 5,
-        img: car5,
+        img: image5,
         title: "Image",
         author: "author",
     },
     {
         id: 6,
-        img: car6,
+        img: image6,
         title: "Image",
         author: "author",
     },

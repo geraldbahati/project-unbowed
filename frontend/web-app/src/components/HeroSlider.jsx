@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 import Carousel from "./Carousel";
 import "../styles/Slider.css";
@@ -9,7 +10,11 @@ const HeroSlider = () => {
     return (
         <div className="">
             <Carousel>
-                <div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 2, delay: 2 }}
+                >
                     <GridView />
                     <section className="slider__text">
                         <h1>Create Productive Work, Right Now</h1>
@@ -18,15 +23,17 @@ const HeroSlider = () => {
                             easily and effectively
                         </p>
                     </section>
-                </div>
-                <div>
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 4, delay: 3 }}
+                >
                     <div className="slider__images">
                         <img
-                            src={imageData[1].img}
+                            src={imageData[3].img}
                             alt={imageData[1].title}
-                            style={{
-                                maxHeight: "320px",
-                            }}
+                            style={{ maxWidth: "360px" }}
                         />
                     </div>
 
@@ -37,7 +44,7 @@ const HeroSlider = () => {
                             at the palm of your hands.
                         </p>
                     </section>
-                </div>
+                </motion.div>
             </Carousel>
         </div>
     );

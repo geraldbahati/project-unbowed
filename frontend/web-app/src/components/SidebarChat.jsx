@@ -3,8 +3,7 @@ import { nanoid } from "@reduxjs/toolkit";
 import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import { add } from "../assets/data";
-import logo from "../assets/images/logo_3.jpg";
+import { add, imageData } from "../assets/data";
 
 import "../styles/SidebarChat.css";
 
@@ -25,7 +24,7 @@ const SidebarChat = ({ id, name, addNewChat }) => {
     return !addNewChat ? (
         <Link to={`/rooms/${id}`}>
             <div className="sidebarChat">
-                <Avatar src={logo} />
+                <Avatar src={imageData[2].img} />
                 <div className="sidebarChat__info">
                     <h2>{name}</h2>
                     <p>Last Message</p>

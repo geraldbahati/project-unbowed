@@ -12,7 +12,7 @@ import {
     Settings,
     Verify,
 } from "./pages";
-import { Carousel } from "./components";
+import { Carousel, Loading, Success } from "./components";
 
 const App = () => {
     return (
@@ -31,7 +31,8 @@ const App = () => {
                         element={<Conversation />}
                     />
                     <Route exact path="/settings" element={<Settings />} />
-                    <Route exact path="/test" element={<Carousel />} />
+                    <Route exact path="/success" element={<Success />} />
+                    <Route exact path="/test" element={<Loading />} />
                 </Routes>
             </Router>
         </div>

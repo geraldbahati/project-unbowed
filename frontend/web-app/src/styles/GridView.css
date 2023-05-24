@@ -33,7 +33,7 @@
 }
 
 .grid > * {
-    background-color: #8bccf170;
+    /* background-color: #8bccf170; */
     display: flex;
     align-items: center;
     justify-content: center;
