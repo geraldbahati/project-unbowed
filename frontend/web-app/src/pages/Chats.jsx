@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 
+import "../styles/Chats.css";
+import { Sidebar, Body } from "../components/chat";
+
 const Chats = () => {
     return (
-        <>
-            <h1>Chats</h1>
-        </>
+        <div className="chats">
+            <Sidebar />
+            <Body />
+        </div>
     );
 };
 

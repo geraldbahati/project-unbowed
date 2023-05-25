@@ -6,3 +6,4 @@ export { default as Carousel } from "./Carousel";
 export { default as GridView } from "./GridView";
 export { default as Success } from "./Success";
 export { default as Loading } from "./Loading";
+export { default as Chat } from "./Chat";
