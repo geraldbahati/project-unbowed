@@ -1,19 +1,21 @@
-.sidebar__heading {
+.sidebar {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    flex: 0.25;
+    height: 100vh;
 }
 
-.sidebar__headingBtn {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 10px;
-    color: #dad9dd;
-    outline: none;
+.sidebar__heading {
+    display: flex;
+    align-items: center;
 }
+.sidebar__heading > h2 {
+    flex: 0.9;
+}
+
+/* .sidebar__headingBtn > * > * {
+    padding: 0 1px;
+} */
 
 .sidebar__search {
     padding: 0;

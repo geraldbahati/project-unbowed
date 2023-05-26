@@ -7,7 +7,6 @@ import {
     IoSearchOutline,
 } from "react-icons/all";
 
-import SidebarChat from "./SidebarChat";
 import { roomData } from "../assets/data";
 import "../styles/Sidebar.css";
 

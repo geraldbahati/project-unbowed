@@ -1,0 +1,28 @@
+.conv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 4px 2px;
+    padding: 2px;
+}
+
+.conv__summary {
+    margin: 0 8px;
+}
+
+.conv__user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.conv__userName {
+    flex: 90%;
+}
+.conv__usertime {
+    flex: 0.1;
+    color: grey;
+}
+
+.conv__snippet {
+    display: flex;
+}

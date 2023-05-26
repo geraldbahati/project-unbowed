@@ -1,6 +1,52 @@
 .body {
-    flex-grow: 1;
-    border-radius: 6px;
-    padding: 15px 20px;
     display: flex;
+    flex-direction: column;
+    flex: 0.75;
+    height: 100vh;
+}
+
+/* Header */
+.body__header {
+    padding: 10px;
+    position: sticky;
+    display: flex;
+    align-items: center;
+}
+
+.body__headerInfo {
+    flex: 1;
+}
+
+.body__headerButtons > * {
+    font-size: 20px !important;
+}
+
+/* Content */
+.body__content {
+    flex: 1;
+    padding: 10px;
+}
+
+/* Footer */
+.body__footer {
+    padding: 4px;
+    margin-bottom: 1px;
+    position: sticky;
+    display: flex;
+    border: black solid 1px;
+    border-radius: 2px;
+}
+
+.body__footerInput {
+    flex: 1;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+.body__footerInput > form > input {
+    background: transparent;
+    width: 100%;
+    border: none;
+    outline-width: 0;
+    font-size: 14px;
 }
