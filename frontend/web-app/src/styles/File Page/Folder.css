@@ -1,0 +1,46 @@
+.folder_main {
+    background-color: cornflowerblue;
+    width: 12.438rem;
+    height: 12.438rem;
+    margin: 0 1rem;
+    border-radius: 0.875rem;
+    padding: 0.875rem;
+}
+
+.control_icons {
+    font-size: 2.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.folder_title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1rem;
+    color: #fff;
+    margin-top: 1.5rem;
+}
+
+.folder_info {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.folder_info > p {
+    color: #fff;
+    margin-left: 0.688rem;
+}
+
+.folder_time {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.folder_time > p {
+    color: #fff;
+    margin-left: 0.688rem;
+    font-size: 0.625rem;
+}

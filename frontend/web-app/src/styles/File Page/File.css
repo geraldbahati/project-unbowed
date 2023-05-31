@@ -1,0 +1,33 @@
+.file_main {
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    margin: 0.75rem 0;
+    padding: 0.875rem;
+    border-radius: 0.875rem;
+    height: 4.938rem;
+    width: 41.063rem;
+}
+
+.file_color {
+    background-color: skyblue;
+    width: 3.188rem;
+    height: 3.188rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.875rem;
+}
+.file_info {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.file_info > p {
+    margin-left: 1.5rem;
+}
+
+.file_icons > * > * {
+    color: #231f20;
+}

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
     Chats,
     Conversation,
+    Files,
     Home,
     Landing,
     Login,
@@ -33,6 +34,7 @@ const App = () => {
                     <Route exact path="/settings" element={<Settings />} />
                     <Route exact path="/success" element={<Success />} />
                     <Route exact path="/test" element={<Loading />} />
+                    <Route exact path="/files" element={<Files />} />
                 </Routes>
             </Router>
         </div>

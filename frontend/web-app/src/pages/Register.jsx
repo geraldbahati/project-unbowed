@@ -145,10 +145,7 @@ const Register = () => {
                             type="number"
                             required
                             margin="normal"
-                            // className={classes.root} // Apply the custom styles
-                            // size="large"
-                            // fullWidth
-
+                            size="small"
                             autoFocus
                             InputProps={{
                                 startAdornment: (
