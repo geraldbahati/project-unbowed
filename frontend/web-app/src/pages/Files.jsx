@@ -1,16 +1,28 @@
 import React from "react";
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
     FiSearch,
     CgMenuGridO,
     TfiMenuAlt,
     BiCloudUpload,
+    IoIosNotificationsOutline,
     BsChevronRight,
+    CiSettings,
+    AiOutlineClockCircle,
+    BsChevronDown,
+    CiMenuKebab,
 } from "react-icons/all";
 
 import "../styles/Files.css";
-import { Folder, File } from "../components/File Page";
+import { imageData } from "../assets/data";
+import {
+    Folder,
+    File,
+    Chart,
+    Calendar,
+    Sidebar,
+} from "../components/File Page";
 
 const UploadButton = styled(Button)(({ theme }) => ({
     color: "#fff",
@@ -48,7 +60,9 @@ const Files = () => {
 
     return (
         <div className="files_main">
-            <div className="sidebar">Sidebar</div>
+            <div className="sidebar">
+                <Sidebar />
+            </div>
             <div className="body">
                 <section className="primary">
                     {/* Search Section */}
@@ -94,7 +108,7 @@ const Files = () => {
                                 variant="contained"
                                 endIcon={<BsChevronRight />}
                             >
-                                See More
+                                View All
                             </MoreButton>
                         </div>
                     </div>
@@ -112,7 +126,7 @@ const Files = () => {
                                 variant="contained"
                                 endIcon={<BsChevronRight />}
                             >
-                                See More
+                                View All
                             </MoreButton>
                         </div>
                     </div>
@@ -122,20 +136,92 @@ const Files = () => {
                         ))}
                     </div>
                 </section>
-                <section className="secondary">Secondary Section</section>
+                <section className="secondary">
+                    {/* Nav Section */}
+                    <div className="secondary_nav">
+                        <div className="secondary_nav_icons">
+                            <IconButton sx={{ color: "#231F20" }}>
+                                <CiSettings />
+                            </IconButton>
+                            <IconButton sx={{ color: "#231F20" }}>
+                                <IoIosNotificationsOutline />
+                            </IconButton>
+                            <Avatar alt="User" src={imageData[3].img} />
+                            <div className="user_info">
+                                <p>Wizzoh</p>
+                                <IconButton sx={{ color: "#231F20" }}>
+                                    <BsChevronDown />
+                                </IconButton>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Calendar section */}
+                    <div className="calendar">
+                        <div className="calendar_header">
+                            <p>Calendar</p>
+                            <IconButton sx={{ color: "#231F20" }}>
+                                <BsChevronDown />
+                            </IconButton>
+                        </div>
+                        <div className="calendar_data">
+                            <Calendar />
+                        </div>
+                    </div>
+
+                    {/* Tasks section */}
+                    <div className="task">
+                        <div className="nav_section">
+                            <div className="nav_text">Your Tasks</div>
+                            <div className="nav_icons">
+                                <MoreButton
+                                    variant="contained"
+                                    endIcon={<BsChevronRight />}
+                                >
+                                    View All
+                                </MoreButton>
+                            </div>
+                        </div>
+
+                        <div className="task_card">
+                            <div className="card_control">
+                                <p>Submit Assignments</p>
+                                <IconButton sx={{ color: "#000" }}>
+                                    <CiMenuKebab />
+                                </IconButton>
+                            </div>
+
+                            <div className="card_time">
+                                <AiOutlineClockCircle
+                                    style={{ color: "#000" }}
+                                />
+                                <p>Created on Dec 13, 2023</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Storage section */}
+                    <div className="storage">
+                        <div className="nav_section">
+                            <div className="nav_text">Storage</div>
+                            <div className="nav_icons">
+                                <MoreButton
+                                    variant="contained"
+                                    endIcon={<BsChevronRight />}
+                                >
+                                    View All
+                                </MoreButton>
+                            </div>
+                        </div>
+
+                        <div className="storage_card">
+                            <Chart />
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     );
 };
 
 export default Files;
-
-{
-    /* <label className="upload_button">
-    <span className="text">Upload</span>
-    <span className="icon">
-        <BiCloudUpload />
-    </span>
-    <input type="file" onChange={handleFileUpload} />
-</label>; */
-}

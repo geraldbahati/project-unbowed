@@ -118,3 +118,76 @@
 }
 
 /* Secondary section styling */
+.secondary {
+    width: 27.563rem;
+}
+.secondary_nav {
+    display: flex;
+    justify-content: flex-end;
+}
+.secondary_nav_icons {
+    font-size: 1.813rem;
+}
+.user_info,
+.secondary_nav_icons {
+    display: flex;
+    align-items: center;
+}
+.user_info > p {
+    font-size: 1rem;
+    padding: 0 0.8rem;
+}
+
+.calendar {
+    margin-top: 1.813rem;
+    width: 25.5rem;
+    height: 13.5rem;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+.calendar_header {
+    display: flex;
+    align-items: center;
+}
+.calendar_header > p {
+    flex: 1;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.task_card {
+    margin-top: 1.813rem;
+    width: 25.5rem;
+    height: 7.625rem;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+.card_control,
+.card_time {
+    display: flex;
+    align-items: center;
+}
+.card_time {
+    margin-top: 2rem;
+}
+.card_control > p {
+    flex: 1;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+.card_time > p {
+    margin-left: 1.125rem;
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.storage_card {
+    margin-top: 1.813rem;
+    width: 25.5rem;
+    height: 9.325rem;
+    padding: 1rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.25);
+}
