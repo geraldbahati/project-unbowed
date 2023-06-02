@@ -67,12 +67,7 @@ class _SlideInAnimationState extends State<SlideInAnimation>
 
     final Tween<double> opacityTween = Tween<double>(begin: 0.0, end: 1.0);
 
-    final CurvedAnimation opacityCurve = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.bounceOut,
-    );
-
-    _opacityAnimation = opacityTween.animate(opacityCurve);
+    _opacityAnimation = opacityTween.animate(_animationController);
 
     final Tween<Alignment> tween = Tween<Alignment>(
       begin: widget.initialPosition,

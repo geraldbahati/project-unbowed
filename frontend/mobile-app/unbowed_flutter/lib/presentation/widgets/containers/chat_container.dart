@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChatContainer extends StatelessWidget {
   const ChatContainer({super.key});
@@ -22,9 +23,9 @@ class ChatContainer extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
                       "YourMudderDaHane",
-                      style: TextStyle(
+                      style: GoogleFonts.montserrat(
                         color: Color.fromRGBO(105, 105, 106, 1),
-                        fontSize: 17,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                       ),
                       textAlign: TextAlign.left,
@@ -43,11 +44,12 @@ class ChatContainer extends StatelessWidget {
                     child: Text(
                       // "t is a long established fact that a reader will be distracted by the ",
                       // "guugidhsoi dsihgo",
-                      // "My name is gerald bahati",
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                      style: TextStyle(
+                      "My name is gerald bahati",
+                      // "Dq has a small wiener",
+                      // "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                      style: GoogleFonts.openSans(
                         fontSize: 18,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                       textWidthBasis: TextWidthBasis.longestLine,
                     ),

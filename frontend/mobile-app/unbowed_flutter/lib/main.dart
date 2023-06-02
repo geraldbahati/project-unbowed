@@ -4,8 +4,10 @@ import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
 import 'package:unbowed_flutter/presentation/animations/slide_in.dart';
 import 'package:unbowed_flutter/presentation/styles/theme.dart';
 import 'package:unbowed_flutter/presentation/views/chat_pages/chatroom.dart';
+import 'package:unbowed_flutter/presentation/views/home_pages/home_screen.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
 import 'package:unbowed_flutter/presentation/views/landing_pages/landing_page_view.dart';
+import 'package:unbowed_flutter/presentation/widgets/containers/profile_box.dart';
 import 'presentation/router/my_routes.dart';
 import 'presentation/views/landing_pages/landing1.dart';
 
@@ -40,8 +42,8 @@ class _MyAppState extends State<MyApp> {
               darkTheme: darkTheme,
 
               // onGenerateRoute: _appRouter.onGenerateRoute,
-              home: const LandingView(),
-              // home: ChatRoomView(),
+              // home: const LandingView(),
+              home: HomeView(),
             ));
   }
 }
