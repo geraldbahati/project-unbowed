@@ -21,6 +21,13 @@ class QuickNavContainer extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.blue,
         borderRadius: BorderRadius.circular(40),
+        boxShadow: const [
+          BoxShadow(
+            color: Color.fromRGBO(56, 134, 235, 0.45),
+            blurRadius: 20,
+            offset: Offset(0, 20),
+          ),
+        ],
       ),
     );
   }

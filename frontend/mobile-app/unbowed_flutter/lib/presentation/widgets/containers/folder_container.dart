@@ -12,7 +12,7 @@ class FolderContainer extends StatelessWidget {
         width: 40.7.w,
         height: 9.23.h,
         decoration: BoxDecoration(
-          color: Color.fromRGBO(255, 255, 255, 0.67),
+          color: Colors.white.withOpacity(0.42),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(

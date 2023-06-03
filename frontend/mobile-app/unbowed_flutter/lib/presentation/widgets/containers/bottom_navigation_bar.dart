@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -25,9 +27,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   final List<IconData> icons = [
     Icons.home,
     Icons.search,
-    // Icons.add,
-    // Icons.notifications,
-    // Icons.person,
+    Icons.add,
+    Icons.notifications,
+    Icons.person,
   ];
 
   @override
@@ -58,57 +60,63 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 
   @override
   Widget build(BuildContext context) {
+    var itemWidth = MediaQuery.of(context).size.width / icons.length;
+    double barHeight = 13.9485.h;
+    double containerHeight = 6.44.h;
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         // Background
         SizedBox(
-          height: 15.2360515.h,
+          height: barHeight,
           width: double.infinity,
         ),
-        Container(
-          height: 10.73.h,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Color.fromRGBO(255, 255, 255, 0.67),
-          ),
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: icons.length,
-            itemBuilder: (context, index) {
-              return SizedBox(
-                width: MediaQuery.of(context).size.width / icons.length,
-                child: GestureDetector(
-                  onTap: () {
-                    if (_selectedIndex != index) {
-                      _onItemTapped(index, _selectedIndex);
-                    }
-                  },
-                  child: Container(
-                    color: Colors.white.withOpacity(0.67),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildIcon(index), // Display the icon
-                        _buildText(index), // Display the text
-                      ],
+        ClipRRect(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: itemWidth / 2),
+            height: 10.73.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.42),
+            ),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: icons.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: (MediaQuery.of(context).size.width - itemWidth) /
+                        icons.length,
+                    child: GestureDetector(
+                      onTap: () {
+                        if (_selectedIndex != index) {
+                          _onItemTapped(index, _selectedIndex);
+                        }
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _buildIcon(index), // Display the icon
+                          _buildText(index), // Display the text
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ),
           ),
         ),
         // Active container
         AnimatedPositioned(
-          // curve: Curves.easeIn,
           duration: const Duration(milliseconds: 300),
-          bottom: 6.65606515.h,
+          bottom: barHeight - containerHeight,
           left: _activePosition(_selectedIndex),
           child: Container(
-              width: 18.60.w,
-              height: 8.58.h,
+              width: 13.95.w,
+              height: containerHeight,
               decoration: BoxDecoration(
                 color: const Color.fromRGBO(56, 136, 235, 1),
                 borderRadius: BorderRadius.circular(20),
@@ -117,7 +125,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                     color: Color.fromRGBO(133, 172, 244, 0.6),
                     spreadRadius: 2,
                     blurRadius: 16,
-                    offset: Offset(0, 10),
+                    offset: Offset(0, 15),
                   ),
                 ],
               ),
@@ -187,7 +195,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
       }
     } else {
       // Inactive text
-      return Opacity(
+      return AnimatedOpacity(
+        duration: const Duration(milliseconds: 300),
         opacity: _textOpacity,
         child: Text(
           "Home",
@@ -256,8 +265,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
 
   double _activePosition(int index) {
     var width = MediaQuery.of(context).size.width;
+    var validWidth = width - (width / icons.length);
+    var itemWidth = validWidth / icons.length;
+    var offset = itemWidth / 2 - 13.95.w / 2;
 
-    return ((width / icons.length) * index) +
-        ((width / icons.length) / 2.0 - 18.60.w / 2.0);
+    return itemWidth * index + offset + (width / icons.length) / 2;
   }
 }

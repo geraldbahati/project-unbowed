@@ -33,7 +33,7 @@ final homeNameTextStyle = GoogleFonts.lato(
 
 final detailTextStyle = GoogleFonts.inter(
   fontSize: 12.sp,
-  color: const Color.fromRGBO(169, 172, 187, 100),
+  color: Color.fromRGBO(52, 53, 55, 0.612),
 );
 
 final subTextStyle = GoogleFonts.inter(
