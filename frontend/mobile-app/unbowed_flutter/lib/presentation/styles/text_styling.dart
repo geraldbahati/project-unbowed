@@ -22,7 +22,7 @@ final contextTextStyle = GoogleFonts.poppins(
 );
 
 final helloTextStyle = GoogleFonts.inter(
-  fontSize: 24.sp,
+  fontSize: 22.sp,
   fontWeight: FontWeight.bold,
 );
 

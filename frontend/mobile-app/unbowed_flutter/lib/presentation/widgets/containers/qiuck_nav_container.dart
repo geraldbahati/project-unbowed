@@ -16,16 +16,16 @@ class QuickNavContainer extends StatelessWidget {
     return Container(
       // dimension
       width: width ?? 47.67.w,
-      height: height ?? 31.16.h,
+      height: height ?? 30.h,
 
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: const Color.fromRGBO(56, 136, 235, 1),
         borderRadius: BorderRadius.circular(40),
         boxShadow: const [
           BoxShadow(
             color: Color.fromRGBO(56, 134, 235, 0.45),
-            blurRadius: 20,
-            offset: Offset(0, 20),
+            blurRadius: 25,
+            offset: Offset(0, 12),
           ),
         ],
       ),

@@ -19,13 +19,13 @@ class HomeView extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color.fromRGBO(178, 221, 240, 0.95),
+            Color.fromRGBO(211, 233, 244, 0.96),
             Color.fromRGBO(233, 209, 241, 0.93),
           ],
         ),
       ),
       child: Scaffold(
-        // backgroundColor: const Color.fromRGBO(228, 238, 248, 1),
+        // background color
         backgroundColor: Colors.white.withOpacity(0.2),
         extendBody: true,
 
@@ -49,7 +49,7 @@ class HomeView extends StatelessWidget {
           leading: const ProfileBox(
             size: 60,
             isBox: true,
-            // imageUrl: 'https://i.imgur.com/BoN9kdC.png',
+            imageUrl: 'https://i.imgur.com/BoN9kdC.png',
           ),
         ),
 
@@ -98,33 +98,21 @@ class HomeView extends StatelessWidget {
 
               // quick nav containers
               SizedBox(
-                height: 40.h,
-                child: SingleChildScrollView(
+                height: 38.h,
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      // quick nav container
-                      Padding(
-                        padding: EdgeInsets.only(left: 7.44.w),
-                        child: QuickNavContainer(),
-                      ),
-
-                      // quick nav container
-                      Padding(
-                        padding: EdgeInsets.only(left: 7.44.w),
-                        child: QuickNavContainer(),
-                      ),
-
-                      // quick nav container
-                      Padding(
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return Center(
+                      child: Padding(
                         padding: EdgeInsets.only(
                           left: 7.44.w,
-                          right: 7.44.w,
+                          right: index == 2 ? 7.44.w : 0,
                         ),
                         child: QuickNavContainer(),
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
 
@@ -158,12 +146,12 @@ class HomeView extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 8,
-                        mainAxisSpacing: 12,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 15,
                         childAspectRatio: 2,
                       ),
                       itemBuilder: (context, index) {
-                        return FolderContainer();
+                        return const Center(child: FolderContainer());
                       },
                     ),
                   ],

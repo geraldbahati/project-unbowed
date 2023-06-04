@@ -82,6 +82,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
               child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemCount: icons.length,
                 itemBuilder: (context, index) {

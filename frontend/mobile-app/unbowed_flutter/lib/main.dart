@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
-import 'package:unbowed_flutter/presentation/animations/slide_in.dart';
-import 'package:unbowed_flutter/presentation/styles/theme.dart';
-import 'package:unbowed_flutter/presentation/views/chat_pages/chatroom.dart';
-import 'package:unbowed_flutter/presentation/views/home_pages/home_screen.dart';
-import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
-import 'package:unbowed_flutter/presentation/views/landing_pages/landing_page_view.dart';
-import 'package:unbowed_flutter/presentation/widgets/containers/profile_box.dart';
+
 import 'presentation/router/my_routes.dart';
-import 'presentation/views/landing_pages/landing1.dart';
+import 'presentation/styles/theme.dart';
+import 'presentation/views/home_pages/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AppRouter _appRouter = AppRouter();
+  final AppRouter _appRouter = AppRouter();
 
   @override
   void dispose() {
@@ -41,7 +35,7 @@ class _MyAppState extends State<MyApp> {
               theme: lightTheme,
               darkTheme: darkTheme,
 
-              // onGenerateRoute: _appRouter.onGenerateRoute,
+              onGenerateRoute: _appRouter.onGenerateRoute,
               // home: const LandingView(),
               home: HomeView(),
             ));

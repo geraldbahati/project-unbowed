@@ -1,7 +1,6 @@
 // colours
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/styles/text_styling.dart';
 
 const Color lightBlue = Color.fromRGBO(27, 90, 212, 1);
 const Color darkBlue = Color.fromRGBO(30, 34, 121, 1);
