@@ -25,13 +25,18 @@ class _CirclesAnimationState extends State<CirclesAnimation>
     _controller.forward();
     _controller.addStatusListener((status) {
       setState(() {});
+
+      if (status == AnimationStatus.completed) {
+        _controller.reverse();
+      }
     });
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _milliseconds = widget.milliseconds ?? 600;
+    super.initState();
+    _milliseconds = widget.milliseconds ?? 500;
 
     _controller = AnimationController(
       duration: Duration(milliseconds: _milliseconds),
@@ -44,7 +49,7 @@ class _CirclesAnimationState extends State<CirclesAnimation>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeInOut,
+        curve: Curves.fastEaseInToSlowEaseOut,
       ),
     );
 
@@ -54,19 +59,27 @@ class _CirclesAnimationState extends State<CirclesAnimation>
     ).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Curves.easeInOut,
+        curve: Curves.fastEaseInToSlowEaseOut,
       ),
     );
 
     _playAnimation();
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 11.w,
-      height: 3.22.h,
+    return Container(
+      width: 13.5.w,
+      height: 4.h,
+      // color: Colors.grey,
       child: Stack(
         children: [
           AnimatedAlign(
@@ -76,12 +89,12 @@ class _CirclesAnimationState extends State<CirclesAnimation>
               children: [
                 Icon(
                   Icons.circle_rounded,
-                  size: 3.22.h,
+                  size: 4.h,
                   color: Colors.white,
                 ),
                 Icon(
                   Icons.circle_outlined,
-                  size: 3.22.h,
+                  size: 4.h,
                   color: darkBlue,
                 ),
               ],
@@ -92,7 +105,7 @@ class _CirclesAnimationState extends State<CirclesAnimation>
             alignment: _circleAnimation.value,
             child: Icon(
               Icons.circle_rounded,
-              size: 3.22.h,
+              size: 4.h,
               color: darkBlue,
             ),
           ),

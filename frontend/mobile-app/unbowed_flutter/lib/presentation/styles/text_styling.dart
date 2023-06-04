@@ -20,3 +20,23 @@ final contextTextStyle = GoogleFonts.poppins(
   fontSize: 12.sp,
   fontWeight: FontWeight.w500,
 );
+
+final helloTextStyle = GoogleFonts.inter(
+  fontSize: 22.sp,
+  fontWeight: FontWeight.bold,
+);
+
+final homeNameTextStyle = GoogleFonts.lato(
+  fontSize: 18.sp,
+  fontWeight: FontWeight.w600,
+);
+
+final detailTextStyle = GoogleFonts.inter(
+  fontSize: 12.sp,
+  color: Color.fromRGBO(52, 53, 55, 0.612),
+);
+
+final subTextStyle = GoogleFonts.inter(
+  fontSize: 16.sp,
+  fontWeight: FontWeight.bold,
+);

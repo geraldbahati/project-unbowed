@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/animations/exclamation.dart';
-import 'package:unbowed_flutter/presentation/views/landing_pages/landing2.dart';
-import 'package:unbowed_flutter/presentation/views/landing_pages/landing_page_view.dart';
+
 import 'presentation/router/my_routes.dart';
-import 'presentation/views/landing_pages/landing1.dart';
+import 'presentation/styles/theme.dart';
+import 'presentation/views/home_pages/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AppRouter _appRouter = AppRouter();
+  final AppRouter _appRouter = AppRouter();
 
   @override
   void dispose() {
@@ -33,12 +32,12 @@ class _MyAppState extends State<MyApp> {
         builder: (context, orientation, deviceType) => MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Unbowed',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              // onGenerateRoute: _appRouter.onGenerateRoute,
-              home: LandingView(),
-              // home: ExclamationAnimation(),
+              theme: lightTheme,
+              darkTheme: darkTheme,
+
+              onGenerateRoute: _appRouter.onGenerateRoute,
+              // home: const LandingView(),
+              home: HomeView(),
             ));
   }
 }

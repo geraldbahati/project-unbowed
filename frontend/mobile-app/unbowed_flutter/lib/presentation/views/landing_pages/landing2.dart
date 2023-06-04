@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/animations/slide_in.dart';
 
 import '../../styles/custom_box_decorators.dart';
 import '../../styles/text_styling.dart';
@@ -18,10 +19,15 @@ class LandingPage2 extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // images part
-            Container(
-              width: 82.1.w,
-              height: 41.2.h,
-              decoration: greyBoxDecoration,
+            SlideInAnimation(
+              offset: const Offset(50.0, 0.0),
+              durationInMilliseconds: 400,
+              delayInMilliSeconds: 100,
+              child: Container(
+                width: 82.1.w,
+                height: 41.2.h,
+                decoration: greyBoxDecoration,
+              ),
             ),
 
             SizedBox(height: 4.077.h),
@@ -33,16 +39,28 @@ class LandingPage2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    "Create Productive Work, Right Now",
-                    style: titleTextStyle,
-                    textAlign: TextAlign.center,
+                  SlideInAnimation(
+                    offset: const Offset(50, 0),
+                    durationInMilliseconds: 400,
+                    delayInMilliSeconds: 100,
+                    applyOpacity: true,
+                    child: Text(
+                      "Create Productive Work, Right Now",
+                      style: titleTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  Text(
-                    "Collaborate, create and keep track of your project, easily and effectively.",
-                    style: contextTextStyle,
-                    textAlign: TextAlign.center,
-                  )
+                  SlideInAnimation(
+                    offset: const Offset(80, 0.0),
+                    durationInMilliseconds: 400,
+                    delayInMilliSeconds: 100,
+                    applyOpacity: true,
+                    child: Text(
+                      "Collaborate, create and keep track of your project, easily and effectively.",
+                      style: contextTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ],
               ),
             )
