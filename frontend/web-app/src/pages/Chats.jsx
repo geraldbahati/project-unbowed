@@ -1,14 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import "../styles/Chats.css";
-import { Sidebar, Body } from "../components/chat";
+import { Sidebar, Chat, Conversation, Body } from "../components/chat";
 
 const Chats = () => {
+    const largeScreen = true;
+    // const elementRef = useRef(null);
+    // let defaultFontSize = 0;
+
+    // useEffect(() => {
+    //     if (elementRef.current) {
+    //         const computedStyle = window.getComputedStyle(elementRef.current);
+    //         defaultFontSize = parseFloat(computedStyle.fontSize);
+    //         console.log("Default font size:", defaultFontSize);
+    //     }
+    // }, []);
+
+    // const screenSize = {
+    //     width: window.innerWidth / defaultFontSize,
+    //     height: window.innerHeight / defaultFontSize,
+    // };
+
+    // console.log(screenSize);
+    // console.log(defaultFontSize);
+
     return (
-        <div className="chats">
-            <Sidebar />
-            <Body />
-        </div>
+        <>
+            {largeScreen ? (
+                <div className="chats">
+                    <Body />
+                </div>
+            ) : (
+                <div className="chats">
+                    <Sidebar />
+                    <Chat />
+                    <Conversation />
+                </div>
+            )}
+        </>
     );
 };
 

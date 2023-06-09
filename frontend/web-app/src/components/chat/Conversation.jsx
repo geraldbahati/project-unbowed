@@ -55,7 +55,7 @@ const Conversation = () => {
             <div className="conv__summary">
                 <div className="conv__user">
                     <div className="conv__userName">Wizzoh</div>
-                    <div className="conv__usertime">14.00</div>
+                    <div className="conv__usertime">4.20pm</div>
                 </div>
                 <div className="conv__snippet">
                     <div className="conv__snippetIcon">
@@ -63,6 +63,9 @@ const Conversation = () => {
                     </div>
                     <div className="conv__snippetText">
                         Hello, Welcome to my new whatsapp clone chat app
+                    </div>
+                    <div className="conv_snippetRead">
+                        <p>6</p>
                     </div>
                 </div>
             </div>

@@ -8,6 +8,7 @@
 
 .conv__summary {
     margin: 0 8px;
+    flex: 1;
 }
 
 .conv__user {
@@ -17,12 +18,41 @@
 }
 .conv__userName {
     flex: 90%;
+    font-size: 0.875rem;
+    font-weight: 700;
 }
 .conv__usertime {
     flex: 0.1;
-    color: grey;
 }
 
 .conv__snippet {
     display: flex;
+}
+.conv__snippetIcon {
+    margin-right: 0.25rem;
+}
+
+.conv__snippetText,
+.conv__usertime {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #757575;
+}
+.conv__snippetText {
+    flex: 1;
+}
+
+.conv_snippetRead {
+    width: 1rem;
+    height: 1rem;
+    /* size: 1.1rem; */
+    border-radius: 50%;
+    background-color: #1e224a;
+    color: white;
+    margin: 0 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

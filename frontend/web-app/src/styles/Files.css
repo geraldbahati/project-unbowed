@@ -17,6 +17,7 @@
     border-radius: 1.5rem 0 0 1.5rem;
     display: flex;
     flex-direction: row;
+    max-height: 100vh;
 }
 .primary,
 .secondary {
