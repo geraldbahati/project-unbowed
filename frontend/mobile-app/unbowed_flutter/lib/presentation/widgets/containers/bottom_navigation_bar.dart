@@ -28,8 +28,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     Icons.home,
     Icons.search,
     Icons.add,
-    Icons.notifications,
-    Icons.person,
+    // Icons.notifications,
+    // Icons.person,
   ];
 
   @override
@@ -86,15 +86,15 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                 scrollDirection: Axis.horizontal,
                 itemCount: icons.length,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: (MediaQuery.of(context).size.width - itemWidth) /
-                        icons.length,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_selectedIndex != index) {
-                          _onItemTapped(index, _selectedIndex);
-                        }
-                      },
+                  return GestureDetector(
+                    onTap: () {
+                      if (_selectedIndex != index) {
+                        _onItemTapped(index, _selectedIndex);
+                      }
+                    },
+                    child: SizedBox(
+                      width: (MediaQuery.of(context).size.width - itemWidth) /
+                          icons.length,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
