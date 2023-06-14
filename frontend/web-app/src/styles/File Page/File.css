@@ -2,11 +2,11 @@
     background-color: #f7f7f7;
     display: flex;
     align-items: center;
-    margin: 0.75rem 0;
-    padding: 0.875rem;
+    margin: 0.5rem 0;
+    padding: 0.125rem 0.875rem;
     border-radius: 0.875rem;
     height: 4.938rem;
-    width: 41.063rem;
+    min-width: 39.063rem;
 }
 
 .file_color {

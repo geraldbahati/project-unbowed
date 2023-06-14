@@ -34,6 +34,7 @@ const App = () => {
                     <Route exact path="/settings" element={<Settings />} />
                     <Route exact path="/success" element={<Success />} />
                     <Route exact path="/test" element={<Loading />} />
+                    <Route exact path="/bot" element={<Loading />} />
                 </Routes>
             </Router>
         </div>

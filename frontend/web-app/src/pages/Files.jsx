@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useNavigate } from "react-router-dom";
 import {
     FiSearch,
     CgMenuGridO,
@@ -16,6 +17,7 @@ import {
 
 import "../styles/Files.css";
 import { imageData } from "../assets/data";
+import { sidebarIcons } from "../assets/constants";
 import {
     Folder,
     File,
@@ -53,6 +55,8 @@ const MoreButton = styled(Button)(({ theme }) => ({
 }));
 
 const Files = () => {
+    const navigate = useNavigate();
+
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         // Handle the file upload logic
@@ -60,8 +64,25 @@ const Files = () => {
 
     return (
         <div className="files_main">
-            <div className="sidebar">
-                <Sidebar />
+            <div className="files_sidebar">
+                <div className="files__sidebar_logo">
+                    <Avatar src={imageData[5].img} />
+                </div>
+                <div className="files__sidebar_icons">
+                    {/* <IconLinks /> */}
+                    {sidebarIcons.map((icon) => (
+                        <IconButton
+                            onClick={() => navigate(icon.path)}
+                            disableRipple
+                            disableFocusRipple
+                        >
+                            {icon.jsx}
+                        </IconButton>
+                    ))}
+                </div>
+                <div className="body__sidebar_avatar">
+                    <Avatar src={imageData[4].img} />
+                </div>
             </div>
             <div className="body">
                 <section className="primary">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import "../styles/Chats.css";
-import { Sidebar, Chat, Conversation, Body } from "../components/chat";
+import { Sidebar, Chat, Conversations, Body } from "../components/chat";
 
 const Chats = () => {
     const largeScreen = true;
@@ -32,9 +32,7 @@ const Chats = () => {
                 </div>
             ) : (
                 <div className="chats">
-                    <Sidebar />
-                    <Chat />
-                    <Conversation />
+                    <Conversations />
                 </div>
             )}
         </>

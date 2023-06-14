@@ -7,3 +7,4 @@ export { default as Register } from "./Register";
 export { default as Settings } from "./Settings";
 export { default as Verify } from "./Verify";
 export { default as Files } from "./Files";
+export { default as Bot } from "./Bot";

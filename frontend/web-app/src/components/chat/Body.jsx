@@ -1,20 +1,15 @@
 import React from "react";
 import { IconButton, Avatar, Paper, InputBase, Divider } from "@mui/material";
-import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
     BsPencilSquare,
-    BsFolderFill,
-    AiFillHome,
     FiSearch,
     BsSendFill,
     BiConversation,
     BsMicFill,
     BsCameraVideo,
-    IoAttach,
     MdCall,
     BsFillEmojiSmileFill,
-    FaRobot,
-    IoSettings,
     BsImage,
 } from "react-icons/all";
 
@@ -22,15 +17,16 @@ import "../../styles/Chat/Body.css";
 import Conversation from "./Conversation";
 import Message from "./Message";
 import { imageData } from "../../assets/data";
+import { sidebarIcons } from "../../assets/constants";
 
 const Body = () => {
+    const navigate = useNavigate();
     const items = [];
     for (let i = 0; i < 20; i++) {
         items.push(i);
     }
     const iconStyling = { margin: "0.5rem" };
     const iconButton = { p: "0.625rem" };
-    const iconSize = { fontSize: "1.5rem", marginBottom: "2.65rem" };
 
     return (
         <div className="chats_body__main">
@@ -39,11 +35,16 @@ const Body = () => {
                     <Avatar src={imageData[5].img} />
                 </div>
                 <div className="body__sidebar_icons">
-                    <AiFillHome style={iconSize} />
-                    <BsFolderFill style={iconSize} />
-                    <BiConversation style={iconSize} />
-                    <FaRobot style={iconSize} />
-                    <IoSettings style={iconSize} />
+                    {/* <IconLinks /> */}
+                    {sidebarIcons.map((icon) => (
+                        <IconButton
+                            onClick={() => navigate(icon.path)}
+                            disableRipple
+                            disableFocusRipple
+                        >
+                            {icon.jsx}
+                        </IconButton>
+                    ))}
                 </div>
                 <div className="body__sidebar_avatar">
                     <Avatar src={imageData[4].img} />

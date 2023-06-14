@@ -10,9 +10,9 @@
     .grid {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        grid-gap: 10px;
-        min-width: 720px;
-        min-height: 480px;
+        grid-gap: 0.625rem;
+        min-width: 45rem;
+        min-height: 30rem;
         max-width: 60vw;
         max-height: 40vh;
     }
@@ -22,9 +22,9 @@
     .grid {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
-        grid-gap: 9px;
-        min-width: 300px;
-        min-height: 400px;
+        grid-gap: 0.563rem;
+        min-width: 18.75rem;
+        min-height: 25rem;
         max-width: 60vw;
 
         max-height: 40vh;
@@ -37,7 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 160px;
+    max-width: 10rem;
 }
 
 .grid > * > * {
@@ -80,4 +80,98 @@
     grid-column: 8/11;
     grid-row: 6/7;
     font-size: xx-large;
+}
+
+@media (min-width: 1280) {
+    .test {
+        position: relative;
+        left: 82px;
+        top: 994px;
+        width: 1280px;
+        height: 800px;
+        background: #ffffff;
+        background-blend-mode: normal;
+    }
+
+    .rectangle1 {
+        position: relative;
+        left: 405px;
+        top: 137px;
+        width: 73.11px;
+        height: 170.59px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle2 {
+        position: relative;
+        left: 405px;
+        top: 317.75px;
+        width: 134.04px;
+        height: 183.8px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle3 {
+        position: relative;
+        left: 486.24px;
+        top: 137px;
+        width: 232.54px;
+        height: 170.59px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle4 {
+        position: relative;
+        left: 547.16px;
+        top: 317.75px;
+        width: 171.61px;
+        height: 183.8px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle5 {
+        position: relative;
+        left: 726.9px;
+        top: 139.03px;
+        width: 149.27px;
+        height: 168.56px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle6 {
+        position: relative;
+        left: 405px;
+        top: 508.65px;
+        width: 313.77px;
+        height: 154.35px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle7 {
+        position: relative;
+        left: 726.9px;
+        top: 585.83px;
+        width: 149.27px;
+        height: 77.17px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+
+    .rectangle8 {
+        position: relative;
+        left: 726.9px;
+        top: 317.75px;
+        width: 149.27px;
+        height: 256.91px;
+        background: #d1c4e9;
+        background-blend-mode: normal;
+    }
+}
+@media (max-width: 1279) {
 }
