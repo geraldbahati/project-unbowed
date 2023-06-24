@@ -1,0 +1,30 @@
+.file_sidebar {
+    min-width: 4.313rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.15rem;
+}
+
+.file_sidebar__logo,
+.file_sidebar__avatar {
+    display: flex;
+    align-items: center;
+}
+.file_sidebar__logo > p,
+.file_sidebar__avatar > p,
+.file_sidebar__iconHolder > p {
+    margin: 0 0 auto 1rem;
+}
+
+.file_sidebar__icons {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.file_sidebar__iconHolder {
+    display: flex;
+}

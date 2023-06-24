@@ -1,15 +1,28 @@
-.file_main {
-    background-color: #f7f7f7;
-    display: flex;
-    align-items: center;
+.dashboard_file_main {
+    border-radius: 0.5rem;
+    background-blend-mode: normal;
+    padding: 0 0.875rem;
     margin: 0.5rem 0;
-    padding: 0.125rem 0.875rem;
-    border-radius: 0.875rem;
-    height: 4.938rem;
-    min-width: 39.063rem;
+    height: 3rem;
+}
+.dashboard_file_main:hover {
+    background-color: rgb(232, 231, 231);
+    cursor: pointer;
 }
 
-.file_color {
+.dashboard_file_main,
+.file__title_modified,
+.file__title_name,
+.file__title_owner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.file__title_name {
+    width: 35rem;
+}
+.file_title_color {
     background-color: skyblue;
     width: 3.188rem;
     height: 3.188rem;
@@ -17,17 +30,22 @@
     align-items: center;
     justify-content: center;
     border-radius: 0.875rem;
+    margin-right: 2.5rem;
 }
-.file_info {
-    flex: 1;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+.file__title_owner {
+    width: 14.125rem;
 }
-.file_info > p {
-    margin-left: 1.5rem;
+.file__title_modified {
+    width: 22.25rem;
+}
+.file__title_size {
+    width: 6rem;
 }
 
-.file_icons > * > * {
-    color: #231f20;
+.file__title_name > p,
+.file__title_modified,
+.file__title_owner > p,
+.file__title_size {
+    font-size: 0.75rem;
+    font-weight: 400;
 }

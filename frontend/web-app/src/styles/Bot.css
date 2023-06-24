@@ -1,0 +1,35 @@
+.bot_main {
+    display: flex;
+    background-color: #0f1226;
+}
+
+/* Sidebar styling */
+.bot_sidebar {
+    min-width: 4.313rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.15rem;
+}
+
+.bot__sidebar_icons {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Body Styling */
+.bot_body {
+    background-color: white;
+    flex: 1;
+    border-radius: 1.5rem 0 0 1.5rem;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+.bot__primary,
+.bot__secondary {
+    padding: 1.813rem;
+}

@@ -1,30 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import {
     FiSearch,
-    CgMenuGridO,
-    TfiMenuAlt,
-    BiCloudUpload,
-    IoIosNotificationsOutline,
-    BsChevronRight,
-    CiSettings,
-    AiOutlineClockCircle,
+    FiHelpCircle,
+    FiFilter,
+    MdFeedback,
     BsChevronDown,
-    CiMenuKebab,
+    BsListUl,
+    BsGrid3X3Gap,
+    BiDownArrowAlt,
 } from "react-icons/all";
 
 import "../styles/Files.css";
-import { imageData } from "../assets/data";
+import { imageData, filterButton } from "../assets/data";
 import { sidebarIcons } from "../assets/constants";
-import {
-    Folder,
-    File,
-    Chart,
-    Calendar,
-    Sidebar,
-} from "../components/File Page";
+import { FilePreview, File } from "../components/File Page";
 
 const UploadButton = styled(Button)(({ theme }) => ({
     color: "#fff",
@@ -56,6 +48,8 @@ const MoreButton = styled(Button)(({ theme }) => ({
 
 const Files = () => {
     const navigate = useNavigate();
+    const [viewFolders, setViewFolders] = useState(false);
+    const [viewFiles, setViewFiles] = useState(false);
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
@@ -84,160 +78,100 @@ const Files = () => {
                     <Avatar src={imageData[4].img} />
                 </div>
             </div>
-            <div className="body">
-                <section className="primary">
-                    {/* Search Section */}
-                    <div className="search_section">
-                        <div className="search_icon">
-                            <FiSearch />
+            <div className="files_body">
+                <section className="files__main_nav">
+                    <div className="files__search_section">
+                        <div className="files__search_icon" onClick={() => {}}>
+                            <FiSearch className="files__icon" />
                         </div>
                         <input
-                            className="search_input"
+                            className="files__search_input"
                             type="text"
                             placeholder="Search"
                         />
+                        <div className="files__filter_icon" onClick={() => {}}>
+                            <FiFilter className="files__icon" />
+                        </div>
                     </div>
-
-                    {/* Nav Section */}
-                    <div className="nav_section">
-                        <div className="nav_text">Dashboard</div>
-                        <div className="nav_icons">
-                            <IconButton sx={{ color: "#231F20" }}>
-                                <CgMenuGridO />
+                    <div className="files__icons_section">
+                        <IconButton onClick={() => {}}>
+                            <FiHelpCircle className="files__icon" />
+                        </IconButton>
+                        <IconButton onClick={() => {}}>
+                            <MdFeedback className="files__icon" />
+                        </IconButton>
+                        <Avatar
+                            src={imageData[4].img}
+                            style={{ height: "2rem" }}
+                        />
+                    </div>
+                </section>
+                <section className="files__filter_nav">
+                    <div className="files__filter_title">
+                        <div className="files__filter_text">
+                            <p>Documents</p>
+                            <IconButton
+                                onClick={() => {}}
+                                // disableRipple
+                                disableFocusRipple
+                            >
+                                <BsChevronDown className="files__icon" />
                             </IconButton>
-                            <IconButton sx={{ color: "#231F20" }}>
-                                <TfiMenuAlt />
+                        </div>
+                        <div className="files__filter_icons">
+                            <IconButton onClick={() => {}}>
+                                <BsListUl className="files__icon" />
                             </IconButton>
-
-                            <UploadButton
-                                variant="contained"
-                                endIcon={<BiCloudUpload />}
-                            >
-                                Upload
-                            </UploadButton>
+                            <IconButton onClick={() => {}}>
+                                <BsGrid3X3Gap className="files__icon" />
+                            </IconButton>
                         </div>
                     </div>
-
-                    {/* Greeting Section */}
-                    <div className="greeting_section">Welcome Back Wizzoh</div>
-
-                    {/* Folder Section */}
-                    <div className="nav_section">
-                        <div className="nav_text">Folders</div>
-                        <div className="nav_icons">
-                            <MoreButton
-                                variant="contained"
-                                endIcon={<BsChevronRight />}
-                            >
-                                View All
-                            </MoreButton>
-                        </div>
-                    </div>
-                    <div className="folder_container">
-                        {[1, 2, 3].map((folder, i) => (
-                            <Folder key={i} />
-                        ))}
-                    </div>
-
-                    {/* File Section */}
-                    <div className="nav_section">
-                        <div className="nav_text">Recent Files</div>
-                        <div className="nav_icons">
-                            <MoreButton
-                                variant="contained"
-                                endIcon={<BsChevronRight />}
-                            >
-                                View All
-                            </MoreButton>
-                        </div>
-                    </div>
-                    <div className="file_container">
-                        {[1, 2, 3].map((folder, i) => (
-                            <File key={i} />
+                    <div className="files__filter_buttons">
+                        {filterButton.map((item, i) => (
+                            <div className="files__filter_button">
+                                <p>{item}</p>
+                                <IconButton
+                                    onClick={() => {}}
+                                    disableRipple
+                                    disableFocusRipple
+                                >
+                                    <BsChevronDown className="files__icon" />
+                                </IconButton>
+                            </div>
                         ))}
                     </div>
                 </section>
-                <section className="secondary">
-                    {/* Nav Section */}
-                    <div className="secondary_nav">
-                        <div className="secondary_nav_icons">
-                            <IconButton sx={{ color: "#231F20" }}>
-                                <CiSettings />
-                            </IconButton>
-                            <IconButton sx={{ color: "#231F20" }}>
-                                <IoIosNotificationsOutline />
-                            </IconButton>
-                            <Avatar alt="User" src={imageData[3].img} />
-                            <div className="user_info">
-                                <p>Wizzoh</p>
-                                <IconButton sx={{ color: "#231F20" }}>
-                                    <BsChevronDown />
-                                </IconButton>
-                            </div>
-                        </div>
+                <section className="files__suggested">
+                    <p>Suggested</p>
+                    <div className="files__suggested_container">
+                        {[1, 2, 3].map((item, i) => (
+                            <FilePreview />
+                        ))}
                     </div>
-
-                    {/* Calendar section */}
-                    <div className="calendar">
-                        <div className="calendar_header">
-                            <p>Calendar</p>
-                            <IconButton sx={{ color: "#231F20" }}>
-                                <BsChevronDown />
+                </section>
+                <section className="files__file_nav">
+                    <div className="files__file_nav_title">
+                        <div className="files__title_name">
+                            <p>Name</p>
+                            <IconButton onClick={() => {}}>
+                                <BiDownArrowAlt />
                             </IconButton>
                         </div>
-                        <div className="calendar_data">
-                            <Calendar />
+                        <div className="files__title_owner">Owner</div>
+                        <div className="files__title_modified">
+                            <p>Last Modified</p>
+                            <IconButton onClick={() => {}}>
+                                <BiDownArrowAlt />
+                            </IconButton>
                         </div>
+                        <div className="files__title_size">File size</div>
                     </div>
-
-                    {/* Tasks section */}
-                    <div className="task">
-                        <div className="nav_section">
-                            <div className="nav_text">Your Tasks</div>
-                            <div className="nav_icons">
-                                <MoreButton
-                                    variant="contained"
-                                    endIcon={<BsChevronRight />}
-                                >
-                                    View All
-                                </MoreButton>
-                            </div>
-                        </div>
-
-                        <div className="task_card">
-                            <div className="card_control">
-                                <p>Submit Assignments</p>
-                                <IconButton sx={{ color: "#000" }}>
-                                    <CiMenuKebab />
-                                </IconButton>
-                            </div>
-
-                            <div className="card_time">
-                                <AiOutlineClockCircle
-                                    style={{ color: "#000" }}
-                                />
-                                <p>Created on Dec 13, 2023</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Storage section */}
-                    <div className="storage">
-                        <div className="nav_section">
-                            <div className="nav_text">Storage</div>
-                            <div className="nav_icons">
-                                <MoreButton
-                                    variant="contained"
-                                    endIcon={<BsChevronRight />}
-                                >
-                                    View All
-                                </MoreButton>
-                            </div>
-                        </div>
-
-                        <div className="storage_card">
-                            <Chart />
-                        </div>
+                    <p>Today</p>
+                    <div className="files_file_nav_container">
+                        {[1, 2, 3, 4, 5, 6].map((item, i) => (
+                            <File />
+                        ))}
                     </div>
                 </section>
             </div>

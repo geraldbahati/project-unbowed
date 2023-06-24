@@ -1,34 +1,45 @@
 import React from "react";
-import { IconButton } from "@mui/material";
-import { GrAdd, CiMenuKebab } from "react-icons/all";
+import { Button, IconButton, Avatar } from "@mui/material";
+import {
+    BiDownArrowAlt,
+    ImFileExcel,
+    BsDownload,
+    CiMenuKebab,
+    FcOpenedFolder,
+} from "react-icons/all";
 
 import "../../styles/File Page/File.css";
+import { imageData } from "../../assets/data";
 
-const customStyle = {
-    fontSize: "0.75rem",
-    fontWeight: "400",
+const iconStyle = {
+    color: "#231F20",
 };
 
 const File = () => {
     return (
-        <div className="file_main">
-            <div className="file_color">
-                <p>XLS</p>
+        <div className="dashboard_file_main">
+            <div className="file__title_name">
+                <div className="file_title_color">
+                    <p>DOC</p>
+                </div>
+                <p style={{ fontWeight: 600 }}>Sample Word Document</p>
             </div>
-            <div className="file_info">
-                <p style={{ fontWeight: 600, fontSize: "0.875rem" }}>
-                    Deep Learning
-                </p>
-                <p style={customStyle}>Only You</p>
-                <p style={customStyle}>March 19, 2023</p>
-                <p style={customStyle}>14KB</p>
+            <div className="file__title_owner">
+                <Avatar
+                    src={imageData[3].img}
+                    alt={imageData[3].author}
+                    style={{ marginRight: "0.5rem" }}
+                />
+                <p>Me</p>
             </div>
-            <div className="file_icons">
-                <IconButton>
-                    <GrAdd />
+            <div className="file__title_modified">12th December, 2021</div>
+            <div className="file__title_size">12KB</div>
+            <div className="file__title_icons">
+                <IconButton onClick={() => {}}>
+                    <BsDownload style={iconStyle} />
                 </IconButton>
-                <IconButton>
-                    <CiMenuKebab />
+                <IconButton onClick={() => {}}>
+                    <CiMenuKebab style={iconStyle} />
                 </IconButton>
             </div>
         </div>

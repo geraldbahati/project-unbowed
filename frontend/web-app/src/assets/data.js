@@ -130,3 +130,5 @@ export const chartData = [
         amt: 2100,
     },
 ];
+
+export const filterButton = ["File Type", "People", "Last Modified"];
