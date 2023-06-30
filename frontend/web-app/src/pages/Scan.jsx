@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { Avatar, IconButton, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { BsDownload, FcImageFile, FiSearch } from "react-icons/all";
@@ -67,7 +68,15 @@ const Scan = () => {
                             disableRipple
                             disableFocusRipple
                         >
-                            {icon.jsx}
+                            <motion.div
+                                whileHover={{
+                                    scale: 1.2,
+                                    color: "#5BE4F7",
+                                }}
+                                whileTap={{ scale: 0.8 }}
+                            >
+                                {icon.jsx}
+                            </motion.div>
                         </IconButton>
                     ))}
                 </div>
