@@ -3,7 +3,6 @@ import 'package:sizer/sizer.dart';
 
 import 'presentation/router/my_routes.dart';
 import 'presentation/styles/theme.dart';
-import 'presentation/views/home_pages/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,7 +36,7 @@ class _MyAppState extends State<MyApp> {
 
               onGenerateRoute: _appRouter.onGenerateRoute,
               // home: const LandingView(),
-              home: HomeView(),
+              // home: LandingView(),
             ));
   }
 }

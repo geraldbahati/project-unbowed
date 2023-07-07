@@ -14,6 +14,7 @@ class LandingPage extends StatelessWidget {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Container(
+        color: Colors.transparent,
         padding: EdgeInsets.only(left: 8.84.w, right: 8.8.w, top: 3.97.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

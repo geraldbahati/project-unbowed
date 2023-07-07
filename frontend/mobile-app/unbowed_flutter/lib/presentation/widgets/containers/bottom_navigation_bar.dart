@@ -6,7 +6,10 @@ import 'package:sizer/sizer.dart';
 import '../../animations/controlled_slide_in.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({Key? key}) : super(key: key);
+  final PageController pageController;
+
+  const CustomBottomNavigationBar({Key? key, required this.pageController})
+      : super(key: key);
 
   @override
   State<CustomBottomNavigationBar> createState() =>
@@ -25,11 +28,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   final double _textOpacity = 0;
 
   final List<IconData> icons = [
+    Icons.chat,
     Icons.home,
-    Icons.search,
-    Icons.add,
-    Icons.notifications,
-    Icons.person,
+    Icons.folder,
+    // Icons.notifications,
+    // Icons.person,
   ];
 
   @override
@@ -49,6 +52,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
     final int index = icons.length ~/ 2;
     _selectedIndex = index;
     _previousIndex = index;
+
+    widget.pageController.addListener(() {
+      if (_selectedIndex != widget.pageController.page!.round()) {
+        _onItemTapped(widget.pageController.page!.round(), _selectedIndex);
+      }
+    });
   }
 
   @override
@@ -86,15 +95,19 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                 scrollDirection: Axis.horizontal,
                 itemCount: icons.length,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: (MediaQuery.of(context).size.width - itemWidth) /
-                        icons.length,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (_selectedIndex != index) {
-                          _onItemTapped(index, _selectedIndex);
-                        }
-                      },
+                  return GestureDetector(
+                    onTap: () {
+                      if (_selectedIndex != index) {
+                        widget.pageController.animateToPage(
+                          index,
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeOut,
+                        );
+                      }
+                    },
+                    child: SizedBox(
+                      width: (MediaQuery.of(context).size.width - itemWidth) /
+                          icons.length,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
