@@ -65,6 +65,9 @@
     height: 4.563rem;
     margin-top: 4.25rem;
 }
+.drag_over {
+    background-color: #7b7a7a;
+}
 
 /* Secondary section */
 .scan__secondary {
@@ -120,7 +123,8 @@
     display: flex;
     flex-wrap: wrap;
     overflow: auto;
-    max-height: 20.5rem;
+    min-height: 20.5rem;
+    max-height: 25.5rem;
     max-width: 100%;
 }
 

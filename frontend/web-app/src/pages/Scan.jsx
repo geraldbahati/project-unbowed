@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Avatar, IconButton, Button } from "@mui/material";
@@ -50,8 +50,35 @@ const ViewAll = styled(Button)(({ theme }) => ({
 
 const Scan = () => {
     const navigate = useNavigate();
+    const [isDragOver, setIsDragOver] = useState(false);
+    const fileInputRef = useRef(null);
+
+    const handleDragOver = (e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragLeave = () => {
+        setIsDragOver(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragOver(false);
+
+        const file = e.dataTransfer.files[0];
+        // Do something with the dropped file
+        console.log("Dropped file:", file);
+    };
+
+    const handleUploadClick = () => {
+        fileInputRef.current.click();
+    };
+
     const handleUpload = (e) => {
-        console.log(e);
+        const files = e.target.files;
+        // Do something with the selected files
+        console.log("Selected files:", files);
     };
 
     return (
@@ -88,13 +115,31 @@ const Scan = () => {
                 <section className="scan__primary">
                     <h1>Image Scanner</h1>
                     <h2>Generate PDF from an Image</h2>
-                    <div className="scan__iconGroup">
-                        <FcImageFile className="scan__imgIcon" />
-                        <BsDownload className="scan__downloadIcon" />
+                    <div
+                        className={`scan__iconGroup ${
+                            isDragOver ? "drag_over" : ""
+                        } `}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                    >
+                        {!isDragOver && (
+                            <>
+                                <FcImageFile className="scan__imgIcon" />
+                                <BsDownload className="scan__downloadIcon" />
+                            </>
+                        )}
                     </div>
-                    <UploadButton onClick={handleUpload}>
-                        Select a File
+                    <UploadButton onClick={handleUploadClick}>
+                        Upload File
                     </UploadButton>
+                    <input
+                        type="file"
+                        multiple
+                        onChange={handleUpload}
+                        ref={fileInputRef}
+                        style={{ display: "none" }}
+                    />
                     <p>Image files can range fron JPEG to PNG </p>
                 </section>
                 <section className="scan__secondary">

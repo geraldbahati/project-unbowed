@@ -39,9 +39,9 @@ export const sidebarIcons = [
         name: "Scan",
         path: "/scan",
     },
-    {
-        jsx: <IoSettings style={iconSize} />,
-        name: "Settings",
-        path: "/settings",
-    },
+    // {
+    //     jsx: <IoSettings style={iconSize} />,
+    //     name: "Settings",
+    //     path: "/settings",
+    // },
 ];

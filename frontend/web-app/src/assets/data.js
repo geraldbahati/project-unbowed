@@ -84,6 +84,36 @@ export const imageData = [
         title: "Image",
         author: "author",
     },
+    {
+        id: 7,
+        img: image2,
+        title: "Image",
+        author: "author",
+    },
+    {
+        id: 8,
+        img: image3,
+        title: "Image",
+        author: "author",
+    },
+    {
+        id: 9,
+        img: image4,
+        title: "Image",
+        author: "author",
+    },
+    {
+        id: 10,
+        img: image5,
+        title: "Image",
+        author: "author",
+    },
+    {
+        id: 11,
+        img: image6,
+        title: "Image",
+        author: "author",
+    },
 ];
 
 export const chartData = [
