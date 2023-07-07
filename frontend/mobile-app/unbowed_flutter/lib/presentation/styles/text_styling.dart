@@ -40,3 +40,8 @@ final subTextStyle = GoogleFonts.inter(
   fontSize: 16.sp,
   fontWeight: FontWeight.bold,
 );
+
+final messageTitleTextStyle = GoogleFonts.inter(
+  fontSize: 18.sp,
+  fontWeight: FontWeight.w500,
+);

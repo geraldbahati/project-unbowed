@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sizer/sizer.dart';
 
 class OtherChat extends StatelessWidget {
   const OtherChat({super.key});
@@ -11,7 +12,7 @@ class OtherChat extends StatelessWidget {
       alignment: AlignmentDirectional(-1, 1),
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 45),
+          padding: EdgeInsets.only(left: 9.89.w),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +33,7 @@ class OtherChat extends StatelessWidget {
 
   Widget _buildSenderName() {
     return Padding(
-      padding: const EdgeInsets.only(left: 12, bottom: 4),
+      padding: EdgeInsets.only(left: 2.64.w, bottom: 4),
       child: Text(
         'DQ 1078',
         style: GoogleFonts.inter(
@@ -43,12 +44,13 @@ class OtherChat extends StatelessWidget {
     );
   }
 
+  // TODO have a better context management
   Widget _buildMessageBubble(context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 2),
       child: Container(
         constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.5,
+          maxWidth: MediaQuery.of(context).size.width * 0.6,
         ),
         decoration: BoxDecoration(
           color: Colors.orange,
@@ -59,6 +61,7 @@ class OtherChat extends StatelessWidget {
           child: Text(
             'No problem! To hide the sidebar in Figma, you can follow these steps:',
             textAlign: TextAlign.start,
+            textWidthBasis: TextWidthBasis.longestLine,
             style: GoogleFonts.inter(
               fontSize: 16,
             ),
@@ -99,14 +102,14 @@ class OtherChat extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
           ),
-          // child: CachedNetworkImage(
-          //   imageUrl: 'https://picsum.photos/seed/323/600',
-          //   fit: BoxFit.cover,
-          // ),
-          child: Image.network(
-            'https://picsum.photos/seed/377/600',
+          child: CachedNetworkImage(
+            imageUrl: 'https://picsum.photos/seed/323/600',
             fit: BoxFit.cover,
           ),
+          // child: Image.network(
+          //   'https://picsum.photos/seed/377/600',
+          //   fit: BoxFit.cover,
+          // ),
         ),
       ),
     );

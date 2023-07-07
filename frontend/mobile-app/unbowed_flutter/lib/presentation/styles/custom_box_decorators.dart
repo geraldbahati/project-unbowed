@@ -10,6 +10,7 @@ final animatedBoxDecoration = BoxDecoration(
 );
 
 final greyBoxDecoration = BoxDecoration(
-  color: const Color.fromRGBO(217, 217, 217, 1),
+  // color: const Color.fromRGBO(217, 217, 217, 1),
+  color: Colors.white,
   borderRadius: BorderRadius.circular(6),
 );

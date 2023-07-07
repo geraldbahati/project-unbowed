@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/views/chat_pages/chatroom.dart';
-import 'package:unbowed_flutter/presentation/views/home_pages/chat_screen.dart';
 
 import 'presentation/router/my_routes.dart';
 import 'presentation/styles/theme.dart';
-import 'presentation/views/home_pages/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +36,7 @@ class _MyAppState extends State<MyApp> {
 
               onGenerateRoute: _appRouter.onGenerateRoute,
               // home: const LandingView(),
-              home: ChatroomPageWidget(),
+              // home: LandingView(),
             ));
   }
 }

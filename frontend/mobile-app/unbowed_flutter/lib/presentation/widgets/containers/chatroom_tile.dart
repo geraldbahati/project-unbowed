@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/router/route_mapping.dart';
 import 'package:unbowed_flutter/presentation/styles/theme.dart';
 
 class ChatroomTile extends StatelessWidget {
@@ -29,34 +30,41 @@ class ChatroomTile extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 2.33.w),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.43.h),
-                      child: Text(
-                        'The Rocks',
-                        style: GoogleFonts.inter(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, chatRoomRoute);
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 2.33.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.43.h),
+                        child: Text(
+                          'The Rocks',
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 0.43.h, 0, 0),
-                      child: Text(
-                        "Gerald Bahati started a party",
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12,
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0, 0.43.h, 0, 0),
+                        child: Text(
+                          "Gerald Bahati started a party",
+                          style: GoogleFonts.inter(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

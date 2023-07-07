@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/styles/text_styling.dart';
 import 'package:unbowed_flutter/presentation/widgets/containers/chatroom_tile.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
       child: Scaffold(
+        backgroundColor: Colors.white.withOpacity(0.2),
         key: scaffoldKey,
         // backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: NestedScrollView(
@@ -41,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
               backgroundColor: Colors.transparent,
               automaticallyImplyLeading: false,
               title: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(34, 20, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(7.91.w, 2.15.h, 0, 0),
                 child: Text(
                   'Chats',
                   style: GoogleFonts.inter(
@@ -51,7 +53,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                 ),
               ),
-              actions: [],
+              // actions: [],
               centerTitle: false,
               elevation: 0,
             )
@@ -62,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 top: false,
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(7.44.w, 30, 7.44.w, 0),
+                      EdgeInsetsDirectional.fromSTEB(7.44.w, 3.22.h, 7.44.w, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -73,20 +75,17 @@ class _ChatScreenState extends State<ChatScreen> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     10, 0, 10, 0),
                                 child: Icon(
                                   Icons.settings_outlined,
                                   color: Colors.grey,
-                                  size: 24,
+                                  size: 20.sp,
                                 ),
                               ),
                               Text(
                                 'Messages',
-                                style: GoogleFonts.inter(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: messageTitleTextStyle,
                               ),
                             ],
                           ),
@@ -97,7 +96,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         itemCount: 5,
-                        itemBuilder: (context, index) => ChatroomTile(),
+                        itemBuilder: (context, index) => const ChatroomTile(),
                       ),
                     ],
                   ),

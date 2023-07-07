@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+        {
+            "name": "unbowed_flutter (profile mode)",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "unbowed_flutter",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "unbowed_flutter (release mode)",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+
+        {
+            "name": "Iphone 14 Pro Max",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart",
+         
+            "deviceId" : "1CA788DF-C77E-406A-B0F5-7E9339889BE8"
+        },
+
+        {
+            "name": "CPH2219",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart",
+        
+            "deviceId" : "b6ae030"
+        },
+
+    ]
+}
