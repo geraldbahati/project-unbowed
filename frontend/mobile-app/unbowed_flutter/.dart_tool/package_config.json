@@ -9,7 +9,7 @@
     },
     {
       "name": "bloc",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/bloc-8.1.1",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/bloc-8.1.2",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -57,9 +57,9 @@
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/crypto-3.0.2",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/crypto-3.0.3",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.19"
     },
     {
       "name": "cupertino_icons",
@@ -93,7 +93,7 @@
     },
     {
       "name": "flutter_bloc",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.2",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/flutter_bloc-8.1.3",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -105,15 +105,15 @@
     },
     {
       "name": "flutter_cache_manager",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/flutter_cache_manager-3.3.0",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/flutter_cache_manager-3.3.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/flutter_lints-2.0.2",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "flutter_test",
@@ -123,15 +123,15 @@
     },
     {
       "name": "google_fonts",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/google_fonts-4.0.4",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/google_fonts-5.1.0",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "http",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/http-0.13.5",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/http-1.1.0",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "3.0"
     },
     {
       "name": "http_parser",
@@ -147,9 +147,9 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/lints-2.0.1",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "matcher",
@@ -207,9 +207,9 @@
     },
     {
       "name": "path_provider_linux",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.10",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "path_provider_platform_interface",
@@ -219,15 +219,9 @@
     },
     {
       "name": "path_provider_windows",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.6",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
-    },
-    {
-      "name": "pedantic",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/pedantic-1.11.1",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "platform",
@@ -291,7 +285,7 @@
     },
     {
       "name": "sqflite_common",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/sqflite_common-2.4.5",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/sqflite_common-2.4.5+1",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -339,9 +333,9 @@
     },
     {
       "name": "universal_io",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/universal_io-2.2.0",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/universal_io-2.2.2",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.17"
     },
     {
       "name": "uuid",
@@ -357,9 +351,9 @@
     },
     {
       "name": "win32",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/win32-4.1.4",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/win32-5.0.5",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "3.0"
     },
     {
       "name": "xdg_directories",
@@ -374,7 +368,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-06-10T06:47:30.294113Z",
+  "generated": "2023-07-08T08:38:22.667853Z",
   "generator": "pub",
-  "generatorVersion": "3.0.3"
+  "generatorVersion": "3.0.5"
 }

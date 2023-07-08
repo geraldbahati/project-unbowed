@@ -100,7 +100,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                       if (_selectedIndex != index) {
                         widget.pageController.animateToPage(
                           index,
-                          duration: const Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 500),
                           curve: Curves.easeOut,
                         );
                       }

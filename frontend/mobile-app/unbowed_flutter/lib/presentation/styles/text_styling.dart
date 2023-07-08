@@ -45,3 +45,21 @@ final messageTitleTextStyle = GoogleFonts.inter(
   fontSize: 18.sp,
   fontWeight: FontWeight.w500,
 );
+
+final chatRoomTitleTextStyle = GoogleFonts.inter(
+  fontSize: 13.3.sp,
+  // fontSize: 16,
+  fontWeight: FontWeight.w400,
+);
+
+final chatRoomSubTitleTextStyle = GoogleFonts.inter(
+  fontWeight: FontWeight.w400,
+  fontSize: 10.sp,
+  // fontSize: 12,
+);
+
+final chatRoomTimeTextStyle = GoogleFonts.inter(
+  // fontSize: 13,
+  fontSize: 10.9.sp,
+  fontWeight: FontWeight.normal,
+);

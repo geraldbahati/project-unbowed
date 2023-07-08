@@ -12,7 +12,10 @@ class AppRouter {
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case homeRoute:
-        return CircularPageRoute(builder: (_) => const HomePageView());
+        return CircularPageRoute(
+          builder: (_) => const HomePageView(),
+          durationInMillisecond: 1000,
+        );
 
       case registerRoute:
         return MaterialPageRoute(builder: (_) => const RegisterPage());
@@ -24,7 +27,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const ChatScreen());
 
       case chatRoomRoute:
-        return CircularPageRoute(builder: (_) => const ChatroomPageWidget());
+        return CircularPageRoute(
+          builder: (_) => const ChatroomPageWidget(),
+          durationInMillisecond: 300,
+        );
 
       default:
         return MaterialPageRoute(builder: (_) => const RegisterPage());

@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/widgets/containers/chats/me_chat.dart';
-import 'package:unbowed_flutter/presentation/widgets/containers/chats/other_chat.dart';
-import 'package:unbowed_flutter/presentation/widgets/textfields/chat_textfiled.dart';
+
+import '../../widgets/containers/chats/me_chat.dart';
+import '../../widgets/containers/chats/other_chat.dart';
+import '../../widgets/textfields/chat_textfiled.dart';
 
 class ChatroomPageWidget extends StatefulWidget {
   const ChatroomPageWidget({Key? key}) : super(key: key);
@@ -19,11 +19,6 @@ class _ChatroomPageWidgetState extends State<ChatroomPageWidget> {
   final _unfocusNode = FocusNode();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _unfocusNode.dispose();
     super.dispose();
@@ -33,41 +28,76 @@ class _ChatroomPageWidgetState extends State<ChatroomPageWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: NestedScrollView(
-          headerSliverBuilder: (context, _) => [const ChatAppBar()],
-          body: Builder(
-            builder: (context) {
-              return SafeArea(
-                top: false,
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(6.59.w, 0, 7.69.w, 0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            OtherChat(),
-                            MeChat(),
-                          ],
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromRGBO(211, 233, 244, 0.96),
+              Color.fromRGBO(233, 209, 241, 0.93),
+            ],
+          ),
+        ),
+        child: Scaffold(
+          key: scaffoldKey,
+          // backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Colors.white.withOpacity(0.2),
+
+          // backgroundColor: Colors.transparent,
+          body: NestedScrollView(
+            // Header Sliver Builder
+            headerSliverBuilder: (context, _) => [const ChatAppBar()],
+            body: Builder(
+              builder: (context) {
+                return SafeArea(
+                  top: false,
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            6.59.w, 0, 7.69.w, 0),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: ListView(
+                            // reverse: true,
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              OtherChat(
+                                message:
+                                    'No problem! To hide the sidebar in Figma, you can follow these steps:',
+                              ),
+                              MeChat(
+                                isFirst: true,
+                              ),
+                              MeChat(),
+                              OtherChat(
+                                message: "Gerald is the best",
+                              ),
+                              MeChat(
+                                isFirst: true,
+                              ),
+                              OtherChat(
+                                message: "K 😍",
+                              ),
+                              MeChat(
+                                isFirst: true,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional(0, 1),
-                      child: ChatTextfield(),
-                    ),
-                  ],
-                ),
-              );
-            },
+                      Align(
+                        alignment: AlignmentDirectional(0, 1),
+                        child: ChatTextfield(),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -76,9 +106,7 @@ class _ChatroomPageWidgetState extends State<ChatroomPageWidget> {
 }
 
 class ChatAppBar extends StatelessWidget {
-  const ChatAppBar({
-    super.key,
-  });
+  const ChatAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +136,6 @@ class ChatAppBar extends StatelessWidget {
                   imageUrl: 'https://picsum.photos/seed/887/600',
                   fit: BoxFit.cover,
                 ),
-                // child: Image.network(
-                //   'https://picsum.photos/seed/377/600',
-                //   fit: BoxFit.cover,
-                // ),
               ),
               Align(
                 alignment: const AlignmentDirectional(1, 1),
