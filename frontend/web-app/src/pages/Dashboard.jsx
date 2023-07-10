@@ -29,7 +29,7 @@ import {
 
 const UploadButton = styled(Button)(({ theme }) => ({
     color: "#fff",
-    backgroundColor: "#636DE7",
+    backgroundColor: "#5AA2FC",
     "&:hover": {
         backgroundColor: "#636DE7",
     },

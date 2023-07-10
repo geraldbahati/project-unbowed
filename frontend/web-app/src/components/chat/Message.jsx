@@ -20,7 +20,7 @@ const Message = ({ user, username }) => {
                 <div className="user_message">
                     <div
                         className="user_message__content"
-                        onMouseOver={() => {
+                        onClick={() => {
                             setShowUserTime(!showUserTime);
                         }}
                     >
@@ -41,7 +41,7 @@ const Message = ({ user, username }) => {
 
                     <div
                         className="message__content"
-                        onMouseOver={() => {
+                        onClick={() => {
                             setShowSenderTime(!showSenderTime);
                         }}
                     >
@@ -61,7 +61,7 @@ const Message = ({ user, username }) => {
 
                     <div
                         className="message__content"
-                        onMouseOver={() => {
+                        onClick={() => {
                             setShowSenderTime(!showSenderTime);
                         }}
                     >

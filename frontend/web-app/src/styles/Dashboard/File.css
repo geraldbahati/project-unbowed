@@ -10,7 +10,8 @@
 }
 
 .file_color {
-    background-color: skyblue;
+    background-color: #5aa2fc;
+    color: white;
     width: 3.188rem;
     height: 3.188rem;
     display: flex;

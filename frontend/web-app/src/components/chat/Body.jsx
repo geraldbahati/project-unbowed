@@ -150,7 +150,7 @@ const Body = () => {
                                 sx={{ height: 28, m: 0.5 }}
                                 orientation="vertical"
                             />
-                            <IconButton sx={(iconButton, { color: "#1e224a" })}>
+                            <IconButton sx={(iconButton, { color: "#5AA2FC" })}>
                                 <BsSendFill />
                             </IconButton>
                         </Paper>
