@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/router/route_mapping.dart';
-import 'package:unbowed_flutter/presentation/styles/theme.dart';
 
+import '../../router/route_mapping.dart';
 import '../../styles/text_styling.dart';
+import '../../styles/theme.dart';
 
 class ChatroomTile extends StatelessWidget {
   const ChatroomTile({super.key});

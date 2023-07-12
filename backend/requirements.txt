@@ -1,0 +1,14 @@
+djangorestframework
+djangorestframework-simplejwt
+pyyaml
+requests
+django-cors-headers
+django
+channels
+channels-redis
+django_celery_results
+django_celery_beat
+django-celery-results
+celery
+django
+django-channels
