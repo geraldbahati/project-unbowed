@@ -104,3 +104,19 @@ def room(request, room_name):
     return render(request, 'chat/chatroom.html', {
         'room_name': room_name
     })
+
+
+class MessageListCreateAPIView(ListCreateAPIView):
+    serializer_class = MessageSerializer
+
+    def get_queryset(self):
+        
+        message_qs = Message.objects.all()
+        return message_qs
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        # target_name = self.kwargs.get('target_name')
+        #! TODO have to work on this
+        chat_room = ChatRoom.objects.get(id=1) or None
+        serializer.save(host=user, chat_room=chat_room)

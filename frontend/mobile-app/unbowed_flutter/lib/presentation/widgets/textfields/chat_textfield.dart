@@ -1,10 +1,8 @@
-import 'package:flutter/foundation.dart';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-
-import 'dart:ui';
 
 class ChatTextfield extends StatefulWidget {
   const ChatTextfield({

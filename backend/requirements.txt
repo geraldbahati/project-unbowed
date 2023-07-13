@@ -12,3 +12,4 @@ django-celery-results
 celery
 django
 django-channels
+selenium

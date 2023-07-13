@@ -20,8 +20,7 @@ class MessageSerializer(ModelSerializer):
             'message_url',
             'edit_url',
             'sender',
-            'topic',
-            'describe',
+            'description',
             'updated',
             'created',
         ]

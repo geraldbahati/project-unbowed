@@ -5,6 +5,40 @@ from user.models import CustomUser
 
 # Create your models here.
 
+class ChatRoomManager(models.Manager):
+    def get_chatroom_object(self, room_id):
+        return self.get_queryset().filter(id=room_id).first() or None
+    
+    def get_or_new(self, host, other_users):
+        if host == other_users.first():
+            return None, False
+
+        if other_users is None:
+            return None, False
+
+        if host == other_users:
+            return None, False
+
+        qlookup1 = Q(host=host) & Q(participants__in=other_users)
+        qlookup2 = Q(host=other_users.first()) & Q(
+            participants=host) 
+        qs = self.get_queryset().filter(qlookup1 | qlookup2).distinct()
+
+        if qs.count() == 1:
+            return qs.first(), False
+        elif qs.count() > 1:
+            return qs.order_by('timestamp').first(), False
+        else:
+            obj = self.model(
+                host=host,
+            )
+
+            obj.save()
+            obj.participants.set(other_users)
+            return obj, True
+
+
+
 class ChatRoom(models.Model):
     host = models.ForeignKey(
         CustomUser, on_delete=models.CASCADE, related_name='host')
@@ -15,6 +49,7 @@ class ChatRoom(models.Model):
     updated = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+
     class Meta:
         ordering = ['-timestamp']
 
@@ -24,8 +59,6 @@ class ChatRoom(models.Model):
 
     def __str__(self) -> str:
         return f'chat_room_{self.id}'
-
-    
 
 
 class Message(models.Model):
@@ -41,4 +74,4 @@ class Message(models.Model):
         ordering = ['-created']
 
     def __str__(self) -> str:
-        return self.describe[0:50]
+        return self.description[0:50]

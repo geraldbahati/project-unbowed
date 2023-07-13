@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     
     # re_path(r'messages/(?P<user_id>\w+)/(?P<target_name>\w+)/$', views.MessageListCreateAPIView.as_view(), name="messages-list-api"),
+    path('messages/', views.MessageListCreateAPIView.as_view(), name="messages-list-api"),
     path('message/<str:pk>/', views.MessageDetailAPIView.as_view(), name="message-detail-api"),
     path('update-message/<str:pk>', views.MessageUpdateAPIView.as_view(), name="message-update-api"),
     path('delete-message/<str:pk>/', views.MessageDestroyAPIView.as_view(), name = "message-delete-api"),
