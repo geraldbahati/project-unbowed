@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/widgets/containers/chats/custom_chat_container.dart';
 
 class OtherChat extends StatefulWidget {
   final String message;
@@ -68,35 +69,38 @@ class _OtherChatState extends State<OtherChat> {
     return Padding(
       padding: EdgeInsets.only(bottom: _showTime ? 0.22.h : 1.83.h),
       child: GestureDetector(
-        onTap: () {
-          setState(() {
-            _showTime = !_showTime;
-          });
-        },
-        child: Container(
-          constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.65,
+          onTap: () {
+            setState(() {
+              _showTime = !_showTime;
+            });
+          },
+          child: ChatBubble(
+            message: widget.message,
+          )
+          // child: Container(
+          //   constraints: BoxConstraints(
+          //     maxWidth: MediaQuery.of(context).size.width * 0.65,
+          //   ),
+          //   decoration: BoxDecoration(
+          //     // color: Colors.orange,
+          //     color: Colors.white.withOpacity(0.42),
+          //     borderRadius: BorderRadius.circular(13.33.sp),
+          //   ),
+          //   child: Padding(
+          //     padding: EdgeInsets.fromLTRB(2.64.w, 1.51.h, 2.64.w, 0.97.h),
+          //     child: Text(
+          //       widget.message,
+          //       // "I am better",
+          //       textAlign: TextAlign.start,
+          //       textWidthBasis: TextWidthBasis.longestLine,
+          //       style: GoogleFonts.leagueSpartan(
+          //         fontSize: 15.sp,
+          //       ),
+          //       // style: chatRoomTitleTextStyle,
+          //     ),
+          //   ),
+          // ),
           ),
-          decoration: BoxDecoration(
-            // color: Colors.orange,
-            color: Colors.white.withOpacity(0.42),
-            borderRadius: BorderRadius.circular(13.33.sp),
-          ),
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(2.64.w, 1.51.h, 2.64.w, 0.97.h),
-            child: Text(
-              widget.message,
-              // "I am better",
-              textAlign: TextAlign.start,
-              textWidthBasis: TextWidthBasis.longestLine,
-              style: GoogleFonts.leagueSpartan(
-                fontSize: 15.sp,
-              ),
-              // style: chatRoomTitleTextStyle,
-            ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -123,14 +127,15 @@ class _OtherChatState extends State<OtherChat> {
       width: 13.19.w,
       height: 6.47.h,
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color.fromRGBO(211, 233, 244, 0.96),
-            Color.fromRGBO(233, 209, 241, 0.93),
-          ],
-        ),
+        color: Colors.transparent,
+        // gradient: LinearGradient(
+        //   begin: Alignment.topLeft,
+        //   end: Alignment.bottomRight,
+        //   colors: [
+        //     Color.fromRGBO(211, 233, 244, 0.96),
+        //     Color.fromRGBO(233, 209, 241, 0.93),
+        //   ],
+        // ),
         shape: BoxShape.circle,
       ),
       child: Align(

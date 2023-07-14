@@ -75,15 +75,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def get_chatroom(self, loggedin_params, lookup_params):
         loggedin_user = CustomUser.objects.get(id=loggedin_params)
-        # course = Course.objects.filter(course_name=lookup_params) or None
-        participants = CustomUser.objects.filter(
-            course_name=loggedin_user.course_name).exclude(id=loggedin_params) or None
 
         other_user = CustomUser.objects.filter(username=lookup_params) or None
-
-        # if course is not None:
-        #     obj, created = ChatRoom.objects.get_or_new_course_chat_room(
-        #         course.first(), loggedin_user, participants)
 
         if other_user is not None:
             obj, created = ChatRoom.objects.get_or_new(
