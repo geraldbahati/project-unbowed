@@ -54,6 +54,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    access_token = models.CharField(max_length=255, blank=True, null=True)
+    refresh_token = models.CharField(max_length=255, blank=True, null=True)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['phone_number']
@@ -72,6 +74,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
+    
+
+    def get_tokens(self):
+        from rest_framework_simplejwt.tokens import RefreshToken
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
 
     @property
     def is_staff(self):
@@ -96,3 +107,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 #         for chatroom in chat_room_instances:
 #             if chatroom.host != instance:
 #                 chatroom.participants.add(instance)
+
+
+
+

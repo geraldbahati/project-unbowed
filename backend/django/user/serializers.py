@@ -5,14 +5,12 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth import authenticate
-from api.serializers import CoursePublicDetialSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
-    course = CoursePublicDetialSerializer(source='course_name',read_only=True)
-    class Meta:
+     class Meta:
         model = CustomUser
-        fields = ['id', 'email', 'username', 'course', 'is_staff']
+        fields = ['id', 'phone_number', 'username', 'is_staff']
 
 
 
@@ -27,12 +25,11 @@ class RegisterSerializer(serializers.ModelSerializer):
         fields = (
           
             'username', 
-            # 'course_name',
+            'phone_number',
             'password', 
             'password2'
         )
         extra_kwargs = {
-            'email' : {'write_only': True},
             'password' : {'write_only': True},
             'password2' : {'write_only': True},
         }
@@ -46,20 +43,26 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = CustomUser.objects.create(
             username=validated_data['username'],
-            email=validated_data['email'],
-            # course_name = validated_data['course_name'],
+            phone_number=validated_data['phone_number'],
         )
 
-        
         user.set_password(validated_data['password'])
         user.save()
 
         return user
-
+    
 
 class LoginSerializer(serializers.Serializer):
-    
-    password = serializers.CharField()
+    password = serializers.CharField(write_only=True, required=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ('phone_number', 'password')
+
+        extra_kwargs = {
+            'password' : {'write_only': True},
+        }
+
 
     def validate(self, data):
         user = authenticate(**data)

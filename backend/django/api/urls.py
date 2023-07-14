@@ -11,5 +11,5 @@ urlpatterns = [
      path('protected/', MyProtectedView.as_view(), name='my_protected_view'),
 
     path('chat/', include('chat.urls')),
-    # path('user/', include('user.urls')),
+    path('user/', include('user.urls')),
 ]

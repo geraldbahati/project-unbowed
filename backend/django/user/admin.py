@@ -4,6 +4,9 @@ from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework_simplejwt.exceptions import TokenError
 
 from .models import CustomUser
 
@@ -75,6 +78,34 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('phone_number','username')
     ordering = ('phone_number',)
     filter_horizontal = ()
+
+    def delete_queryset(self, request, queryset):
+        # Blacklist the refresh tokens associated with the users in the queryset
+        for user in queryset:
+            try:
+                refresh_token = user.get_tokens()['refresh']
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            except TokenError:
+                return Response({'detail': 'Unsuccessfully logged out. TokenError occurred!'})
+
+        # Delete the users
+        super().delete_queryset(request, queryset)
+
+    def save_model(self, request, obj, form, change):
+        # Save the user object
+        obj.save()
+
+        # Generate JWT tokens for the user
+        tokens = obj.get_tokens()
+
+        # Assign the tokens to the user object
+        obj.refresh_token = tokens['refresh']
+        obj.access_token = tokens['access']
+        obj.save()
+
+    
+
 
 
 # Now register the new UserAdmin...

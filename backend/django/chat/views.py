@@ -17,11 +17,9 @@ class ChatRoomListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
     serializer_class = ChatRoomSerializer
 
     def perform_create(self, serializer):
-        # course_chatroom = serializer.validated_data.get('optional_tied_course')
         host = self.request.user
 
-        participants = CustomUser.objects.filter(
-            course_name=host.course_name).exclude(id=host.id) or None
+        participants = CustomUser.objects.all().exclude(id=host.id) or None
         
 
         serializer.save(
