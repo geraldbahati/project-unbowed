@@ -19,10 +19,15 @@ class SignUpView(GenericAPIView):
         refresh = RefreshToken.for_user(user)
         user.access_token = str(refresh.access_token)
         user.refresh_token = str(refresh)
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        })
+
+        response = {
+            "user": UserSerializer(user, context=self.get_serializer_context()).data,
+            "tokens": {
+                "refresh": str(refresh),
+                "access": str(refresh.access_token),
+            },
+        }
+        return Response(response)
 
 
 
@@ -36,10 +41,14 @@ class LogInView(APIView):
             user = CustomUser.objects.filter(phone_number=phone_number).first()
             if user and user.check_password(password):
                 refresh = RefreshToken.for_user(user)
-                return Response({
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
-                })
+                response = {
+                    "user": UserSerializer(user, context=self.get_serializer_context()).data,
+                    "tokens": {
+                        "refresh": str(refresh),
+                        "access": str(refresh.access_token),
+                    },
+                }
+            return Response(response)
         return Response({'error': 'Invalid credentials'}, status=400)
 
 class LogOutView(APIView):
