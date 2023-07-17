@@ -28,7 +28,7 @@ application = ProtocolTypeRouter({
     # Django's ASGI application to handle traditional HTTP requests
     "http": django_asgi_app,
 
-    # WebSocket chat handler
+    # # WebSocket chat handler
     "websocket": AllowedHostsOriginValidator(
         TokenAuthMiddlewareStack(
             URLRouter(

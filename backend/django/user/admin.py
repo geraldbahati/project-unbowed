@@ -59,11 +59,11 @@ class UserAdmin(BaseUserAdmin):
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     ordering = ('-created')
-    list_display = ('phone_number', 'username', 'is_admin','is_active','is_superuser')
+    list_display = ('uid','phone_number', 'username', 'is_admin','is_active','is_superuser')
     list_filter = ('is_admin','is_active','is_superuser')
     fieldsets = (
         (None, {'fields': ('phone_number', 'password')}),
-        ('Personal info', {'fields': ('username',)}),
+        ('Personal info', {'fields': ('username','uid')}),
         ('Permissions', {'fields': ('is_admin','is_superuser')}),
         
     )

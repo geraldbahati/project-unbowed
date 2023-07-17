@@ -1,4 +1,5 @@
-const String registerRoute = '/register';
+const String phoneAuthRoute = '/phone_auth';
+const String confirmOtpRoute = '/confirm_otp';
 const String homeRoute = '/home';
 const String landingRoute = '/';
 const String chatRoute = '/chat';

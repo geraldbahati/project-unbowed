@@ -78,3 +78,14 @@ class EmailVerificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['token']
+
+
+
+
+class SendOTPSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(max_length=15)
+
+
+class VerifyOTPSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(max_length=15)
+    verification_code = serializers.CharField(max_length=6)

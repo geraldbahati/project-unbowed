@@ -10,6 +10,9 @@ django_celery_results
 django_celery_beat
 django-celery-results
 celery
-django
+django>=4.2.0
 django-channels
 selenium
+twilio
+pyotp
+python-dotenv

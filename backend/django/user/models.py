@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import uuid
 
 from django.dispatch import receiver
 from django.db.models.signals import (
@@ -48,6 +49,7 @@ class UserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(unique=True, max_length=255)
+    uid = models.UUIDField(editable=False, default=uuid.uuid4, blank=True, null=True)
     phone_number = models.CharField(max_length=15)
 
     is_admin = models.BooleanField(default=False)
