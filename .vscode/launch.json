@@ -45,5 +45,25 @@
             "deviceId" : "b6ae030"
         },
 
+        {
+            "name": "CPH1923",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart",
+        
+            "deviceId" : "QKF6S4S48TYDSKQG"
+        },
+
+    ],
+
+    "compounds": [
+        {
+            "name": "All devices",
+            "configurations": [
+                "Iphone 14 Pro Max",
+                "CPH2219",
+                "CPH1923",
+            ],
+        }
     ]
 }

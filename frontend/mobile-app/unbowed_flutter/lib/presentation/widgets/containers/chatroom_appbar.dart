@@ -30,7 +30,6 @@ class _ChatroomAppBarWidgetState extends State<ChatroomAppBarWidget>
   late final Animation<double> _resizeProfilePhotoBorderHeightAnimation;
   late final Animation<double> _resizespaceBetweenIconsAnimation;
   late final Animation<double> _bounceInAnimation;
-  late final Animation<Offset> _slideInAnimation;
 
   @override
   void initState() {
@@ -104,15 +103,6 @@ class _ChatroomAppBarWidgetState extends State<ChatroomAppBarWidget>
     ).animate(_resizeAnimationController);
 
     // slide in
-    _slideInAnimation = Tween<Offset>(
-      begin: const Offset(0, 0),
-      end: const Offset(0, -50),
-    ).animate(
-      CurvedAnimation(
-        parent: _resizeAnimationController,
-        curve: Curves.easeInOut,
-      ),
-    );
   }
 
   @override
@@ -144,10 +134,10 @@ class _ChatroomAppBarWidgetState extends State<ChatroomAppBarWidget>
                 // 2.70.h,
                 0,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
+                // mainAxisSize: MainAxisSize.max,
+                // mainAxisAlignment: MainAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -252,11 +242,11 @@ class _ChatroomAppBarWidgetState extends State<ChatroomAppBarWidget>
                       ),
                     ],
                   ),
-                  SizedBox(height: 0.54.h),
+                  // SizedBox(height: 0.54.h),
                   Visibility(
-                    visible: _resizeAnimationController.value < 0.5,
-                    child: Transform.translate(
-                      offset: _slideInAnimation.value,
+                    visible: _resizeAnimationController.value < 0.6,
+                    child: Align(
+                      alignment: AlignmentDirectional(-1, 0.5),
                       child: Opacity(
                         opacity: 1 - (_bounceInAnimation.value),
                         child: Wrap(

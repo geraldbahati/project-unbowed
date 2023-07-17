@@ -4,13 +4,13 @@
 
 import 'dart:convert';
 
-MsReceive msReceiveFromJson(String str) =>
-    MsReceive.fromJson(json.decode(utf8.decode(str.runes.toList())));
+MessageReceive msReceiveFromJson(String str) =>
+    MessageReceive.fromJson(json.decode(utf8.decode(str.runes.toList())));
 
-String msReceiveToJson(MsReceive data) => json.encode(data.toJson());
+String msReceiveToJson(MessageReceive data) => json.encode(data.toJson());
 
-class MsReceive {
-  MsReceive({
+class MessageReceive {
+  MessageReceive({
     required this.message,
     required this.username,
     required this.created,
@@ -20,7 +20,7 @@ class MsReceive {
   final String username;
   final DateTime created;
 
-  factory MsReceive.fromJson(Map<String, dynamic> json) => MsReceive(
+  factory MessageReceive.fromJson(Map<String, dynamic> json) => MessageReceive(
         message: json["message"],
         username: json["username"],
         created: DateTime.parse(json["created"]),

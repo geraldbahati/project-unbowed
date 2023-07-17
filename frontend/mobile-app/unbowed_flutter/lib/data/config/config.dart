@@ -10,5 +10,5 @@ class Config {
   static const String apiMessages = '/api/chat/chatroom/';
   static const String apiChatRooms = '/api/chat/chatrooms/';
 
-  static const String chatRoomWebSocketUrl = 'ws://notifications/';
+  static const String chatRoomWebSocketUrl = '/notifications/';
 }

@@ -23,7 +23,8 @@ class Websocket {
       "Authorization": "Bearer ${loginDetails?.tokens.access}",
     };
 
-    Uri url = Uri.parse("${Config.chatRoomWebSocketUrl}${service.url}");
+    Uri url = Uri.parse(
+        "ws://${Config.domain}${Config.chatRoomWebSocketUrl}${service.url}");
 
     IOWebSocketChannel channel = IOWebSocketChannel.connect(
       url,

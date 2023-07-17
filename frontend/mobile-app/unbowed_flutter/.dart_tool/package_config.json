@@ -87,9 +87,9 @@
     },
     {
       "name": "file",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/file-6.1.4",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/file-7.0.0",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "flutter",
@@ -249,7 +249,7 @@
     },
     {
       "name": "path_provider_foundation",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.3",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -282,12 +282,6 @@
       "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4",
       "packageUri": "lib/",
       "languageVersion": "2.17"
-    },
-    {
-      "name": "process",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/process-4.2.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.14"
     },
     {
       "name": "provider",
@@ -411,9 +405,9 @@
     },
     {
       "name": "xdg_directories",
-      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/xdg_directories-1.0.0",
+      "rootUri": "file:///Users/geraldbahati/.pub-cache/hosted/pub.dev/xdg_directories-1.0.1",
       "packageUri": "lib/",
-      "languageVersion": "2.17"
+      "languageVersion": "2.18"
     },
     {
       "name": "unbowed_flutter",
@@ -422,7 +416,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-07-14T19:39:05.708204Z",
+  "generated": "2023-07-17T07:03:35.306915Z",
   "generator": "pub",
-  "generatorVersion": "3.0.5"
+  "generatorVersion": "3.0.6"
 }
