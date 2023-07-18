@@ -4,6 +4,11 @@
     align-items: center;
     margin: 4px 2px;
     padding: 2px;
+    border-radius: 0.75rem;
+}
+.conv:hover {
+    background-color: #a2aeb9b4;
+    cursor: pointer;
 }
 
 .conv__summary {
@@ -27,6 +32,7 @@
 
 .conv__snippet {
     display: flex;
+    align-items: center;
 }
 .conv__snippetIcon {
     margin-right: 0.25rem;
@@ -36,23 +42,15 @@
 .conv__usertime {
     font-size: 0.75rem;
     font-weight: 400;
-    color: #757575;
 }
 .conv__snippetText {
     flex: 1;
 }
 
 .conv_snippetRead {
-    width: 1rem;
-    height: 1rem;
-    /* size: 1.1rem; */
+    width: 0.4rem;
+    height: 0.4rem;
     border-radius: 50%;
     background-color: #1e224a;
-    color: white;
-    margin: 0 0.25rem;
-    font-size: 0.75rem;
-    font-weight: 800;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin: 0 0 0 0.45rem;
 }

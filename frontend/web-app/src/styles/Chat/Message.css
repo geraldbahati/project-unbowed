@@ -33,10 +33,11 @@
 }
 
 .user_message {
+    color: white;
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
     margin-left: auto;
     margin-right: 1rem;
     max-width: 22.5rem;
@@ -49,7 +50,8 @@
     padding: 0.688rem 0.875rem;
 }
 .user_message__time {
-    margin: 0 0 auto 0.75rem;
+    margin: 0.5rem 0.5rem auto 0.75rem;
+    color: black;
 }
 
 .user_message__info {

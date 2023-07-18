@@ -1,12 +1,14 @@
 .file_main {
-    background-color: #f7f7f7;
     display: flex;
     align-items: center;
-    margin: 0.5rem 0;
-    padding: 0.125rem 0.875rem;
+    margin: 0.5rem 0.25rem;
+    padding: 0.125rem 0rem;
     border-radius: 0.875rem;
-    height: 4.938rem;
+    height: 3.188rem;
     min-width: 39.063rem;
+}
+.file_main:hover {
+    background-color: #989da482;
 }
 
 .file_color {

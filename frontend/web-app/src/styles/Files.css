@@ -1,6 +1,5 @@
 .files_main {
     display: flex;
-    background-color: #3883eb;
     height: 100vh;
 }
 
@@ -11,6 +10,8 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem 0.15rem;
+    border-radius: 0 1.5rem 1.5rem 0;
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .files__sidebar_icons {
@@ -23,9 +24,7 @@
 
 /* Body Styling */
 .files_body {
-    background-color: white;
     flex: 1;
-    border-radius: 1.5rem 0 0 1.5rem;
     padding: 1.375rem;
 }
 

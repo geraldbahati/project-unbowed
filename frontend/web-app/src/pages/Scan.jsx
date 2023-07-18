@@ -14,9 +14,9 @@ import { File } from "../components/Dashboard";
 
 const UploadButton = styled(Button)(({ theme }) => ({
     color: "#fff",
-    backgroundColor: "#0F1226",
+    backgroundColor: "#5AA2FC",
     "&:hover": {
-        backgroundColor: "#0F1226",
+        backgroundColor: "#636DE7",
     },
     width: "18.75rem",
     height: "3.375rem",
@@ -37,17 +37,17 @@ const SearchButton = styled(IconButton)(({ theme }) => ({
 
 const ViewAll = styled(Button)(({ theme }) => ({
     color: "#000",
-    backgroundColor: "#bdbdbd",
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
     "&:hover": {
-        backgroundColor: "#bdbdbd",
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
     },
-    width: "5.938rem",
-    height: "2.188rem",
+    width: "6.563rem",
     textDecoration: "none",
     textTransform: "none",
+    padding: "0.15rem",
     borderRadius: "0.5rem",
     fontSize: "0.875rem",
-    marginLeft: "2.875rem",
+    marginLeft: "2.275rem",
 }));
 
 const Scan = () => {

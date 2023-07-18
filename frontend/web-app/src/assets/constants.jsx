@@ -6,7 +6,7 @@ import { BiConversation, BiScan } from "react-icons/bi";
 const iconSize = {
     fontSize: "1.5rem",
     marginBottom: "2.65rem",
-    color: "#fff",
+    color: "#5AA2FC",
 };
 
 export const sidebarIcons = [

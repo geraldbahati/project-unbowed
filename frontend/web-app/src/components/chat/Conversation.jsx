@@ -64,9 +64,7 @@ const Conversation = () => {
                     <div className="conv__snippetText">
                         Hello, Welcome to my new whatsapp clone chat app
                     </div>
-                    <div className="conv_snippetRead">
-                        <p>6</p>
-                    </div>
+                    <div className="conv_snippetRead" />
                 </div>
             </div>
         </div>

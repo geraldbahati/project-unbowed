@@ -27,7 +27,7 @@ const Body = () => {
         items.push(i);
     }
     const iconStyling = { margin: "0.5rem" };
-    const iconButton = { p: "0.625rem" };
+    const textboxIcon = { color: "white", fontSize: "1.25rem" };
 
     return (
         <div className="chats_body__main">
@@ -63,7 +63,7 @@ const Body = () => {
             <div className="chats_body__content">
                 <section className="section__conversation">
                     <div className="conversation__title">
-                        <p>Messages</p>
+                        <p>Chats</p>
                         <IconButton>
                             <BsPencilSquare style={{ color: "#000" }} />
                         </IconButton>
@@ -126,34 +126,34 @@ const Body = () => {
                         <Message user={true} />
                         <Message user={true} />
                         <Message user={true} />
+                        <Message user={false} username="Wizzoh" />
+                        <Message user={true} username="Wizzoh" />
+                        <Message user={true} />
+                        <Message user={true} />
+                        <Message user={true} />
                     </div>
                     <div className="messages__footer">
-                        <div>
-                            <IconButton sx={iconButton} aria-label="menu">
-                                <BsFillEmojiSmileFill />
+                        <div className="messages_icon_group">
+                            <IconButton>
+                                <BsFillEmojiSmileFill
+                                    style={{ transform: "rotate(-16deg)" }}
+                                />
                             </IconButton>
-                            <IconButton sx={iconButton} aria-label="menu">
+                            <IconButton>
                                 <BsImage />
                             </IconButton>
                         </div>
-                        <Paper component="form" className="footer__paper">
-                            <InputBase
-                                sx={{ ml: 1, flex: 1 }}
-                                placeholder="Aa."
-                                multiline
-                            />
-                            <IconButton type="button" sx={iconButton}>
-                                <BsMicFill />
-                            </IconButton>
 
-                            <Divider
-                                sx={{ height: 28, m: 0.5 }}
-                                orientation="vertical"
+                        <div className="message__textbox">
+                            <input
+                                className="message__textbox_input"
+                                type="text"
+                                placeholder="Search"
                             />
-                            <IconButton sx={(iconButton, { color: "#5AA2FC" })}>
-                                <BsSendFill />
-                            </IconButton>
-                        </Paper>
+                            <div className="message__textbox_icon">
+                                <BsMicFill style={textboxIcon} />
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>

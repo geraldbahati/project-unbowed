@@ -1,6 +1,5 @@
 .scan_main {
     display: flex;
-    background-color: #3883eb;
     height: 100vh;
 }
 
@@ -12,6 +11,8 @@
     flex-direction: column;
     align-items: center;
     padding: 1rem 0.15rem;
+    border-radius: 0 1.5rem 1.5rem 0;
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
 .scan__sidebar_icons {
@@ -24,9 +25,7 @@
 
 /* Body Styling */
 .scan_body {
-    background-color: white;
     flex: 1;
-    border-radius: 1.5rem 0 0 1.5rem;
     display: flex;
     flex-direction: row;
     max-height: 100vh;
@@ -85,7 +84,7 @@
     align-items: center;
     border-radius: 0.62rem;
     overflow: hidden;
-    background-color: #f0f3fb;
+    background-color: #f0f3fbb0;
     height: 2.188rem;
     min-width: 26rem;
 }
@@ -93,7 +92,6 @@
     display: flex;
     align-items: center;
     padding: 0.5rem;
-    background-color: #d4e0ff;
     cursor: pointer;
 }
 .secondary__search_input {
@@ -150,10 +148,6 @@
     width: 0.375rem;
 }
 
-.scan__secondary_files::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
 .scan__secondary_files::-webkit-scrollbar-thumb {
     background-color: #888;
     border-radius: 0.25rem;
@@ -167,10 +161,6 @@
 .scan__secondary_images::-webkit-scrollbar {
     width: 0.45rem;
     height: 0.475rem;
-}
-
-.scan__secondary_images::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
 }
 
 .scan__secondary_images::-webkit-scrollbar-thumb {

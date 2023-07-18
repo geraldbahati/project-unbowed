@@ -2,6 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import "./App.css";
+
 import {
     Chats,
     Conversation,
@@ -15,12 +17,13 @@ import {
     Verify,
     Scan,
     Dashboard,
+    Temp,
 } from "./pages";
 import { Carousel, Loading, Success } from "./components";
 
 const App = () => {
     return (
-        <div className="App">
+        <div className="app">
             <Router>
                 <Routes>
                     <Route path="/" element={<Landing />} />
@@ -39,7 +42,7 @@ const App = () => {
                     <Route exact path="/success" element={<Success />} />
                     <Route exact path="/scan" element={<Scan />} />
 
-                    <Route exact path="/test" element={<Loading />} />
+                    <Route exact path="/test" element={<Temp />} />
                     <Route exact path="/bot" element={<Bot />} />
                 </Routes>
             </Router>

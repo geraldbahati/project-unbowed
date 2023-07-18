@@ -37,11 +37,11 @@ const UploadButton = styled(Button)(({ theme }) => ({
     fontSize: "0.875rem",
 }));
 
-const MoreButton = styled(Button)(({ theme }) => ({
+const ViewAll = styled(Button)(({ theme }) => ({
     color: "#000",
-    backgroundColor: "#F4F5FC",
+    backgroundColor: "rgba(255, 255, 255, 0.25)",
     "&:hover": {
-        backgroundColor: "#F4F5FC",
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
     },
     width: "6.563rem",
     textDecoration: "none",
@@ -137,7 +137,7 @@ const Dashboard = () => {
                             <div className="nav_section">
                                 <div className="nav_text">Folders</div>
                                 <div className="nav_icons">
-                                    <MoreButton
+                                    <ViewAll
                                         variant="contained"
                                         endIcon={<BsChevronDown />}
                                         onClick={() =>
@@ -145,7 +145,7 @@ const Dashboard = () => {
                                         }
                                     >
                                         {!viewFolders ? "View All" : "Minimise"}
-                                    </MoreButton>
+                                    </ViewAll>
                                 </div>
                             </div>
                             <div
@@ -169,13 +169,13 @@ const Dashboard = () => {
                             <div className="nav_section">
                                 <div className="nav_text">Recent Files</div>
                                 <div className="nav_icons">
-                                    <MoreButton
+                                    <ViewAll
                                         variant="contained"
                                         endIcon={<BsChevronDown />}
                                         onClick={() => setViewFiles(!viewFiles)}
                                     >
                                         {!viewFiles ? "View All" : "Minimise"}
-                                    </MoreButton>
+                                    </ViewAll>
                                 </div>
                             </div>
                             <div
@@ -231,12 +231,12 @@ const Dashboard = () => {
                         <div className="nav_section">
                             <div className="nav_text">Your Tasks</div>
                             <div className="nav_icons">
-                                <MoreButton
+                                <ViewAll
                                     variant="contained"
                                     endIcon={<BsChevronRight />}
                                 >
                                     View All
-                                </MoreButton>
+                                </ViewAll>
                             </div>
                         </div>
 
@@ -262,12 +262,12 @@ const Dashboard = () => {
                         <div className="nav_section">
                             <div className="nav_text">Storage</div>
                             <div className="nav_icons">
-                                <MoreButton
+                                <ViewAll
                                     variant="contained"
                                     endIcon={<BsChevronRight />}
                                 >
                                     View All
-                                </MoreButton>
+                                </ViewAll>
                             </div>
                         </div>
 
