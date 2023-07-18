@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
+
 import {
     BsExclamation,
     BsCircle,
     BsChatLeftText,
     BsFillCircleFill,
     BsChatRightTextFill,
-} from "react-icons/all";
+} from "react-icons/bs";
 
 import "../styles/GridView.css";
 import { imageData } from "../assets/data";

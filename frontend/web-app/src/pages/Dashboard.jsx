@@ -3,18 +3,14 @@ import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-    FiSearch,
-    CgMenuGridO,
-    TfiMenuAlt,
-    BiCloudUpload,
-    IoIosNotificationsOutline,
-    BsChevronRight,
-    CiSettings,
-    AiOutlineClockCircle,
-    BsChevronDown,
-    CiMenuKebab,
-} from "react-icons/all";
+import { AiOutlineClockCircle } from "react-icons/ai";
+import { CiSettings, CiMenuKebab } from "react-icons/ci";
+import { CgMenuGridO } from "react-icons/cg";
+import { FiSearch } from "react-icons/fi";
+import { BsChevronRight, BsChevronDown } from "react-icons/bs";
+import { TfiMenuAlt } from "react-icons/tfi";
+import { BiCloudUpload } from "react-icons/bi";
+import { IoIosNotificationsOutline } from "react-icons/io";
 
 import "../styles/Dashboard.css";
 import { sidebarIcons } from "../assets/constants";

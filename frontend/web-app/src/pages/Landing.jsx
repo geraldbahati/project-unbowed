@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
-import { CiCircleChevRight } from "react-icons/all";
+import { CiCircleChevRight } from "react-icons/ci";
 
 import { HeroSlider, Carousel } from "../components";
 import "../styles/Landing.css";

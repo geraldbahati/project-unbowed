@@ -1,12 +1,7 @@
 import React from "react";
 import { Button, IconButton, Avatar } from "@mui/material";
-import {
-    BiDownArrowAlt,
-    ImFileExcel,
-    BsDownload,
-    CiMenuKebab,
-    FcOpenedFolder,
-} from "react-icons/all";
+import { BsDownload } from "react-icons/bs";
+import { CiMenuKebab } from "react-icons/ci";
 
 import "../../styles/File Page/File.css";
 import { imageData } from "../../assets/data";

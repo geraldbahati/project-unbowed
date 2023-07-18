@@ -1,12 +1,6 @@
 import React from "react";
 import { IconButton } from "@mui/material";
-import {
-    GrAdd,
-    CiMenuKebab,
-    GrDocumentExcel,
-    FaFileWord,
-    FaFileExcel,
-} from "react-icons/all";
+import { FaFileWord } from "react-icons/fa";
 
 import "../../styles/File Page/FilePreview.css";
 

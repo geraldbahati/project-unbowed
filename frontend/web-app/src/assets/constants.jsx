@@ -1,11 +1,7 @@
-import {
-    AiFillHome,
-    BsFolderFill,
-    BiConversation,
-    FaRobot,
-    BiScan,
-    IoSettings,
-} from "react-icons/all";
+import { AiFillHome } from "react-icons/ai";
+import { BsFolderFill } from "react-icons/bs";
+import { FaRobot } from "react-icons/fa";
+import { BiConversation, BiScan } from "react-icons/bi";
 
 const iconSize = {
     fontSize: "1.5rem",

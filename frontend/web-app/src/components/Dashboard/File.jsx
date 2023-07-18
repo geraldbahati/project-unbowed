@@ -1,6 +1,7 @@
 import React from "react";
 import { IconButton } from "@mui/material";
-import { GrAdd, CiMenuKebab } from "react-icons/all";
+import { CiMenuKebab } from "react-icons/ci";
+import { GrAdd } from "react-icons/gr";
 
 import "../../styles/Dashboard/File.css";
 

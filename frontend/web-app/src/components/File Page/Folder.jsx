@@ -1,11 +1,8 @@
 import React from "react";
 import { IconButton } from "@mui/material";
-import {
-    FcOpenedFolder,
-    CiMenuKebab,
-    AiFillFile,
-    AiOutlineClockCircle,
-} from "react-icons/all";
+import { AiFillFile, AiOutlineClockCircle } from "react-icons/ai";
+import { CiMenuKebab } from "react-icons/ci";
+import { FcOpenedFolder } from "react-icons/fc";
 
 import "../../styles/File Page/Folder.css";
 

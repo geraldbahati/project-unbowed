@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, IconButton } from "@mui/material";
-import {
-    MdDonutLarge,
-    BsChat,
-    FiMoreVertical,
-    IoSearchOutline,
-} from "react-icons/all";
+import { MdDonutLarge } from "react-icons/md";
+import { BsChat } from "react-icons/bs";
+import { FiMoreVertical } from "react-icons/fi";
+import { FiSearch } from "react-icons/fi";
 
 import { roomData } from "../assets/data";
 import "../styles/Sidebar.css";
@@ -40,7 +38,7 @@ const Sidebar = () => {
             </div>
             <div className="sidebar__search">
                 <div className="sidebar__searchContainer">
-                    <IoSearchOutline className="sidebar__searchIcon" />
+                    <FiSearch className="sidebar__searchIcon" />
                     <input type="text" placeholder="Search or start new chat" />
                 </div>
             </div>

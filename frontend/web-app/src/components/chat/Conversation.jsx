@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { BiCheckDouble, BiCheck } from "react-icons/all";
+import { BiCheckDouble } from "react-icons/bi";
 
 import "../../styles/Chat/Conversation.css";
 import { imageData } from "../../assets/data";

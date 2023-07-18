@@ -1,13 +1,8 @@
 import React from "react";
 import { IconButton, Avatar, TextField } from "@mui/material";
-import {
-    FaVideo,
-    IoCall,
-    FiSearch,
-    MdEmojiEmotions,
-    IoAttach,
-    FaMicrophone,
-} from "react-icons/all";
+import { MdAttachFile, MdEmojiEmotions, MdCall } from "react-icons/md";
+import { FaMicrophone, FaVideo } from "react-icons/fa";
+import { FiSearch } from "react-icons/fi";
 
 import "../../styles/Chat/Body.css";
 import { imageData } from "../../assets/data";
@@ -46,7 +41,7 @@ const Chat = () => {
                         <MdEmojiEmotions />
                     </IconButton>
                     <IconButton>
-                        <IoAttach />
+                        <MdAttachFile />
                     </IconButton>
                 </div>
                 <div className="body__footerInput">

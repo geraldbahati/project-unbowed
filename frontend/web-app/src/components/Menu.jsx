@@ -5,12 +5,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import {
-    CgMenu,
-    CgProfile,
-    CgOptions,
-    IoNotificationsOutline,
-} from "react-icons/all";
+import { CgMenu, CgProfile, CgOptions, CgNotifications } from "react-icons/cg";
 import {
     Button,
     Drawer,
@@ -26,7 +21,7 @@ const arrOptions = [
     { name: "Settings", icon: <CgOptions />, link: "options/" },
     {
         name: "notifications",
-        icon: <IoNotificationsOutline />,
+        icon: <CgNotifications />,
         link: "music/",
     },
 ];

@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Avatar, IconButton, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { BsDownload, FcImageFile, FiSearch } from "react-icons/all";
+import { FiSearch } from "react-icons/fi";
+import { FcImageFile } from "react-icons/fc";
+import { BsDownload } from "react-icons/bs";
 
 import "../styles/Scan.css";
 import { imageData } from "../assets/data";

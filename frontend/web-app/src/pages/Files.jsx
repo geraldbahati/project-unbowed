@@ -3,16 +3,11 @@ import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-    FiSearch,
-    FiHelpCircle,
-    FiFilter,
-    MdFeedback,
-    BsChevronDown,
-    BsListUl,
-    BsGrid3X3Gap,
-    BiDownArrowAlt,
-} from "react-icons/all";
+
+import { BsChevronDown, BsListUl, BsGrid3X3Gap } from "react-icons/bs";
+import { FiSearch, FiHelpCircle, FiFilter } from "react-icons/fi";
+import { MdFeedback } from "react-icons/md";
+import { BiDownArrowAlt } from "react-icons/bi";
 
 import "../styles/Files.css";
 import { imageData, filterButton } from "../assets/data";

@@ -2,17 +2,17 @@ import React from "react";
 import { IconButton, Avatar, Paper, InputBase, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { BiConversation } from "react-icons/bi";
 import {
-    BsPencilSquare,
-    FiSearch,
-    BsSendFill,
-    BiConversation,
-    BsMicFill,
-    BsCameraVideo,
-    MdCall,
     BsFillEmojiSmileFill,
     BsImage,
-} from "react-icons/all";
+    BsSendFill,
+    BsMicFill,
+    BsCameraVideo,
+    BsPencilSquare,
+} from "react-icons/bs";
+import { FiSearch } from "react-icons/fi";
+import { MdCall } from "react-icons/md";
 
 import "../../styles/Chat/Body.css";
 import Conversation from "./Conversation";

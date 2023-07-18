@@ -3,18 +3,6 @@ import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-    FiSearch,
-    CgMenuGridO,
-    TfiMenuAlt,
-    BiCloudUpload,
-    IoIosNotificationsOutline,
-    BsChevronRight,
-    CiSettings,
-    AiOutlineClockCircle,
-    BsChevronDown,
-    CiMenuKebab,
-} from "react-icons/all";
 
 import "../styles/Settings.css";
 import { sidebarIcons } from "../assets/constants";
