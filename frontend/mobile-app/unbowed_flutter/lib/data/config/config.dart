@@ -1,10 +1,9 @@
 class Config {
   static const String appName = 'ArtLife Project';
-  static const String domain = '127.0.0.1:8000';
+  static const String domain = '192.168.0.103:8000';
 
-  static const String loginURL = '/api/user/login';
-  static const String logoutURL = '/api/user/logout';
-  static const String registerURL = '/api/user/register';
+  static const String verifyOtpURL = '/api/user/verify-otp/';
+  static const String sendNumberURL = '/api/user/send-otp/';
   static const String findUserURL = '/api/user';
 
   static const String apiMessages = '/api/chat/chatroom/';

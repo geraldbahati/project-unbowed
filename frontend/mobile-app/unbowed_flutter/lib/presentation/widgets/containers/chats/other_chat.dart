@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/data/models/messages/message_model.dart';
 import 'package:unbowed_flutter/presentation/widgets/containers/chats/custom_chat_container.dart';
 
 class OtherChat extends StatefulWidget {
-  final String message;
+  final Message message;
 
   const OtherChat({
     super.key,
@@ -55,7 +57,7 @@ class _OtherChatState extends State<OtherChat> {
     return Padding(
       padding: EdgeInsets.only(left: 2.64.w, bottom: 0.43.h, top: 1.73.h),
       child: Text(
-        'DQ 1078',
+        widget.message.sender!.username!,
         style: GoogleFonts.leagueSpartan(
             fontWeight: FontWeight.w600,
             // fontSize: 16,
@@ -75,30 +77,9 @@ class _OtherChatState extends State<OtherChat> {
             });
           },
           child: ChatBubble(
-            message: widget.message,
+            message: widget.message.description!,
           )
-          // child: Container(
-          //   constraints: BoxConstraints(
-          //     maxWidth: MediaQuery.of(context).size.width * 0.65,
-          //   ),
-          //   decoration: BoxDecoration(
-          //     // color: Colors.orange,
-          //     color: Colors.white.withOpacity(0.42),
-          //     borderRadius: BorderRadius.circular(13.33.sp),
-          //   ),
-          //   child: Padding(
-          //     padding: EdgeInsets.fromLTRB(2.64.w, 1.51.h, 2.64.w, 0.97.h),
-          //     child: Text(
-          //       widget.message,
-          //       // "I am better",
-          //       textAlign: TextAlign.start,
-          //       textWidthBasis: TextWidthBasis.longestLine,
-          //       style: GoogleFonts.leagueSpartan(
-          //         fontSize: 15.sp,
-          //       ),
-          //       // style: chatRoomTitleTextStyle,
-          //     ),
-          //   ),
+
           // ),
           ),
     );
@@ -110,7 +91,7 @@ class _OtherChatState extends State<OtherChat> {
       child: Visibility(
         visible: _showTime,
         child: Text(
-          'Sunday, 4.01 AM',
+          '${DateFormat.LLLL().format(widget.message.created!)} ${DateFormat.jm().format(widget.message.created!)}',
           textAlign: TextAlign.start,
           maxLines: 1,
           style: GoogleFonts.leagueSpartan(

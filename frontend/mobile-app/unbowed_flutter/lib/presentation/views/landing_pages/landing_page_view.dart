@@ -109,8 +109,7 @@ class _LandingViewState extends State<LandingView> {
               );
 
               if (_pageController.page == 1) {
-                Navigator.pushNamed(context, homeRoute);
-                // Navigator.popAndPushNamed(context, homeRoute);
+                Navigator.pushNamed(context, phoneAuthRoute);
               }
             },
             backgroundColor: const Color.fromRGBO(26, 150, 220, 1),

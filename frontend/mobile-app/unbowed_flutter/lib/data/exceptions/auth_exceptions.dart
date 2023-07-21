@@ -1,20 +1,18 @@
-// login exceptions
-
-class UserNotFoundAuthException implements Exception {}
-
-class WrongCredentialAuthException implements Exception {}
-
 // register exceptions
-class FailedToRegisterException implements Exception {}
+class OtpErrorException implements Exception {}
+
+class InvalidOtpException implements Exception {}
+
+class InvalidPhoneNumberException implements Exception {}
 
 class PhoneNumberAlreadyExistException implements Exception {}
 
 class PasswordsDoNotMatchException implements Exception {}
 
-class UsernameAlreadyExistException implements Exception {}
+class UserNotRegisteredException implements Exception {}
 
 //generic exceptions
 
 class GenericAuthException implements Exception {}
 
-class UserNotLoggedInAuthException implements Exception {}
+class FailedToSubmitPhoneNumberException implements Exception {}

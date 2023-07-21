@@ -1,6 +1,5 @@
-import 'package:unbowed_flutter/data/exceptions/auth_exceptions.dart';
-
-import '../models/register/register_exception_model.dart';
+import '../exceptions/auth_exceptions.dart';
+import '../models/register/otp_error_model.dart';
 import '../models/register/register_response_model.dart';
 import '../repositories/user_repository.dart';
 import '../services/api_services.dart';
@@ -8,18 +7,15 @@ import '../services/shared_services.dart';
 
 abstract class UserProvider {
   Future<RegisterResponseModel?> get currentUser;
-  Future<RegisterResponseModel> registerUser({
-    required String username,
+  Future<String> submitPhoneNumber({
     required String phoneNumber,
-    required String password,
   });
 
-  Future<RegisterResponseModel> loginUser({
+  Future<RegisterResponseModel> verifyOtp({
     required String phoneNumber,
-    required String password,
+    required String verificationCode,
+    required String secretKey,
   });
-
-  Future<void> logoutUser();
 }
 
 class UserService implements UserProvider {
@@ -32,42 +28,36 @@ class UserService implements UserProvider {
   }
 
   @override
-  Future<RegisterResponseModel> loginUser({
-    required String phoneNumber,
-    required String password,
-  }) async {
-    var loginDetails = UserRepository.loginUser(
+  Future<String> submitPhoneNumber({required String phoneNumber}) async {
+    var registerDetails = UserRepository.submitPhoneNumber(
       phoneNumber: phoneNumber,
-      password: password,
     );
 
-    final RegisterResponseModel userDetail = await Api().post(loginDetails);
-    SharedService().logout();
-    SharedService().setLoginDetails(userDetail);
-
-    return userDetail;
-  }
-
-  @override
-  Future<void> logoutUser() {
-    // TODO: implement logoutUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<RegisterResponseModel> registerUser(
-      {required String username,
-      required String phoneNumber,
-      required String password}) async {
-    var registerDetails = UserRepository.registerUser(
-      username: username,
-      phoneNumber: phoneNumber,
-      password: password,
-    );
-    var userDetail = await Api().post(registerDetails);
     try {
-      if (userDetail is RegisterExceptionModel) {
-        throw FailedToRegisterException();
+      var sharedSecret = await Api().postWithoutToken(registerDetails);
+      return sharedSecret;
+    } on Exception catch (_) {
+      throw FailedToSubmitPhoneNumberException();
+    }
+  }
+
+  @override
+  Future<RegisterResponseModel> verifyOtp({
+    required String phoneNumber,
+    required String verificationCode,
+    required String secretKey,
+  }) async {
+    var registerDetails = UserRepository.verifyOtp(
+      phoneNumber: phoneNumber,
+      verificationCode: verificationCode,
+      secretKey: secretKey,
+    );
+
+    var userDetail = await Api().postWithoutToken(registerDetails);
+
+    try {
+      if (userDetail is OtpErrorModel) {
+        throw OtpErrorException();
       }
 
       if (userDetail is RegisterResponseModel) {
@@ -76,19 +66,15 @@ class UserService implements UserProvider {
         return userDetail;
       }
 
-      throw UserNotLoggedInAuthException();
-    } on FailedToRegisterException {
-      if (userDetail is RegisterExceptionModel) {
-        if (userDetail.username != null) {
-          throw UsernameAlreadyExistException();
+      throw UserNotRegisteredException();
+    } on OtpErrorException {
+      if (userDetail is OtpErrorModel) {
+        if (userDetail.verificationCode != null) {
+          throw InvalidOtpException();
         }
 
         if (userDetail.phoneNumber != null) {
-          throw PhoneNumberAlreadyExistException();
-        }
-
-        if (userDetail.password != null) {
-          throw PasswordsDoNotMatchException();
+          throw InvalidPhoneNumberException();
         }
       }
 

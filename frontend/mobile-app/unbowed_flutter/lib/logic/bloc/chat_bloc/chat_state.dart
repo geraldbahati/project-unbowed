@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'chat_bloc.dart';
 
 @immutable
@@ -33,26 +34,28 @@ class SocketConnecting extends ChatState {
   });
 }
 
-class SocketConnected extends ChatState {
-  final IOWebSocketChannel channel;
-
-  SocketConnected({
-    required this.channel,
-  });
-}
-
-class SocketDisconnecting extends ChatState {
-  final bool isDisconnected;
-
-  SocketDisconnecting({
-    required this.isDisconnected,
-  });
-}
-
 class ChatReceived extends ChatState {
-  final MessageReceive message;
+  final Message message;
 
   ChatReceived({
     required this.message,
+  });
+}
+
+class PreviousChatStored extends ChatState {
+  final Message message;
+
+  PreviousChatStored({
+    required this.message,
+  });
+}
+
+class ChatInstanceState extends ChatState {
+  final Message message;
+  final bool isSamePerson;
+
+  ChatInstanceState({
+    required this.message,
+    required this.isSamePerson,
   });
 }

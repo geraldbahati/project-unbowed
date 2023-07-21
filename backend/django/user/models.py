@@ -93,6 +93,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
 
 
+
 # @receiver(pre_save, sender=User)
 # def user_pre_save(sender, instance, *args, **kwargs):
 #     if not instance.course_name:

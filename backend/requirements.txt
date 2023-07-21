@@ -16,3 +16,4 @@ selenium
 twilio
 pyotp
 python-dotenv
+africastalking

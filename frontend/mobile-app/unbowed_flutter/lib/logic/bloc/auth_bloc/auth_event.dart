@@ -1,34 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'auth_bloc.dart';
 
 @immutable
 abstract class AuthEvent {}
 
-class AuthEventRegister extends AuthEvent {
-  final String username;
-  final String phoneNumber;
-  final String password;
-  final String confirmPassword;
+class AuthEventInitial extends AuthEvent {}
 
-  AuthEventRegister({
-    required this.username,
-    required this.phoneNumber,
-    required this.password,
-    required this.confirmPassword,
-  });
+class SendPhoneNumberEvent extends AuthEvent {
+  final String phoneNumber;
+
+  SendPhoneNumberEvent({required this.phoneNumber});
 }
 
-class AuthEventLogin extends AuthEvent {
-  final String username;
+class VerifyOtpEvent extends AuthEvent {
   final String phoneNumber;
-  final String password;
+  final String verificationCode;
+  final String secretKey;
 
-  AuthEventLogin({
-    required this.username,
+  VerifyOtpEvent({
     required this.phoneNumber,
-    required this.password,
+    required this.verificationCode,
+    required this.secretKey,
   });
 }
-
-class AuthEventLogout extends AuthEvent {}
-
-class AuthEventCheckLogin extends AuthEvent {}

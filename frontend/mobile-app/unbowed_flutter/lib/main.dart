@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
+import 'data/provider/user_provider.dart';
+import 'logic/bloc/auth_bloc/auth_bloc.dart';
 import 'presentation/router/my_routes.dart';
 import 'presentation/styles/theme.dart';
+import 'presentation/views/splash_pages/splash_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,15 +32,17 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-        builder: (context, orientation, deviceType) => MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Unbowed',
-              theme: lightTheme,
-              darkTheme: darkTheme,
-
-              onGenerateRoute: _appRouter.onGenerateRoute,
-              // home: const LandingView(),
-              // home: LandingView(),
-            ));
+      builder: (context, orientation, deviceType) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Unbowed',
+        theme: lightTheme,
+        darkTheme: darkTheme,
+        onGenerateRoute: _appRouter.onGenerateRoute,
+        home: BlocProvider(
+          create: (context) => AuthBloc(UserService()),
+          child: const SplashPage(),
+        ),
+      ),
+    );
   }
 }

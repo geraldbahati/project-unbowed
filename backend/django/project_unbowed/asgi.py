@@ -22,18 +22,16 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_unbowed.settings")
 # is populated before importing code that may import ORM models.
 django_asgi_app = get_asgi_application()
 
-
-
 application = ProtocolTypeRouter({
     # Django's ASGI application to handle traditional HTTP requests
     "http": django_asgi_app,
 
     # # WebSocket chat handler
-    "websocket": AllowedHostsOriginValidator(
+    "websocket": 
         TokenAuthMiddlewareStack(
             URLRouter(
                 websocket_urlpatterns
             )
         )
-    ),
+   
 })

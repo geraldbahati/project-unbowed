@@ -134,4 +134,25 @@ class Api {
 
     return service.parse(_response(response));
   }
+
+  Future<T> postWithoutToken<T>(ApiService<T> service) async {
+    Map<String, String> requestHeaders = {
+      "Content-Type": "application/json",
+    };
+
+    Uri url = Uri.http(Config.domain, service.url);
+
+    print(service.body);
+    print(url);
+
+    http.Response response = await http.post(
+      url,
+      headers: requestHeaders,
+      body: service.body,
+    );
+
+    print("here is the response: ${response.statusCode}");
+
+    return service.parse(_response(response));
+  }
 }

@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -40,12 +40,12 @@ INSTALLED_APPS = [
     
     # 3rd party
     "daphne",
+    'corsheaders',
     # "channels",
-    "twilio",
+    "africastalking",
     'django_celery_results',
     'django_celery_beat',
     'rest_framework',
-    'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
 
@@ -62,10 +62,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    
-
-   
 ]
 
 ASGI_APPLICATION = 'project_unbowed.asgi.application'
@@ -82,6 +78,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'project_unbowed.urls'
+
+CORS_URLS_REGEX = r'^/api/.*'
+CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
     {
@@ -239,8 +238,19 @@ SIMPLE_JWT = {
 }
 
 
-# Twilio settings
-TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
-TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
-TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
-TWILIO_VERIFY_SID = os.getenv("TWILIO_VERIFY_SID")
+# # Twilio settings
+# TWILIO_ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
+# TWILIO_AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
+# TWILIO_PHONE_NUMBER = os.getenv("TWILIO_PHONE_NUMBER")
+# TWILIO_VERIFY_SID = os.getenv("TWILIO_VERIFY_SID")
+
+
+# Africa's Talking SMS callback URL (optional)
+AFRICASTALKING_SMS_CALLBACK_URL = 'https://yourdomain.com/callback-url'
+AFRICASTALKING_SMS_SENDER_ID = 'ArtLife Production' 
+AFRICASTALKING_USERNAME = os.getenv("AFRICASTALKING_USERNAME")
+AFRICASTALKING_API_KEY = os.getenv("AFRICASTALKING_API_KEY")
+
+
+#MOBI TECH
+MOBITECH_API_KEY = "4c2b79e2c314449d41b7025d88d02b18edff57eebbf2278552adbd91db49b807"

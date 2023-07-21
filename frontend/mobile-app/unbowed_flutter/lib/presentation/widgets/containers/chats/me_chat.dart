@@ -1,13 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:intl/intl.dart';
+import 'package:unbowed_flutter/data/models/messages/message_model.dart';
 
 class MeChat extends StatefulWidget {
+  final Message message;
+
   final bool isFirst;
   const MeChat({
-    super.key,
+    Key? key,
+    required this.message,
     this.isFirst = false,
-  });
+  }) : super(key: key);
 
   @override
   State<MeChat> createState() => _MeChatState();
@@ -64,8 +70,7 @@ class _MeChatState extends State<MeChat> {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(2.64.w, 1.51.h, 2.64.w, 0.97.h),
                   child: Text(
-                    'No problem! To hide the sidebar in Figma, you can follow these steps:',
-                    // "I am better",
+                    widget.message.description!,
                     textAlign: TextAlign.start,
                     textWidthBasis: TextWidthBasis.longestLine,
                     style: GoogleFonts.leagueSpartan(
@@ -82,7 +87,7 @@ class _MeChatState extends State<MeChat> {
           child: Padding(
             padding: EdgeInsets.fromLTRB(3.30.w, 0.32.h, 2.86.w, 0.32.h),
             child: Text(
-              'Sunday, 4.01 AM',
+              '${DateFormat.LLLL().format(widget.message.created!)} ${DateFormat.jm().format(widget.message.created!)}',
               textAlign: TextAlign.start,
               maxLines: 1,
               style: GoogleFonts.leagueSpartan(

@@ -19,12 +19,20 @@ class DeleteChat extends ChatEvent {
   });
 }
 
-class ConnectSocket extends ChatEvent {
-  final String chatRoomId;
+class DisconnectSocket extends ChatEvent {}
 
-  ConnectSocket({
-    required this.chatRoomId,
+class ReceiveChat extends ChatEvent {
+  final MessageReceive message;
+
+  ReceiveChat({
+    required this.message,
   });
 }
 
-class DisconnectSocket extends ChatEvent {}
+class ReceiveStoreChat extends ChatEvent {
+  final Message message;
+
+  ReceiveStoreChat({
+    required this.message,
+  });
+}

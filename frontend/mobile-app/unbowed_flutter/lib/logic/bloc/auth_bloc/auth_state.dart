@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'auth_bloc.dart';
 
 @immutable
@@ -25,11 +26,14 @@ class AuthRegistered extends AuthState {
   });
 }
 
-class AuthLoggingOut extends AuthState {
-  final Exception? exception;
-  final bool isLoading;
-  AuthLoggingOut({
-    required this.exception,
-    required this.isLoading,
+class AuthUnregistered extends AuthState {}
+
+class AuthPhoneNumberSent extends AuthState {
+  final String phoneNumber;
+  final String secretKey;
+
+  AuthPhoneNumberSent({
+    required this.phoneNumber,
+    required this.secretKey,
   });
 }

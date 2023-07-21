@@ -1,59 +1,54 @@
-import 'package:unbowed_flutter/data/models/register/login_request_model.dart';
-import 'package:unbowed_flutter/data/models/register/register_exception_model.dart';
-import 'package:unbowed_flutter/data/models/register/register_response_model.dart';
-import 'package:unbowed_flutter/data/services/api_services.dart';
-import 'package:unbowed_flutter/data/services/shared_services.dart';
+import 'package:unbowed_flutter/data/models/register/confirm_message_model.dart';
+import 'package:unbowed_flutter/data/models/register/otp_error_model.dart';
 
 import '../config/config.dart';
-import '../models/register/register_request_model.dart';
+import '../models/register/register_response_model.dart';
+import '../models/register/send_otp_model.dart';
+import '../models/register/verify_otp_model.dart';
+import '../services/api_services.dart';
 
 class UserRepository {
-  Api api = Api();
-
-  static ApiService<Object> registerUser({
-    required String username,
+  static ApiService<String> submitPhoneNumber({
     required String phoneNumber,
-    required String password,
   }) {
-    final RegisterRequestModel registerRequestModel = RegisterRequestModel(
-      username: username,
+    final SendOtpModel sendOtpModel = SendOtpModel(
       phoneNumber: phoneNumber,
-      password: password,
-      password2: password,
     );
 
-    const String url = "${Config.domain}${Config.registerURL}";
+    const String url = Config.sendNumberURL;
 
     return ApiService(
       url: url,
-      body: registerRequestModelToJson(registerRequestModel),
+      body: sendOtpModelToJson(sendOtpModel),
       parse: (response) {
-        if (response.statusCode == 400) {
-          return registerExceptionModelFromJson(response.body);
-        }
-        return registerResponseModelFromJson(response.body);
+        ConfirmMessageModel message =
+            confirmMessageModelFromJson(response.body);
+        return message.sharedSecret;
       },
     );
   }
 
-  static ApiService<RegisterResponseModel> loginUser({
+  static ApiService<Object> verifyOtp({
     required String phoneNumber,
-    required String password,
+    required String verificationCode,
+    required String secretKey,
   }) {
-    final LoginRequestModel loginModel = LoginRequestModel(
+    final VerifyOtpModel verifyOtpModel = VerifyOtpModel(
       phoneNumber: phoneNumber,
-      password: password,
+      verificationCode: verificationCode,
+      secretKey: secretKey,
     );
 
-    const String url = "${Config.domain}${Config.loginURL}";
+    const String url = Config.verifyOtpURL;
 
     return ApiService(
       url: url,
-      body: loginRequestModelToJson(loginModel),
+      body: verifyOtpModelToJson(verifyOtpModel),
       parse: (response) {
-        var user = registerResponseModelFromJson(response.body);
-        SharedService().setLoginDetails(user);
-        return user;
+        if (response.statusCode == 400) {
+          return otpErrorModelFromJson(response.body);
+        }
+        return registerResponseModelFromJson(response.body);
       },
     );
   }

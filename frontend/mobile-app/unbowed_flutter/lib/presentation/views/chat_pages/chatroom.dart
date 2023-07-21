@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/presentation/widgets/containers/chats/chat_logic.dart';
 
 import '../../widgets/containers/chatroom_appbar.dart';
 import '../../widgets/containers/chats/me_chat.dart';
@@ -16,6 +17,8 @@ class ChatroomPageWidget extends StatefulWidget {
 class _ChatroomPageWidgetState extends State<ChatroomPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  UniqueKey? _uniqueKey;
+  List<ChatLogic> _chatList = [];
 
   late final AnimationController _animationController;
   final ScrollController _scrollController = ScrollController();
