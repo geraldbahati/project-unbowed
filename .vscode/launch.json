@@ -54,6 +54,14 @@
             "deviceId" : "QKF6S4S48TYDSKQG"
         },
 
+        {
+            "name": "SM A225F",
+            "cwd": "frontend/mobile-app/unbowed_flutter",
+            "request": "launch",
+            "type": "dart",
+        
+            "deviceId" : "RZ8R733L9VX"
+        },
     ],
 
     "compounds": [
@@ -63,6 +71,7 @@
                 "Iphone 14 Pro Max",
                 "CPH2219",
                 "CPH1923",
+                "SM A225F"
             ],
         }
     ]

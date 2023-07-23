@@ -33,7 +33,7 @@ def send_otp_sms(phone_number, otp):
 def generate_and_send_otp(phone_number):
     # Generate a TOTP object using a shared secret key
     shared_secret = pyotp.random_base32()
-    totp = pyotp.TOTP(shared_secret, interval=120)
+    totp = pyotp.TOTP(shared_secret)
 
     # Generate the OTP code
     otp = totp.now()
@@ -48,6 +48,6 @@ def generate_and_send_otp(phone_number):
 def verify_otp(otp, shared_secret):
     # Create a TOTP object using the shared secret
     totp = pyotp.TOTP(shared_secret)
-
+    
     # Verify the provided OTP against the TOTP
     return totp.verify(otp)

@@ -1,18 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 import 'package:unbowed_flutter/data/models/messages/message_model.dart';
 
 class MeChat extends StatefulWidget {
   final Message message;
-
-  final bool isFirst;
+  final bool isSamePerson;
   const MeChat({
     Key? key,
     required this.message,
-    this.isFirst = false,
+    this.isSamePerson = false,
   }) : super(key: key);
 
   @override
@@ -24,7 +23,6 @@ class _MeChatState extends State<MeChat> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _showTime = false;
@@ -32,7 +30,6 @@ class _MeChatState extends State<MeChat> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
 
     _showTime = false;
@@ -49,7 +46,7 @@ class _MeChatState extends State<MeChat> {
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(
               0,
-              widget.isFirst ? 1.73.h : 0,
+              !widget.isSamePerson ? 1.73.h : 0,
               0,
               0.22.h,
             ),

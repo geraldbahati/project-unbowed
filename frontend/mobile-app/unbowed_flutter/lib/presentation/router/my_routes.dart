@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:unbowed_flutter/logic/cubit/channel_cubit/channel_cubit.dart';
 
 import '../../data/provider/chat_provider.dart';
 import '../../data/provider/user_provider.dart';
@@ -56,11 +57,39 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LandingView());
 
       case chatRoute:
-        return MaterialPageRoute(builder: (_) => const ChatScreen());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: _chatBloc,
+              ),
+              BlocProvider.value(
+                value: _authBloc,
+              ),
+            ],
+            child: const ChatScreen(),
+          ),
+        );
 
       case chatRoomRoute:
+        final chatRoomId = routeSettings.arguments as String;
         return CircularPageRoute(
-          builder: (_) => const ChatroomPageWidget(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider<ChannelCubit>(
+                create: (context) => ChannelCubit(ChatService()),
+              ),
+              BlocProvider.value(
+                value: _chatBloc,
+              ),
+              BlocProvider.value(
+                value: _authBloc,
+              ),
+            ],
+            child: ChatroomPageWidget(
+              chatRoomId: chatRoomId,
+            ),
+          ),
           durationInMillisecond: 300,
         );
 

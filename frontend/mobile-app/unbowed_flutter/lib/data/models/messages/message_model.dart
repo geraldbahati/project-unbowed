@@ -4,8 +4,9 @@
 
 import 'dart:convert';
 
-List<Message> messageFromJson(String str) =>
-    List<Message>.from(json.decode(str).map((x) => Message.fromJson(x)));
+List<Message> messageFromJson(String str) => List<Message>.from(json
+    .decode(utf8.decode(str.runes.toList()))['results']
+    .map((x) => Message.fromJson(x)));
 
 String messageToJson(List<Message> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -19,6 +20,9 @@ class Message {
   final String? description;
   final DateTime? updated;
   final DateTime? created;
+  bool isFirst = false;
+  bool isMiddle = false;
+  bool isLast = false;
 
   Message({
     this.id,

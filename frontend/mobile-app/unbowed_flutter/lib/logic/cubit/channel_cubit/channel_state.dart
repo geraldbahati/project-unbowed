@@ -23,10 +23,28 @@ class ChannelConnected extends ChannelState {
   });
 }
 
-class ChatReceived extends ChannelState {
+class MessageReceived extends ChannelState {
   final MessageReceive message;
 
-  ChatReceived({
+  MessageReceived({
     required this.message,
+  });
+}
+
+class TypingState extends ChannelState {
+  final bool isTyping;
+  final String username;
+
+  TypingState({
+    required this.isTyping,
+    required this.username,
+  });
+}
+
+class OnlineUsers extends ChannelState {
+  final OnlineUsersResponse onlineStatus;
+
+  OnlineUsers({
+    required this.onlineStatus,
   });
 }

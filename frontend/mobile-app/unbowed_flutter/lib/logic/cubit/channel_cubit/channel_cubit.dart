@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:unbowed_flutter/data/models/messages/online_users_response.dart';
 import 'package:unbowed_flutter/data/provider/chat_provider.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -26,20 +29,39 @@ class ChannelCubit extends Cubit<ChannelState> {
     required String chatRoomId,
   }) async {
     emit(ChannelConnecting(isConnecting: false));
-    _provider.connect(chatRoomId: chatRoomId).then((channel) {
-      emit(ChannelConnected(channel: channel));
+
+    try {
+      _channel = await _provider.connect(chatRoomId: chatRoomId);
+      emit(ChannelConnected(channel: _channel));
       emit(ChannelConnecting(isConnecting: true));
       //stream subscription
-      channel.stream.listen((jsonResponse) {
-        emit(ChatReceived(
-          message: msReceiveFromJson(jsonResponse),
-        ));
+      _channel.stream.listen((jsonResponse) {
+        final data = jsonDecode(jsonResponse);
+        final action = data['action'];
+
+        if (action == 'typing') {
+          emit(TypingState(
+            isTyping: true,
+            username: data['username'],
+          ));
+        } else if (action == 'receive-message') {
+          print(msReceiveFromJson(jsonResponse).message);
+          emit(MessageReceived(
+            message: msReceiveFromJson(jsonResponse),
+          ));
+        } else if (action == 'online_users') {
+          emit(
+            OnlineUsers(
+              onlineStatus: onlineUsersResponseFromJson(jsonResponse),
+            ),
+          );
+        }
       });
-    }).catchError((e) {
+    } on Exception catch (e) {
       emit(ChannelConnecting(
         exception: e,
         isConnecting: false,
       ));
-    });
+    }
   }
 }

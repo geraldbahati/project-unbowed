@@ -1,12 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/data/models/chatroom/chatroom_model.dart';
 
 import '../../router/route_mapping.dart';
 import '../../styles/text_styling.dart';
 import '../../styles/theme.dart';
 
 class ChatroomTile extends StatelessWidget {
-  const ChatroomTile({super.key});
+  final ChatroomModel chatroomModel;
+
+  const ChatroomTile({
+    Key? key,
+    required this.chatroomModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,11 @@ class ChatroomTile extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, chatRoomRoute);
+                  Navigator.pushNamed(
+                    context,
+                    chatRoomRoute,
+                    arguments: chatroomModel.id.toString(),
+                  );
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.33.w),
@@ -46,7 +57,7 @@ class ChatroomTile extends StatelessWidget {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.43.h),
                         child: Text(
-                          'The Rocks',
+                          chatroomModel.name,
                           style: chatRoomTitleTextStyle,
                         ),
                       ),
@@ -54,7 +65,7 @@ class ChatroomTile extends StatelessWidget {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0, 0.43.h, 0, 0),
                         child: Text(
-                          "Gerald Bahati started a party",
+                          chatroomModel.lastMessage ?? "No messages yet",
                           style: chatRoomSubTitleTextStyle,
                         ),
                       ),

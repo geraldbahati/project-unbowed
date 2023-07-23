@@ -7,11 +7,13 @@ import 'package:unbowed_flutter/presentation/widgets/containers/chats/custom_cha
 
 class OtherChat extends StatefulWidget {
   final Message message;
+  final bool isSamePerson;
 
   const OtherChat({
-    super.key,
+    Key? key,
     required this.message,
-  });
+    this.isSamePerson = false,
+  }) : super(key: key);
 
   @override
   State<OtherChat> createState() => _OtherChatState();
@@ -22,7 +24,6 @@ class _OtherChatState extends State<OtherChat> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _showTime = false;
@@ -39,15 +40,27 @@ class _OtherChatState extends State<OtherChat> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildSenderName(),
+              Visibility(
+                visible: !(widget.message.isFirst ||
+                        widget.message.isMiddle ||
+                        widget.message.isLast) ||
+                    widget.message.isFirst,
+                child: _buildSenderName(),
+              ),
               _buildMessageBubble(context),
               _buildMessageTimestamp(),
             ],
           ),
         ),
-        Padding(
-          padding: EdgeInsets.only(top: 0.43.h),
-          child: _buildProfileImage(context),
+        Visibility(
+          visible: widget.message.isLast ||
+              !(widget.message.isFirst ||
+                  widget.message.isMiddle ||
+                  widget.message.isLast),
+          child: Padding(
+            padding: EdgeInsets.only(top: 0.43.h),
+            child: _buildProfileImage(context),
+          ),
         ),
       ],
     );
@@ -66,22 +79,51 @@ class _OtherChatState extends State<OtherChat> {
     );
   }
 
-  // TODO have a better context management
   Widget _buildMessageBubble(context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: _showTime ? 0.22.h : 1.83.h),
+      padding: EdgeInsets.only(
+          bottom: _showTime
+              ? 0.22.h
+              : widget.message.isFirst || widget.message.isMiddle
+                  ? 0
+                  : 1.83.h),
       child: GestureDetector(
           onTap: () {
             setState(() {
               _showTime = !_showTime;
             });
           },
-          child: ChatBubble(
-            message: widget.message.description!,
-          )
-
-          // ),
-          ),
+          child: widget.message.isLast ||
+                  !(widget.message.isFirst ||
+                      widget.message.isMiddle ||
+                      widget.message.isLast)
+              ? ChatBubble(
+                  message: widget.message.description!,
+                )
+              : Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.65,
+                  ),
+                  decoration: BoxDecoration(
+                    // color: Colors.orange,
+                    color: Colors.white.withOpacity(0.42),
+                    borderRadius: BorderRadius.circular(13.33.sp),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.fromLTRB(2.64.w, 1.51.h, 2.64.w, 0.97.h),
+                    child: Text(
+                      widget.message.description!,
+                      // "I am better",
+                      textAlign: TextAlign.start,
+                      textWidthBasis: TextWidthBasis.longestLine,
+                      style: GoogleFonts.leagueSpartan(
+                        fontSize: 15.sp,
+                      ),
+                      // style: chatRoomTitleTextStyle,
+                    ),
+                  ),
+                )),
     );
   }
 

@@ -16,46 +16,32 @@ class ChatLoading extends ChatState {
   });
 }
 
-class ChatLoaded extends ChatState {
-  final List<Message> messages;
-
-  ChatLoaded({
-    required this.messages,
-  });
-}
-
-class SocketConnecting extends ChatState {
-  final Exception? exception;
-  final bool isConnecting;
-
-  SocketConnecting({
-    this.exception,
-    required this.isConnecting,
-  });
-}
-
 class ChatReceived extends ChatState {
-  final Message message;
+  final ChatLogic chat;
+  final bool shouldRefresh;
 
   ChatReceived({
-    required this.message,
+    required this.chat,
+    this.shouldRefresh = false,
   });
 }
 
-class PreviousChatStored extends ChatState {
-  final Message message;
+class ChatRoomsLoading extends ChatState {
+  final Exception? exception;
+  final bool isLoading;
 
-  PreviousChatStored({
-    required this.message,
+  ChatRoomsLoading({
+    this.exception,
+    required this.isLoading,
   });
 }
 
-class ChatInstanceState extends ChatState {
-  final Message message;
-  final bool isSamePerson;
+class ChatRoomsLoaded extends ChatState {
+  final List<ChatroomModel> chatRooms;
 
-  ChatInstanceState({
-    required this.message,
-    required this.isSamePerson,
+  ChatRoomsLoaded({
+    required this.chatRooms,
   });
 }
+
+class ChatStateChange extends ChatState {}

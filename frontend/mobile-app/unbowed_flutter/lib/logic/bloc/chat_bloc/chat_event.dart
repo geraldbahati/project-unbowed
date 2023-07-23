@@ -36,3 +36,5 @@ class ReceiveStoreChat extends ChatEvent {
     required this.message,
   });
 }
+
+class LoadChatRooms extends ChatEvent {}

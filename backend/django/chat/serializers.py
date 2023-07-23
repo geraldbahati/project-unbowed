@@ -34,6 +34,7 @@ class MessageSerializer(ModelSerializer):
 class ChatRoomSerializer(ModelSerializer):
     owner = UserPublicSerializer(source='host',read_only=True)
     last_message = SerializerMethodField(read_only=True)
+    participants = SerializerMethodField(read_only=True)
 
     class Meta:
         model = ChatRoom
@@ -44,24 +45,23 @@ class ChatRoomSerializer(ModelSerializer):
             'name',
             'description',
             'last_message',
-
             'updated',
             'timestamp',
         ]
 
         extra_kwargs = {
-            # 'optional_tied_course' : {'write_only': True},
-            
             'participants' : {'read_only': True},
         }
 
     def get_last_message(self, obj):
         linked_messages = obj.message_set.all()
-        course_lookup = Q(host=obj.host)
-        last_mss_qs = linked_messages.filter(course_lookup).distinct().first() or None
+        last_mss_qs = linked_messages.distinct().first() or None
 
         if last_mss_qs is not None:
             return last_mss_qs.description
 
         return None
+    
+    def get_participants(self, obj):
+        return [participant.phone_number for participant in obj.participants.all()]
 

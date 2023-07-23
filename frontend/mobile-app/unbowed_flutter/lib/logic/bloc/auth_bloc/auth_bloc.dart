@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:unbowed_flutter/data/services/shared_services.dart';
 
 import '../../../../data/models/register/register_response_model.dart';
 import '../../../../data/provider/user_provider.dart';

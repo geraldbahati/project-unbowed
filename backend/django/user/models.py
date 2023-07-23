@@ -54,6 +54,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    is_online = models.BooleanField(default=False)
+
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     access_token = models.CharField(max_length=255, blank=True, null=True)

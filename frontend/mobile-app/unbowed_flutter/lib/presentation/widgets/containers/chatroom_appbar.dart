@@ -2,8 +2,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
+import 'package:unbowed_flutter/logic/cubit/channel_cubit/channel_cubit.dart';
 
 class ChatroomAppBarWidget extends StatefulWidget {
   final Function(AnimationController) callback;
@@ -134,151 +136,185 @@ class _ChatroomAppBarWidgetState extends State<ChatroomAppBarWidget>
                 // 2.70.h,
                 0,
               ),
-              child: Stack(
-                // mainAxisSize: MainAxisSize.max,
-                // mainAxisAlignment: MainAxisAlignment.start,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+              child: BlocBuilder<ChannelCubit, ChannelState>(
+                builder: (context, state) {
+                  return Stack(
+                    // mainAxisSize: MainAxisSize.max,
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    // crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Wrap(
-                        spacing: 0,
-                        runSpacing: 0,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.horizontal,
-                        runAlignment: WrapAlignment.start,
-                        verticalDirection: VerticalDirection.down,
-                        clipBehavior: Clip.none,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Stack(
-                            alignment: const AlignmentDirectional(0, 0),
+                          Wrap(
+                            spacing: 0,
+                            runSpacing: 0,
+                            alignment: WrapAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            direction: Axis.horizontal,
+                            runAlignment: WrapAlignment.start,
+                            verticalDirection: VerticalDirection.down,
+                            clipBehavior: Clip.none,
                             children: [
-                              Container(
-                                width: _resizeProfilePhotoAnimation.value,
-                                // height: 9.71.h,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.black,
-                                ),
-                                child: Image.network(
-                                  'https://picsum.photos/seed/186/600',
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              SizedBox(
-                                width: _resizeProfilePhotoBorderWidthAnimation
-                                    .value,
-                                height: _resizeProfilePhotoBorderHeightAnimation
-                                    .value,
-                                child: Align(
-                                  alignment: const AlignmentDirectional(1, 1),
-                                  child: Container(
-                                    width: 2.64.w,
-                                    height: 1.29.h,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.8),
+                              Stack(
+                                alignment: const AlignmentDirectional(0, 0),
+                                children: [
+                                  Container(
+                                    width: _resizeProfilePhotoAnimation.value,
+                                    // height: 9.71.h,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
+                                      color: Colors.black,
                                     ),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/186/600',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width:
+                                        _resizeProfilePhotoBorderWidthAnimation
+                                            .value,
+                                    height:
+                                        _resizeProfilePhotoBorderHeightAnimation
+                                            .value,
                                     child: Align(
                                       alignment:
-                                          const AlignmentDirectional(0, 0),
+                                          const AlignmentDirectional(1, 1),
                                       child: Container(
-                                        width: 1.76.w,
-                                        height: 0.86.h,
+                                        width: 2.64.w,
+                                        height: 1.29.h,
                                         decoration: BoxDecoration(
-                                          color: Colors.green,
+                                          color: Colors.white.withOpacity(0.8),
                                           shape: BoxShape.circle,
+                                        ),
+                                        child: Align(
+                                          alignment:
+                                              const AlignmentDirectional(0, 0),
+                                          child: Container(
+                                            width: 1.76.w,
+                                            height: 0.86.h,
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: 0.88.w,
+                              ),
+                              Opacity(
+                                opacity: _bounceInAnimation.value,
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth: 38.46.w,
+                                  ),
+                                  child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "The Rocks",
+                                          style: GoogleFonts.averageSans(
+                                            fontSize: 15.sp,
+                                          ),
+                                        ),
+
+                                        // status text
+                                        Text(
+                                          state is TypingState
+                                              ? '${state.username} is typing...'
+                                              : 'Kylon_thagoat7 and 3 other members online',
+                                          style: GoogleFonts.averageSans(
+                                            color:
+                                                Colors.black.withOpacity(0.5),
+                                            fontSize: 11.6375.sp,
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ]),
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(
-                            width: 0.88.w,
-                          ),
-                          Opacity(
-                            opacity: _bounceInAnimation.value,
-                            child: Text(
-                              "The Rocks",
-                              style: GoogleFonts.averageSans(
-                                fontSize: 15.sp,
+                          Wrap(
+                            spacing: 0,
+                            runSpacing: 0,
+                            alignment: WrapAlignment.start,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            direction: Axis.horizontal,
+                            runAlignment: WrapAlignment.end,
+                            verticalDirection: VerticalDirection.down,
+                            clipBehavior: Clip.none,
+                            children: [
+                              Icon(
+                                Icons.person_add_alt_1_sharp,
+                                color: Colors.black,
+                                size: 23.275.sp,
                               ),
-                            ),
+                              SizedBox(
+                                width: _resizespaceBetweenIconsAnimation.value,
+                              ),
+                              Icon(
+                                Icons.info_rounded,
+                                color: Colors.black,
+                                size: 19.95.sp,
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                      Wrap(
-                        spacing: 0,
-                        runSpacing: 0,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        direction: Axis.horizontal,
-                        runAlignment: WrapAlignment.end,
-                        verticalDirection: VerticalDirection.down,
-                        clipBehavior: Clip.none,
-                        children: [
-                          Icon(
-                            Icons.person_add_alt_1_sharp,
-                            color: Colors.black,
-                            size: 23.275.sp,
-                          ),
-                          SizedBox(
-                            width: _resizespaceBetweenIconsAnimation.value,
-                          ),
-                          Icon(
-                            Icons.info_rounded,
-                            color: Colors.black,
-                            size: 19.95.sp,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  // SizedBox(height: 0.54.h),
-                  Visibility(
-                    visible: _resizeAnimationController.value < 0.6,
-                    child: Align(
-                      alignment: AlignmentDirectional(-1, 0.5),
-                      child: Opacity(
-                        opacity: 1 - (_bounceInAnimation.value),
-                        child: Wrap(
-                          spacing: 0,
-                          runSpacing: 0,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          direction: Axis.horizontal,
-                          runAlignment: WrapAlignment.start,
-                          verticalDirection: VerticalDirection.down,
-                          clipBehavior: Clip.none,
-                          children: [
-                            Text(
-                              'The Rock',
-                              style: GoogleFonts.averageSans(
-                                fontSize: 20.37.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
+                      // SizedBox(height: 0.54.h),
+                      Visibility(
+                        visible: _resizeAnimationController.value < 0.6,
+                        child: Align(
+                          alignment: AlignmentDirectional(-1, 0.5),
+                          child: Opacity(
+                            opacity: 1 - (_bounceInAnimation.value),
+                            child: Wrap(
+                              spacing: 0,
+                              runSpacing: 0,
+                              alignment: WrapAlignment.start,
+                              crossAxisAlignment: WrapCrossAlignment.start,
+                              direction: Axis.vertical,
+                              runAlignment: WrapAlignment.start,
+                              verticalDirection: VerticalDirection.down,
+                              clipBehavior: Clip.none,
+                              children: [
+                                Text(
+                                  'The Rock',
+                                  style: GoogleFonts.averageSans(
+                                    fontSize: 20.37.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  state is TypingState
+                                      ? '${state.username} is typing...'
+                                      : 'Kylon_thagoat7 and 3 other members online',
+                                  style: GoogleFonts.averageSans(
+                                    color: Colors.black.withOpacity(0.5),
+                                    fontSize: 13.13.sp,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Kylon_thagoat7 and 3 other members online',
-                              style: GoogleFonts.averageSans(
-                                color: Colors.black.withOpacity(0.5),
-                                fontSize: 13.13.sp,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ],
+                    ],
+                  );
+                },
               ),
             ),
           ),

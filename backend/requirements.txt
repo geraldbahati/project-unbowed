@@ -17,3 +17,4 @@ twilio
 pyotp
 python-dotenv
 africastalking
+fcm-django

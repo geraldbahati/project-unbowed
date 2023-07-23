@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
-from django.http import Http404
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from user.models import CustomUser
 from .models import Message, ChatRoom
@@ -15,13 +15,18 @@ from api.mixins import StaffEditorPermissionMixin, OwnerOrReadOnlyPermissionMixi
 class ChatRoomListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
     queryset = ChatRoom.objects.all()
     serializer_class = ChatRoomSerializer
+    authentication_classes = [JWTAuthentication]
 
+
+    def get_queryset(self):
+        print(self.request.user)
+        return super().get_queryset()
+    
     def perform_create(self, serializer):
         host = self.request.user
 
         participants = CustomUser.objects.all().exclude(id=host.id) or None
         
-
         serializer.save(
             host=host,
             participants=participants,
@@ -50,16 +55,9 @@ class ChatRoomDetailAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
     def perform_create(self, serializer):
         chat_room = self.get_object()
         host = self.request.user
-        topic = serializer.validated_data.get("topic") or None
-        print(topic)
-        description = serializer.validated_data.get("describe")
+        description = serializer.validated_data.get("description")
 
-        if topic is None:
-            topic = description[0:20] + "..."
-
-        serializer.save(chat_room=chat_room, host=host, topic=topic)
-
-        serializer.save()
+        serializer.save(chat_room=chat_room, host=host, description=description)
 
 
 class ChatRoomDestroyAPIView(DestroyAPIView, StaffEditorPermissionMixin):

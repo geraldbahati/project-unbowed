@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -5,16 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
 
 class ChatTextfield extends StatefulWidget {
+  final TextEditingController controller;
+  final Function(String) onTyping;
+  final void Function()? onSend;
   const ChatTextfield({
-    super.key,
-  });
+    Key? key,
+    required this.controller,
+    required this.onTyping,
+    this.onSend,
+  }) : super(key: key);
 
   @override
   State<ChatTextfield> createState() => _ChatTextfieldState();
 }
 
 class _ChatTextfieldState extends State<ChatTextfield> {
-  late final TextEditingController _textController;
   final FocusNode _focusNode = FocusNode();
   bool _isFocused = false;
 
@@ -29,14 +35,11 @@ class _ChatTextfieldState extends State<ChatTextfield> {
     // TODO: implement initState
     super.initState();
 
-    _textController = TextEditingController();
     _focusNode.addListener(_onTextFieldFocusChanged);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    _textController.dispose();
     _focusNode.removeListener(_onTextFieldFocusChanged);
 
     super.dispose();
@@ -183,7 +186,8 @@ class _ChatTextfieldState extends State<ChatTextfield> {
                               ),
                               child: TextFormField(
                                 focusNode: _focusNode,
-                                controller: _textController,
+                                controller: widget.controller,
+                                onChanged: (value) => widget.onTyping(value),
                                 textCapitalization:
                                     TextCapitalization.sentences,
                                 keyboardType: TextInputType.multiline,
@@ -217,12 +221,15 @@ class _ChatTextfieldState extends State<ChatTextfield> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0, 0, 4.62.w, 1.73.h),
-                            child: Icon(
-                              _focusNode.hasFocus
-                                  ? Icons.send
-                                  : Icons.mic_outlined,
-                              color: Colors.white70,
-                              size: 19.95.sp,
+                            child: GestureDetector(
+                              onTap: _focusNode.hasFocus ? widget.onSend : null,
+                              child: Icon(
+                                _focusNode.hasFocus
+                                    ? Icons.send
+                                    : Icons.mic_outlined,
+                                color: Colors.white70,
+                                size: 19.95.sp,
+                              ),
                             ),
                           ),
                         ],

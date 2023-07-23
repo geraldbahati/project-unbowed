@@ -24,7 +24,7 @@ class Websocket {
     };
 
     Uri url = Uri.parse(
-        "ws://${Config.domain}${Config.chatRoomWebSocketUrl}${service.url}");
+        "ws://${Config.domain}${Config.chatRoomWebSocketUrl}${service.url}/");
 
     IOWebSocketChannel channel = IOWebSocketChannel.connect(
       url,

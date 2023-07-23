@@ -16,3 +16,8 @@ class UserNotRegisteredException implements Exception {}
 class GenericAuthException implements Exception {}
 
 class FailedToSubmitPhoneNumberException implements Exception {}
+
+//chat exceptions
+class FailedToLoadChatsException implements Exception {}
+
+class FailedToLoadChatRoomsException implements Exception {}
