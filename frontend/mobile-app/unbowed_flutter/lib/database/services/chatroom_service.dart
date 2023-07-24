@@ -140,4 +140,10 @@ class ChatroomDbService {
     await dbClient.execute(dropParticipantTable);
     await _cacheChatRooms();
   }
+
+  Future<void> deleteChatRoomTable() async {
+    final dbClient = await _dbService.db;
+    await dbClient.execute(dropChatRoomTable);
+    await _cacheChatRooms();
+  }
 }
