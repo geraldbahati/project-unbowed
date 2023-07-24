@@ -46,12 +46,8 @@ const animationVariants = {
 
 const Register = () => {
     const dispatch = useDispatch();
-
     const navigate = useNavigate();
-
-    const [user, setUser] = useState({
-        phone: "",
-    });
+    const [user, setUser] = useState({ phone_number: "" });
 
     const [signupError, setSignupError] = useState("");
     const [signupStatus, setSignupStatus] = useState("idle");
@@ -80,34 +76,36 @@ const Register = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // if (data.get("phone")) {
-        //     try {
-        //         setSignupStatus("pending");
+        if (data.get("phone")) {
+            try {
+                setSignupStatus("pending");
 
-        //         let phone = user.phone;
-        //         dispatch(userReg({ phone })).unwrap();
-        //         setUser({
-        //             phone: "",
-        //         });
-        //     } catch (err) {
-        //         console.log(err);
-        //     } finally {
-        //         setSignupStatus("idle");
-        //     }
-        // } else {
-        //     console.log("The number entered is invalid. Try again");
-        //     setSignupError("The number entered is invalid. Try again");
-        // }
-        navigate("/verification");
+                let phone_number = data.get("phone");
+                dispatch(userReg({ phone_number })).unwrap();
+                setUser({
+                    phone: "",
+                });
+                // navigate("/verification");
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setSignupStatus("idle");
+            }
+        } else {
+            console.log("The number entered is invalid. Try again");
+            setSignupError("The number entered is invalid. Try again");
+        }
+
+        // navigate("/verification");
     };
 
     return (
         <ThemeProvider theme={theme}>
-            <Container>
+            <Container sx={{ height: "100vh", width: "100vw" }}>
                 <motion.div
-                    variants={animationVariants}
-                    initial="hidden"
-                    animate="visible"
+                    // variants={animationVariants}
+                    // initial="hidden"
+                    // animate="visible"
                     style={{
                         marginTop: 8,
                         marginBottom: 4,

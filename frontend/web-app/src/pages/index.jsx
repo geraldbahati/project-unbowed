@@ -11,3 +11,4 @@ export { default as Scan } from "./Scan";
 export { default as Bot } from "./Bot";
 export { default as Dashboard } from "./Dashboard";
 export { default as Temp } from "./Temp";
+export { default as Test } from "./Test";

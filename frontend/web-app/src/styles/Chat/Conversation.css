@@ -22,13 +22,13 @@
     justify-content: center;
 }
 .conv__userName {
-    flex: 90%;
+    flex: 1;
     font-size: 0.875rem;
     font-weight: 700;
 }
-.conv__usertime {
-    flex: 0.1;
-}
+/* .conv__usertime {
+    flex: 0.75;
+} */
 
 .conv__snippet {
     display: flex;

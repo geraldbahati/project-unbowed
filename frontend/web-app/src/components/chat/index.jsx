@@ -1,4 +1,4 @@
-export { default as Chat } from "./Chat";
+export { default as ChatArea } from "./ChatArea";
 export { default as Body } from "./Body";
 export { default as Sidebar } from "./Sidebar";
 export { default as Conversation } from "./Conversation";

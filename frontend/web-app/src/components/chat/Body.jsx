@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { IconButton, Avatar, Paper, InputBase, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -15,19 +16,33 @@ import { FiSearch } from "react-icons/fi";
 import { MdCall } from "react-icons/md";
 
 import "../../styles/Chat/Body.css";
-import Conversation from "./Conversation";
-import Message from "./Message";
+import { Conversation, ChatArea } from "./";
+import { BASEURL } from "../../assets/urls";
 import { imageData } from "../../assets/data";
 import { sidebarIcons } from "../../assets/constants";
 
 const Body = () => {
+    const [chatRooms, setChatRooms] = useState([]);
+    const [currentRoom, setCurrentRoom] = useState(null);
+
+    useEffect(() => {
+        const fetchChatRooms = () => {
+            axios
+                .get(BASEURL + "chat/chatrooms/")
+                .then((response) => {
+                    setChatRooms(response.data.results);
+                })
+                .catch((error) => {
+                    console.error("Error:", error.message);
+                    setChatRooms([]);
+                });
+        };
+
+        setCurrentRoom(null);
+
+        fetchChatRooms();
+    }, []);
     const navigate = useNavigate();
-    const items = [];
-    for (let i = 0; i < 20; i++) {
-        items.push(i);
-    }
-    const iconStyling = { margin: "0.5rem" };
-    const textboxIcon = { color: "white", fontSize: "1.25rem" };
 
     return (
         <div className="chats_body__main">
@@ -37,8 +52,9 @@ const Body = () => {
                 </div>
                 <div className="body__sidebar_icons">
                     {/* <IconLinks /> */}
-                    {sidebarIcons.map((icon) => (
+                    {sidebarIcons.map((icon, i) => (
                         <IconButton
+                            key={i}
                             onClick={() => navigate(icon.path)}
                             disableRipple
                             disableFocusRipple
@@ -86,14 +102,22 @@ const Body = () => {
                     </div>
 
                     <div className="conversation__component">
-                        {items.map((item) => (
-                            <Conversation className="conversation__container" />
+                        {chatRooms.map((room) => (
+                            <div
+                                key={room.id}
+                                onClick={() => setCurrentRoom(room)}
+                            >
+                                <Conversation
+                                    chatRoom={room}
+                                    className="conversation__container"
+                                />
+                            </div>
                         ))}
                     </div>
                 </section>
 
                 <section className="section__messages">
-                    <div className="messages__header">
+                    {/* <div className="messages__header">
                         <div className="messages_headerAvatar">
                             <Avatar
                                 alt="Remy Sharp"
@@ -154,7 +178,21 @@ const Body = () => {
                                 <BsMicFill style={textboxIcon} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
+                    {currentRoom ? (
+                        <ChatArea room={currentRoom} />
+                    ) : (
+                        <div className="unloaded_messages">
+                            <h2 className="unloaded__header">Web Unbowed</h2>
+                            <p className="unloaded__text">
+                                Send and receive messages that are at sync with
+                                your mobile device.
+                            </p>
+                            <p className="unloaded__small">
+                                End to end encrypted.
+                            </p>
+                        </div>
+                    )}
                 </section>
             </div>
         </div>

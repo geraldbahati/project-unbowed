@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:8000/dj-rest-auth/";
+const BASE_URL = "http://127.0.0.1:8000/api/user/";
 
 const initialState = {
     user: {},
@@ -12,13 +12,9 @@ const initialState = {
 export const userReg = createAsyncThunk(
     "login/userLogin",
     async (credentials) => {
-        // console.log(credentials);
         try {
-            const response = await axios.post(BASE_URL + "registration/", {
-                username: credentials.username,
-                email: credentials.email,
-                password1: credentials.password1,
-                password2: credentials.password2,
+            const response = await axios.post(BASE_URL + "generate_qr_code/", {
+                phone_number: credentials.phone_number,
             });
 
             return response.data;
@@ -39,9 +35,9 @@ const regSlice = createSlice({
             })
             .addCase(userReg.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                // console.log(action.payload);
+                console.log("Action payload is: " + action.payload);
                 state.user = action.payload;
-                // console.log(state.user);
+                console.log("User state is: " + state.user);
             })
             .addCase(userReg.rejected, (state, action) => {
                 state.status = "failed";

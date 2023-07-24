@@ -72,11 +72,11 @@ const Verify = () => {
 
     return (
         <ThemeProvider theme={theme}>
-            <Container>
+            <Container sx={{ height: "100vh", width: "100vw" }}>
                 <motion.div
-                    variants={animationVariants}
-                    initial="hidden"
-                    animate="visible"
+                // variants={animationVariants}
+                // initial="hidden"
+                // animate="visible"
                 >
                     <Box
                         onSubmit={handleSubmit}

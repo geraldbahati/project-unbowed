@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
+import moment from "moment";
 import { Avatar } from "@mui/material";
 
 import "../../styles/Chat/Message.css";
 import { imageData } from "../../assets/data";
 
-const Message = ({ user, username }) => {
-    const currentUser = "Wizzoh";
-    let isSender = false;
+const Message = ({ data, prev }) => {
+    const { id, created, sender, description } = data;
     const [showSenderTime, setShowSenderTime] = useState(false);
     const [showUserTime, setShowUserTime] = useState(false);
 
-    if (username != currentUser) {
-        isSender = !isSender;
-    }
+    const currentUser = "+254790329620";
+    const user = currentUser === sender.username;
+    const isSameSender = prev === sender.username;
+
+    const formattedTime = moment(created).calendar(null, {
+        lastDay: "[Yesterday], h:mm A",
+        sameDay: "h:mm A",
+        lastWeek: "DD/MM/YYYY, h:mm A",
+        sameElse: "DD/MM/YYYY, h:mm A",
+    });
 
     return (
         <>
@@ -24,40 +31,25 @@ const Message = ({ user, username }) => {
                             setShowUserTime(!showUserTime);
                         }}
                     >
-                        To put it mildly, the systems approach makes it easy to
-                        see perspectives of The Accomplishment of Draft
-                        Exchange.
+                        {description}
                     </div>
                     <div className="user_message__info">
                         <p className="user_placeholder">{"  "}</p>
                         {showUserTime && (
-                            <div className="user_message__time">4.20 pm</div>
-                        )}
-                    </div>
-                </div>
-            ) : isSender ? (
-                <div className="other_message">
-                    <h5 className="message__sender">Wizzoh</h5>
-
-                    <div
-                        className="message__content"
-                        onClick={() => {
-                            setShowSenderTime(!showSenderTime);
-                        }}
-                    >
-                        To put it mildly, the systems approach makes it easy to
-                        see perspectives of The Accomplishment of Draft
-                        Exchange.
-                    </div>
-                    <div className="message__info">
-                        {showSenderTime && (
-                            <div className="message__time">4.20 pm</div>
+                            <div className="user_message__time">
+                                {formattedTime}
+                            </div>
                         )}
                     </div>
                 </div>
             ) : (
                 <div className="other_message">
-                    <h5 className="message__sender">Wizzoh</h5>
+                    {isSameSender ? null : (
+                        // <h5 className="message__sender">{sender.username}</h5>
+                        <div className="message__avatar">
+                            <Avatar src={imageData[3].img} />
+                        </div>
+                    )}
 
                     <div
                         className="message__content"
@@ -65,17 +57,18 @@ const Message = ({ user, username }) => {
                             setShowSenderTime(!showSenderTime);
                         }}
                     >
-                        To put it mildly, the systems approach makes it easy to
-                        see perspectives of The Accomplishment of Draft
-                        Exchange.
+                        {description}
                     </div>
 
                     <div className="message__info">
-                        <div className="message__avatar">
-                            <Avatar src={imageData[3].img} />
-                        </div>
+                        {/* {isSameSender ? null : (
+                            // <div className="message__avatar">
+                            //     <Avatar src={imageData[3].img} />
+                            // </div>
+
+                        )} */}
                         {showSenderTime && (
-                            <div className="message__time">4.20 pm</div>
+                            <div className="message__time">{formattedTime}</div>
                         )}
                     </div>
                 </div>

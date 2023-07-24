@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 
 import "../styles/Chats.css";
-import { Sidebar, Chat, Conversations, Body } from "../components/chat";
+import { Conversations, Body } from "../components/chat";
 
 const Chats = () => {
     const largeScreen = true;

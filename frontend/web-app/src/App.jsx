@@ -18,6 +18,7 @@ import {
     Scan,
     Dashboard,
     Temp,
+    Test,
 } from "./pages";
 import { Carousel, Loading, Success } from "./components";
 
@@ -42,7 +43,8 @@ const App = () => {
                     <Route exact path="/success" element={<Success />} />
                     <Route exact path="/scan" element={<Scan />} />
 
-                    <Route exact path="/test" element={<Temp />} />
+                    <Route exact path="/temp" element={<Temp />} />
+                    <Route exact path="/test" element={<Test />} />
                     <Route exact path="/bot" element={<Bot />} />
                 </Routes>
             </Router>
