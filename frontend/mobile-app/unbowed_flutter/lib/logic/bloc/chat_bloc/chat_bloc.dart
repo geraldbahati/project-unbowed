@@ -1,30 +1,28 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:unbowed_flutter/database/services/chatroom_service.dart';
 
 import '../../../data/models/chatroom/chatroom_model.dart';
 import '../../../data/models/messages/message_model.dart';
 import '../../../data/models/messages/message_receive.dart';
 import '../../../data/provider/chat_provider.dart';
+import '../../../database/models/chatroom_db_model.dart';
+import '../../../database/models/message_db_model.dart';
 import '../../../presentation/widgets/containers/chats/chat_logic.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final List<Message> _loadChats = [];
   ChatBloc(ChatProvider provider) : super(ChatInitial()) {
     on<LoadChats>((event, emit) async {
       emit(ChatLoading(isLoading: true));
       try {
         final List<Message> messages;
-        if (_loadChats.isEmpty) {
-          messages = await provider.loadChats(
-            chatRoomId: event.chatRoomId,
-          );
-        } else {
-          print('loading from cache');
-          messages = _loadChats;
-        }
+
+        messages = await provider.loadChats(
+          chatRoomId: event.chatRoomId,
+        );
 
         emit(ChatLoading(isLoading: false));
 
@@ -127,6 +125,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatRoomsLoading(isLoading: true));
       try {
         final List<ChatroomModel> chatRooms = await provider.laodChatrooms();
+        ChatroomDbService chatroomDbService = ChatroomDbService();
+        // chatroomDbService.deleteChatRoomAndParticipantTables();
+
+        chatroomDbService.init();
+
+        chatroomDbService.saveAllChatRooms(
+            chatRooms: dbChatroomsFromChatrooms(chatRooms));
+
         emit(ChatRoomsLoading(isLoading: false));
         emit(ChatRoomsLoaded(chatRooms: chatRooms));
       } on Exception catch (e) {
@@ -135,6 +141,33 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           exception: e,
         ));
       }
+    });
+
+    on<LoadDbChatRooms>((event, emit) async {
+      emit(ChatRoomsLoading(isLoading: true));
+      try {
+        ChatroomDbService chatroomDbService = ChatroomDbService();
+
+        chatroomDbService.init();
+
+        emit(ChatRoomsLoading(isLoading: false));
+
+        chatroomDbService.chatRoomsStream.listen((chatRooms) {
+          add(ReceiveChatRooms(chatRooms: chatRooms));
+        });
+      } on Exception catch (e) {
+        emit(ChatRoomsLoading(
+          isLoading: false,
+          exception: e,
+        ));
+      }
+    });
+
+    on<ReceiveChatRooms>((event, emit) {
+      print("object");
+      emit(ChatRoomsLoaded(
+        chatRooms: dbChatroomsToChatrooms(event.chatRooms),
+      ));
     });
   }
 }

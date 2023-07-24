@@ -48,6 +48,9 @@ dependencies:
   bloc: ^8.1.2
   meta: ^1.9.1
   intl: ^0.18.1
+  sqflite: ^2.2.8+4
+  path: ^1.8.3
+  path_provider: ^2.0.15
  
 
 dev_dependencies:

@@ -38,3 +38,41 @@ class ReceiveStoreChat extends ChatEvent {
 }
 
 class LoadChatRooms extends ChatEvent {}
+
+class SyncChatRooms extends ChatEvent {
+  final List<DatabaseChatRoomModel> chatRooms;
+
+  SyncChatRooms({
+    required this.chatRooms,
+  });
+}
+
+class SyncChats extends ChatEvent {
+  final List<DatabaseMessageModel> chats;
+
+  SyncChats({
+    required this.chats,
+  });
+}
+
+class UpdateMessageDatabase extends ChatEvent {}
+
+class UpdateChatRoomDatabase extends ChatEvent {}
+
+class LoadDbMessages extends ChatEvent {
+  final String chatRoomId;
+
+  LoadDbMessages({
+    required this.chatRoomId,
+  });
+}
+
+class LoadDbChatRooms extends ChatEvent {}
+
+class ReceiveChatRooms extends ChatEvent {
+  final List<DatabaseChatRoomModel> chatRooms;
+
+  ReceiveChatRooms({
+    required this.chatRooms,
+  });
+}

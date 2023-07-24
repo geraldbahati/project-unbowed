@@ -61,20 +61,24 @@ class Message {
 }
 
 class Room {
+  final int? id;
   final String? name;
   final Sender? host;
 
   Room({
+    this.id,
     this.name,
     this.host,
   });
 
   factory Room.fromJson(Map<String, dynamic> json) => Room(
+        id: json["id"],
         name: json["name"],
         host: json["host"] == null ? null : Sender.fromJson(json["host"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "id": id,
         "name": name,
         "host": host?.toJson(),
       };

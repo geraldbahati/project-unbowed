@@ -21,7 +21,8 @@ class _ChatScreenState extends State<ChatScreen> {
   final List<ChatroomModel> _chatList = [];
 
   void _loadChatRoomsFromApi() {
-    context.read<ChatBloc>().add(LoadChatRooms());
+    // context.read<ChatBloc>().add(LoadChatRooms());
+    context.read<ChatBloc>().add(LoadDbChatRooms());
   }
 
   @override
@@ -61,6 +62,13 @@ class _ChatScreenState extends State<ChatScreen> {
                           _chatList.addAll(state.chatRooms);
                         });
                       }
+
+                      // if (state is ChatroomsRecieved) {
+
+                      //   setState(() {
+                      //     _chatList.addAll(state.chatRooms);
+                      //   });
+                      // }
                     },
                     child: Column(
                       mainAxisSize: MainAxisSize.max,

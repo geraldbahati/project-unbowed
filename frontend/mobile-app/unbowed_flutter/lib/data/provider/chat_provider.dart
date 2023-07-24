@@ -1,7 +1,7 @@
-import 'package:unbowed_flutter/data/models/chatroom/chatroom_model.dart';
 import 'package:web_socket_channel/io.dart';
 
 import '../exceptions/auth_exceptions.dart';
+import '../models/chatroom/chatroom_model.dart';
 import '../models/messages/message_model.dart';
 import '../repositories/chat_repository.dart';
 import '../services/api_services.dart';

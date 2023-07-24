@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'chat_bloc.dart';
 
 @immutable
@@ -44,4 +43,34 @@ class ChatRoomsLoaded extends ChatState {
   });
 }
 
-class ChatStateChange extends ChatState {}
+class ChatRoomsSynced extends ChatState {}
+
+class ChatsSynced extends ChatState {}
+
+class ChatRoomDatabaseUpdated extends ChatState {}
+
+class MessageDatabaseUpdated extends ChatState {}
+
+class DbMessagesLoaded extends ChatState {
+  final List<DatabaseMessageModel> messages;
+
+  DbMessagesLoaded({
+    required this.messages,
+  });
+}
+
+class DbChatRoomsLoaded extends ChatState {
+  final List<DatabaseChatRoomModel> chatRooms;
+
+  DbChatRoomsLoaded({
+    required this.chatRooms,
+  });
+}
+
+class ChatroomsRecieved extends ChatState {
+  final List<ChatroomModel> chatRooms;
+
+  ChatroomsRecieved({
+    required this.chatRooms,
+  });
+}
