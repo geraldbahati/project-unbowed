@@ -1,14 +1,22 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/widgets/containers/chats/me_chat.dart';
-import 'package:unbowed_flutter/presentation/widgets/containers/chats/other_chat.dart';
-import 'package:unbowed_flutter/presentation/widgets/textfields/chat_textfiled.dart';
+import 'package:unbowed_flutter/logic/bloc/chat_bloc/chat_bloc.dart';
+import 'package:unbowed_flutter/logic/cubit/channel_cubit/channel_cubit.dart';
+import 'package:unbowed_flutter/presentation/widgets/containers/chats/chat_logic.dart';
+import 'package:web_socket_channel/io.dart';
+
+import '../../../data/models/messages/message_request_model.dart';
+import '../../../logic/bloc/auth_bloc/auth_bloc.dart';
+import '../../widgets/containers/chatroom_appbar.dart';
+import '../../widgets/textfields/chat_textfield.dart';
 
 class ChatroomPageWidget extends StatefulWidget {
-  const ChatroomPageWidget({Key? key}) : super(key: key);
+  final String chatRoomId;
+  const ChatroomPageWidget({
+    Key? key,
+    required this.chatRoomId,
+  }) : super(key: key);
 
   @override
   _ChatroomPageWidgetState createState() => _ChatroomPageWidgetState();
@@ -17,14 +25,83 @@ class ChatroomPageWidget extends StatefulWidget {
 class _ChatroomPageWidgetState extends State<ChatroomPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final _unfocusNode = FocusNode();
+  UniqueKey? _uniqueKey;
+  late final IOWebSocketChannel _channel;
+  late final TextEditingController _textEditingController;
+
+  final List<ChatLogic> _chatList = [];
+
+  late final AnimationController _animationController;
+  final ScrollController _scrollController = ScrollController();
+
+  void _getAnimationController(AnimationController controller) {
+    _animationController = controller;
+  }
+
+  void _loadAndSetupChannel() {
+    context.read<AuthBloc>().add(AuthEventInitial());
+    context.read<ChatBloc>().add(LoadChats(chatRoomId: widget.chatRoomId));
+    context.read<ChannelCubit>().connect(chatRoomId: widget.chatRoomId);
+  }
+
+  void _onSend() {
+    if (_textEditingController.text.isNotEmpty) {
+      // Message message = Message(
+      //   description: _textEditingController.text,
+      //   sender: Sender(
+      //     username: 'Gerald',
+      //   ),
+      //   created: DateTime.now(),
+      // );
+
+      // ChatLogic chat = ChatLogic(
+      //   message: message,
+      //   isSamePerson: true,
+      // );
+
+      // _chatList.add(chat);
+
+      _channel.sink.add(messageRequestToJson(MessageRequest(
+        action: 'send-message',
+        message: _textEditingController.text,
+      )));
+
+      _textEditingController.clear();
+    }
+  }
+
+  void _indicateTyping(String text) {
+    if (text.isNotEmpty) {
+      _channel.sink.add(messageRequestToJson(MessageRequest(
+        action: 'typing',
+        message: text,
+      )));
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+
+    _textEditingController = TextEditingController();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels > 0) {
+        _animationController.forward();
+      }
+    });
+
+    _loadAndSetupChannel();
   }
 
   @override
   void dispose() {
+    _channel.sink.close();
+    _textEditingController.dispose();
+    _scrollController.dispose();
+    // _animationController.dispose();
+    _uniqueKey = null;
+
     _unfocusNode.dispose();
     super.dispose();
   }
@@ -33,141 +110,117 @@ class _ChatroomPageWidgetState extends State<ChatroomPageWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: NestedScrollView(
-          headerSliverBuilder: (context, _) => [const ChatAppBar()],
+      child: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color.fromRGBO(211, 233, 244, 0.96),
+              Color.fromRGBO(233, 209, 241, 0.93),
+            ],
+          ),
+        ),
+        child: Scaffold(
+          key: scaffoldKey,
+          // backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Colors.white.withOpacity(0.2),
+
+          // backgroundColor: Colors.transparent,
+
           body: Builder(
             builder: (context) {
               return SafeArea(
-                top: false,
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(6.59.w, 0, 7.69.w, 0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            OtherChat(),
-                            MeChat(),
-                          ],
-                        ),
-                      ),
+                child: MultiBlocListener(
+                  listeners: [
+                    BlocListener<ChatBloc, ChatState>(
+                      listener: (context, state) {
+                        if (state is ChatReceived) {
+                          _chatList.add(state.chat);
+
+                          if (state.shouldRefresh) {
+                            _uniqueKey = UniqueKey();
+                          }
+
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            _scrollController.animateTo(
+                              _scrollController.position.maxScrollExtent,
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeOut,
+                            );
+                          });
+                        }
+                      },
                     ),
-                    Align(
-                      alignment: AlignmentDirectional(0, 1),
-                      child: ChatTextfield(),
+                    BlocListener<ChannelCubit, ChannelState>(
+                      listener: (context, state) {
+                        if (state is ChannelConnected) {
+                          _channel = state.channel;
+                        }
+
+                        if (state is MessageReceived) {
+                          context
+                              .read<ChatBloc>()
+                              .add(ReceiveChat(message: state.message));
+                        }
+                      },
                     ),
                   ],
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0, 1),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                            6.59.w,
+                            0,
+                            7.69.w,
+                            0,
+                          ),
+                          child: Container(
+                            padding: EdgeInsets.only(bottom: 10.0.h),
+                            width: double.infinity,
+                            height: 86.h,
+                            child: BlocBuilder<ChatBloc, ChatState>(
+                              builder: (context, state) {
+                                return ListView.builder(
+                                  // reverse: true,
+                                  physics: const BouncingScrollPhysics(
+                                      parent: AlwaysScrollableScrollPhysics()),
+                                  shrinkWrap: true,
+                                  key: _uniqueKey,
+                                  controller: _scrollController,
+                                  itemCount: _chatList.length,
+                                  itemBuilder: (context, index) {
+                                    return _chatList[index];
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: AlignmentDirectional(0, 1),
+                        child: ChatTextfield(
+                          controller: _textEditingController,
+                          onTyping: (text) {
+                            _indicateTyping(text);
+                          },
+                          onSend: _onSend,
+                        ),
+                      ),
+                      ChatroomAppBarWidget(
+                        callback: _getAnimationController,
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
           ),
         ),
       ),
-    );
-  }
-}
-
-class ChatAppBar extends StatelessWidget {
-  const ChatAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 19.63.h,
-      collapsedHeight: 9.39.h,
-      pinned: true,
-      floating: false,
-      backgroundColor: Colors.grey,
-      automaticallyImplyLeading: false,
-      leading: Align(
-        alignment: const AlignmentDirectional(1, 0),
-        child: SizedBox(
-          width: 43,
-          height: 4.53.h,
-          child: Stack(
-            alignment: AlignmentDirectional(1, 0),
-            children: [
-              Container(
-                width: 41,
-                height: 41,
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: 'https://picsum.photos/seed/887/600',
-                  fit: BoxFit.cover,
-                ),
-                // child: Image.network(
-                //   'https://picsum.photos/seed/377/600',
-                //   fit: BoxFit.cover,
-                // ),
-              ),
-              Align(
-                alignment: const AlignmentDirectional(1, 1),
-                child: Container(
-                  width: 12,
-                  height: 12,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.background,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Container(
-                      width: 10,
-                      height: 10,
-                      decoration: const BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      title: Align(
-        alignment: AlignmentDirectional(-1, 0),
-        child: Text(
-          'The Rocks',
-          style: GoogleFonts.inter(
-            color: Colors.black,
-            fontSize: 16,
-          ),
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 30.54, 0),
-          child: Icon(
-            Icons.person_add,
-            color: Colors.black,
-            size: 24,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 29.2, 0),
-          child: Icon(
-            Icons.info_sharp,
-            color: Colors.black,
-            size: 24,
-          ),
-        ),
-      ],
-      centerTitle: false,
-      elevation: 2,
     );
   }
 }

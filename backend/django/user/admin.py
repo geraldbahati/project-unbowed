@@ -1,0 +1,115 @@
+from django import forms
+from django.contrib import admin
+from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework_simplejwt.exceptions import TokenError
+
+from .models import CustomUser
+
+
+class UserCreationForm(forms.ModelForm):
+    """A form for creating new users. Includes all the required
+    fields, plus a repeated password."""
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    class Meta:
+        model = CustomUser
+        fields = ('phone_number', 'username', )
+
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Passwords don't match")
+        return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+
+class UserChangeForm(forms.ModelForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    disabled password hash display field.
+    """
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = CustomUser
+        fields = ('phone_number', 'password', 'username')
+
+
+class UserAdmin(BaseUserAdmin):
+    # The forms to add and change user instances
+    form = UserChangeForm
+    add_form = UserCreationForm
+
+    # The fields to be used in displaying the User model.
+    # These override the definitions on the base UserAdmin
+    # that reference specific fields on auth.User.
+    ordering = ('-created')
+    list_display = ('uid','phone_number', 'username', 'is_admin','is_active','is_superuser')
+    list_filter = ('is_admin','is_active','is_superuser')
+    fieldsets = (
+        (None, {'fields': ('phone_number', 'password')}),
+        ('Personal info', {'fields': ('username','uid')}),
+        ('Permissions', {'fields': ('is_admin','is_superuser')}),
+        
+    )
+    # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
+    # overrides get_fieldsets to use this attribute when creating a user.
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('phone_number', 'username', 'password1', 'password2','is_admin','is_active','is_superuser'),
+        }), 
+    )
+    search_fields = ('phone_number','username')
+    ordering = ('phone_number',)
+    filter_horizontal = ()
+
+    def delete_queryset(self, request, queryset):
+        # Blacklist the refresh tokens associated with the users in the queryset
+        for user in queryset:
+            try:
+                refresh_token = user.get_tokens()['refresh']
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+            except TokenError:
+                return Response({'detail': 'Unsuccessfully logged out. TokenError occurred!'})
+
+        # Delete the users
+        super().delete_queryset(request, queryset)
+
+    def save_model(self, request, obj, form, change):
+        # Save the user object
+        obj.save()
+
+        # Generate JWT tokens for the user
+        tokens = obj.get_tokens()
+
+        # Assign the tokens to the user object
+        obj.refresh_token = tokens['refresh']
+        obj.access_token = tokens['access']
+        obj.save()
+
+    
+
+
+
+# Now register the new UserAdmin...
+admin.site.register(CustomUser, UserAdmin)
+# ... and, since we're not using Django's built-in permissions,
+# unregister the Group model from admin.
+admin.site.unregister(Group)

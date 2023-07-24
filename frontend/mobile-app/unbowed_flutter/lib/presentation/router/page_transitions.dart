@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CircularPageRoute extends PageRouteBuilder {
-  CircularPageRoute({required WidgetBuilder builder})
+  CircularPageRoute(
+      {required WidgetBuilder builder, required int durationInMillisecond})
       : super(
           pageBuilder: (context, animation, secondaryAnimation) =>
               builder(context),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return CircularTransition(animation, child);
           },
+          transitionDuration: Duration(milliseconds: durationInMillisecond),
         );
 }
 

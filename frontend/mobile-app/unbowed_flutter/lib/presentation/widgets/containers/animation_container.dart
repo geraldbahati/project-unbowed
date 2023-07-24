@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../animations/exclamation.dart';
 import '../../styles/custom_box_decorators.dart';
 
-import '../../animations/chat.dart';
+import '../../animations/chat_animate.dart';
 import '../../animations/circles.dart';
 
 enum AnimationType { chat, exclamation, circles }

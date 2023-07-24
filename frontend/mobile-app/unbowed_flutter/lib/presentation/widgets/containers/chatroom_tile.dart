@@ -1,11 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-import 'package:unbowed_flutter/presentation/router/route_mapping.dart';
-import 'package:unbowed_flutter/presentation/styles/theme.dart';
+import 'package:unbowed_flutter/data/models/chatroom/chatroom_model.dart';
+
+import '../../router/route_mapping.dart';
+import '../../styles/text_styling.dart';
+import '../../styles/theme.dart';
 
 class ChatroomTile extends StatelessWidget {
-  const ChatroomTile({super.key});
+  final ChatroomModel chatroomModel;
+
+  const ChatroomTile({
+    Key? key,
+    required this.chatroomModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,11 @@ class ChatroomTile extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, chatRoomRoute);
+                  Navigator.pushNamed(
+                    context,
+                    chatRoomRoute,
+                    arguments: chatroomModel.id.toString(),
+                  );
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 2.33.w),
@@ -45,22 +57,16 @@ class ChatroomTile extends StatelessWidget {
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0.43.h),
                         child: Text(
-                          'The Rocks',
-                          style: GoogleFonts.inter(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
+                          chatroomModel.name,
+                          style: chatRoomTitleTextStyle,
                         ),
                       ),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0, 0.43.h, 0, 0),
                         child: Text(
-                          "Gerald Bahati started a party",
-                          style: GoogleFonts.inter(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                          ),
+                          chatroomModel.lastMessage ?? "No messages yet",
+                          style: chatRoomSubTitleTextStyle,
                         ),
                       ),
                     ],
@@ -79,7 +85,7 @@ class ChatroomTile extends StatelessWidget {
                 child: Container(
                   width: 2.33.w,
                   height: 2.33.w,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: lightBlue,
                     shape: BoxShape.circle,
                   ),
@@ -89,10 +95,7 @@ class ChatroomTile extends StatelessWidget {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 0.43.h, 0, 0),
                 child: Text(
                   "Yesterday",
-                  style: GoogleFonts.inter(
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal,
-                  ),
+                  style: chatRoomTimeTextStyle,
                 ),
               ),
             ],
