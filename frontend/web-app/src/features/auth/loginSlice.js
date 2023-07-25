@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+import { encryptData, decryptData } from "../../utilities/encryption";
+
 const BASE_URL = "http://127.0.0.1:8000/dj-rest-auth/";
 
 const initialState = {
@@ -37,11 +39,12 @@ const loginSlice = createSlice({
             })
             .addCase(userLogin.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                // console.log(action.payload);
+                // console.log("Login slice payload: " + action.payload);
                 state.user = action.payload;
-                let pay = action.payload;
-                localStorage.setItem("Username", pay.user.username);
-                localStorage.setItem("Token", pay.access_token);
+
+                // Encrypt user data before saving to local storage
+                const encryptedUser = encryptData(action.payload);
+                localStorage.setItem("User", encryptedUser);
                 // console.log(state.user);
             })
             .addCase(userLogin.rejected, (state, action) => {

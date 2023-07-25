@@ -13,9 +13,9 @@ export const userReg = createAsyncThunk(
     "login/userLogin",
     async (credentials) => {
         try {
-            const response = await axios.post(BASE_URL + "generate_qr_code/", {
-                phone_number: credentials.phone_number,
-            });
+            const response = await axios.get(
+                BASE_URL + `get_user_details/${credentials.phone_number}`
+            );
 
             return response.data;
         } catch (err) {
@@ -35,9 +35,9 @@ const regSlice = createSlice({
             })
             .addCase(userReg.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                console.log("Action payload is: " + action.payload);
+                // console.log("Action payload is: " + action.payload);
                 state.user = action.payload;
-                console.log("User state is: " + state.user);
+                // console.log(state.user);
             })
             .addCase(userReg.rejected, (state, action) => {
                 state.status = "failed";

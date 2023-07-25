@@ -3,6 +3,8 @@ import { Button, IconButton, Avatar } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { CiSettings, CiMenuKebab } from "react-icons/ci";
 import { CgMenuGridO } from "react-icons/cg";
@@ -22,6 +24,7 @@ import {
     Calendar,
     Sidebar,
 } from "../components/Dashboard";
+import { formatString } from "../utilities/formatting";
 
 const UploadButton = styled(Button)(({ theme }) => ({
     color: "#fff",
@@ -52,6 +55,7 @@ const ViewAll = styled(Button)(({ theme }) => ({
 }));
 
 const Dashboard = () => {
+    const user = useSelector((state) => state.login.user);
     const navigate = useNavigate();
     const [viewFolders, setViewFolders] = useState(false);
     const [viewFiles, setViewFiles] = useState(false);
@@ -69,8 +73,9 @@ const Dashboard = () => {
                 </div>
                 <div className="dashboard__sidebar_icons">
                     {/* <IconLinks /> */}
-                    {sidebarIcons.map((icon) => (
+                    {sidebarIcons.map((icon, i) => (
                         <IconButton
+                            key={i}
                             onClick={() => navigate(icon.path)}
                             disableRipple
                             disableFocusRipple
@@ -127,7 +132,7 @@ const Dashboard = () => {
                     </div>
                     {!viewFiles && !viewFolders && (
                         <div className="greeting_section">
-                            Welcome Back Wizzoh
+                            Welcome Back {formatString(user.username)}
                         </div>
                     )}
 
@@ -205,7 +210,7 @@ const Dashboard = () => {
                             </IconButton>
                             <Avatar alt="User" src={imageData[3].img} />
                             <div className="user_info">
-                                <p>Wizzoh</p>
+                                <p>{formatString(user.username)}</p>
                                 <IconButton sx={{ color: "#231F20" }}>
                                     <BsChevronDown />
                                 </IconButton>

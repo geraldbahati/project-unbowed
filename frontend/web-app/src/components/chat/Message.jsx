@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import moment from "moment";
 import { Avatar } from "@mui/material";
 
@@ -6,11 +7,11 @@ import "../../styles/Chat/Message.css";
 import { imageData } from "../../assets/data";
 
 const Message = ({ data, prev }) => {
+    const currentUser = useSelector((state) => state.login.user.username);
     const { id, created, sender, description } = data;
     const [showSenderTime, setShowSenderTime] = useState(false);
     const [showUserTime, setShowUserTime] = useState(false);
 
-    const currentUser = "+254790329620";
     const user = currentUser === sender.username;
     const isSameSender = prev === sender.username;
 
@@ -45,10 +46,10 @@ const Message = ({ data, prev }) => {
             ) : (
                 <div className="other_message">
                     {isSameSender ? null : (
-                        // <h5 className="message__sender">{sender.username}</h5>
-                        <div className="message__avatar">
-                            <Avatar src={imageData[3].img} />
-                        </div>
+                        <h5 className="message__sender">{sender.username}</h5>
+                        // <div className="message__avatar">
+                        //     <Avatar src={imageData[3].img} />
+                        // </div>
                     )}
 
                     <div
