@@ -42,6 +42,17 @@ class MessageDbService {
   Stream<List<DatabaseMessageModel>> get messagesStream =>
       _messagesStreamController.stream;
 
+  Future<void> saveAllMessages(
+      {required List<DatabaseMessageModel> messages}) async {
+    final dbClient = await _dbService.db;
+    final batch = dbClient.batch();
+    for (DatabaseMessageModel message in messages) {
+      batch.insert(messageTable, message.toMap());
+    }
+    await batch.commit();
+    await _cacheMessages();
+  }
+
   Future<int> saveMessage({required DatabaseMessageModel message}) async {
     final dbClient = await _dbService.db;
     final id = await dbClient.insert(messageTable, message.toMap());
@@ -76,11 +87,12 @@ class MessageDbService {
 
   // }
 
-  Future<Iterable<DatabaseMessageModel>> getAllMessages() async {
+  Future<Iterable<DatabaseMessageModel>> getAllMessages(int chatRoomId) async {
     final dbClient = await _dbService.db;
     final messages = await dbClient.query(messageTable);
     return messages
-        .map((messageRow) => DatabaseMessageModel.fromRow(messageRow));
+        .map((message) => DatabaseMessageModel.fromRow(message))
+        .where((message) => message.room.id == chatRoomId);
   }
 
   Future<void> _cacheMessages() async {

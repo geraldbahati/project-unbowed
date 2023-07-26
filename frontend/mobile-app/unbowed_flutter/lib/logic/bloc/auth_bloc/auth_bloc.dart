@@ -13,8 +13,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(UserProvider provider) : super(AuthInitial()) {
     on<SendPhoneNumberEvent>(
       (event, emit) async {
-        // TODO: implement event handler
-
         emit(AuthRegistering(
           exception: null,
           isLoading: true,
@@ -83,6 +81,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
         } else {
           emit(AuthUnregistered());
+        }
+      },
+    );
+
+    on<RefreshTokenEvent>(
+      (event, emit) async {
+        emit(RefreshingAccessToken(
+          isLoading: true,
+        ));
+
+        try {
+          bool isRefreshed = await provider.refreshAccessToken();
+
+          emit(RefreshingAccessToken(
+            isLoading: false,
+          ));
+          emit(AccessTokenRefreshed(isAccessTokenRefreshed: isRefreshed));
+        } on Exception {
+          emit(RefreshingAccessToken(
+            isLoading: false,
+          ));
+        }
+      },
+    );
+
+    on<CheckIfUserTokenHasExpiredEvent>(
+      (event, emit) async {
+        emit(CheckingAccessToken(
+          isLoading: true,
+        ));
+        try {
+          await provider.hasTokenExpired();
+
+          emit(CheckingAccessToken(
+            isLoading: false,
+          ));
+        } on UserTokenExpiredException {
+          add(RefreshTokenEvent());
         }
       },
     );

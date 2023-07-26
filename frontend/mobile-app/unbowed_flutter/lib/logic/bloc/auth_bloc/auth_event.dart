@@ -23,3 +23,7 @@ class VerifyOtpEvent extends AuthEvent {
     required this.secretKey,
   });
 }
+
+class RefreshTokenEvent extends AuthEvent {}
+
+class CheckIfUserTokenHasExpiredEvent extends AuthEvent {}

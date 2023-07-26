@@ -1,20 +1,19 @@
-djangorestframework
-djangorestframework-simplejwt
-pyyaml
-requests
-django-cors-headers
-django
-channels
-channels-redis
-django_celery_results
-django_celery_beat
-django-celery-results
-celery
-django>=4.2.0
-django-channels
-selenium
-twilio
-pyotp
-python-dotenv
-africastalking
-fcm-django
+djangorestframework  # for rest api
+djangorestframework-simplejwt # for jwt authentication
+pyyaml # for yaml parsing
+requests # for making http
+django-cors-headers # for cors
+channels # for websockets
+channels-redis # for redis
+django_celery_results # for celery results
+django_celery_beat # for celery beat
+django-celery-results # for celery results
+celery # for celery
+django>=4.2.0 # for django
+django-channels # for channels
+selenium # for selenium
+twilio # for twilio
+pyotp # for otp
+python-dotenv # for env
+africastalking # for africastalking
+fcm-django  # for push notifications

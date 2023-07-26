@@ -8,6 +8,7 @@ import '../../../data/models/messages/message_receive.dart';
 import '../../../data/provider/chat_provider.dart';
 import '../../../database/models/chatroom_db_model.dart';
 import '../../../database/models/message_db_model.dart';
+import '../../../database/services/message_service.dart';
 import '../../../presentation/widgets/containers/chats/chat_logic.dart';
 
 part 'chat_event.dart';
@@ -18,10 +19,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<LoadChats>((event, emit) async {
       emit(ChatLoading(isLoading: true));
       try {
-        final List<Message> messages;
-
-        messages = await provider.loadChats(
+        final List<Message> messages = await provider.loadChats(
           chatRoomId: event.chatRoomId,
+        );
+
+        MessageDbService messageDbService = MessageDbService();
+        messageDbService.init();
+
+        messageDbService.saveAllMessages(
+          messages: dbMessagesFromMessages(messages),
         );
 
         emit(ChatLoading(isLoading: false));
@@ -164,7 +170,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
 
     on<ReceiveChatRooms>((event, emit) {
-      print("object");
       emit(ChatRoomsLoaded(
         chatRooms: dbChatroomsToChatrooms(event.chatRooms),
       ));

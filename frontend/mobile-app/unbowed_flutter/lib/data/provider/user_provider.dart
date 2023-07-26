@@ -16,6 +16,10 @@ abstract class UserProvider {
     required String verificationCode,
     required String secretKey,
   });
+
+  Future<bool> refreshAccessToken();
+
+  Future<void> hasTokenExpired();
 }
 
 class UserService implements UserProvider {
@@ -80,5 +84,30 @@ class UserService implements UserProvider {
 
       throw GenericAuthException();
     }
+  }
+
+  @override
+  Future<bool> refreshAccessToken() async {
+    var userDetail = await SharedService().getLoginDetails();
+
+    var verifyOtpDetails = UserRepository.refreshAccessToken(
+        refreshToken: userDetail!.tokens.refresh);
+
+    try {
+      var tokenRefreshResponse = await Api().postWithoutToken(verifyOtpDetails);
+
+      await SharedService().logout();
+      userDetail.tokens.access = tokenRefreshResponse.access;
+      await SharedService().setLoginDetails(userDetail);
+      return true;
+    } on Exception {
+      return false;
+    }
+  }
+
+  @override
+  Future<void> hasTokenExpired() {
+    // TODO: implement hasTokenExpired
+    throw UnimplementedError();
   }
 }

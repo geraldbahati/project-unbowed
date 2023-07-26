@@ -37,3 +37,27 @@ class AuthPhoneNumberSent extends AuthState {
     required this.secretKey,
   });
 }
+
+class RefreshingAccessToken extends AuthState {
+  final bool isLoading;
+
+  RefreshingAccessToken({
+    required this.isLoading,
+  });
+}
+
+class AccessTokenRefreshed extends AuthState {
+  final bool isAccessTokenRefreshed;
+
+  AccessTokenRefreshed({
+    required this.isAccessTokenRefreshed,
+  });
+}
+
+class CheckingAccessToken extends AuthState {
+  final bool isLoading;
+
+  CheckingAccessToken({
+    required this.isLoading,
+  });
+}
