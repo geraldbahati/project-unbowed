@@ -19,8 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
 
         try {
-          var secretKey =
-              await provider.submitPhoneNumber(phoneNumber: event.phoneNumber);
+          await provider.submitPhoneNumber(phoneNumber: event.phoneNumber);
 
           emit(AuthRegistering(
             exception: null,
@@ -29,7 +28,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
           emit(AuthPhoneNumberSent(
             phoneNumber: event.phoneNumber,
-            secretKey: secretKey,
           ));
         } on FailedToSubmitPhoneNumberException catch (e) {
           emit(AuthRegistering(
@@ -51,7 +49,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           var user = await provider.verifyOtp(
             phoneNumber: event.phoneNumber,
             verificationCode: event.verificationCode,
-            secretKey: event.secretKey,
           );
 
           emit(AuthRegistering(

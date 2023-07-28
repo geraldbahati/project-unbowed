@@ -15,12 +15,10 @@ class SendPhoneNumberEvent extends AuthEvent {
 class VerifyOtpEvent extends AuthEvent {
   final String phoneNumber;
   final String verificationCode;
-  final String secretKey;
 
   VerifyOtpEvent({
     required this.phoneNumber,
     required this.verificationCode,
-    required this.secretKey,
   });
 }
 

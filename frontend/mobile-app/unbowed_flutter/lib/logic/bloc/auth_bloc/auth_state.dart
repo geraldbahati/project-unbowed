@@ -30,11 +30,9 @@ class AuthUnregistered extends AuthState {}
 
 class AuthPhoneNumberSent extends AuthState {
   final String phoneNumber;
-  final String secretKey;
 
   AuthPhoneNumberSent({
     required this.phoneNumber,
-    required this.secretKey,
   });
 }
 

@@ -9,10 +9,11 @@ class MessageDbService {
   late final StreamController<List<DatabaseMessageModel>>
       _messagesStreamController;
   List<DatabaseMessageModel> _messages = [];
+  final int chatRoomId;
 
-  static final MessageDbService _instance = MessageDbService._internal();
+  static final Map<int, MessageDbService> _cache = <int, MessageDbService>{};
 
-  MessageDbService._internal() {
+  MessageDbService._internal(this.chatRoomId) {
     _messagesStreamController =
         StreamController<List<DatabaseMessageModel>>.broadcast(
       onListen: () {
@@ -21,7 +22,10 @@ class MessageDbService {
     );
   }
 
-  factory MessageDbService() => _instance;
+  factory MessageDbService(int chatRoomId) {
+    return _cache.putIfAbsent(
+        chatRoomId, () => MessageDbService._internal(chatRoomId));
+  }
 
   Future<void> init() async {
     final dbClient = await _dbService.db;
@@ -45,6 +49,15 @@ class MessageDbService {
   Future<void> saveAllMessages(
       {required List<DatabaseMessageModel> messages}) async {
     final dbClient = await _dbService.db;
+
+    // First delete all messages with the same chatRoomId
+    await dbClient.delete(
+      messageTable,
+      where: '$chatRoomId = ?',
+      whereArgs: [chatRoomId],
+    );
+
+    // Then save the new messages
     final batch = dbClient.batch();
     for (DatabaseMessageModel message in messages) {
       batch.insert(messageTable, message.toMap());
@@ -96,7 +109,7 @@ class MessageDbService {
   }
 
   Future<void> _cacheMessages() async {
-    final allMessages = await getAllMessages();
+    final allMessages = await getAllMessages(chatRoomId);
     _messages = allMessages.toList();
     _messagesStreamController.add(_messages);
   }

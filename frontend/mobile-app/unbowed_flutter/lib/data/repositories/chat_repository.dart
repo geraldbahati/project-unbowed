@@ -1,3 +1,4 @@
+import 'package:unbowed_flutter/data/exceptions/auth_exceptions.dart';
 import 'package:unbowed_flutter/data/models/chatroom/chatroom_model.dart';
 import 'package:unbowed_flutter/data/services/api_services.dart';
 import 'package:web_socket_channel/io.dart';
@@ -12,6 +13,10 @@ class ChatRepository {
     return ApiService(
       url: url,
       parse: (response) {
+        if (response.statusCode == 401) {
+          throw UserTokenExpiredException();
+        }
+
         return messageFromJson(response.body);
       },
     );
@@ -22,6 +27,10 @@ class ChatRepository {
     return ApiService(
       url: url,
       parse: (response) {
+        if (response.statusCode == 401) {
+          throw UserTokenExpiredException();
+        }
+
         return chatroomModelFromJson(response.body);
       },
     );

@@ -7,14 +7,13 @@ import '../services/shared_services.dart';
 
 abstract class UserProvider {
   Future<RegisterResponseModel?> get currentUser;
-  Future<String> submitPhoneNumber({
+  Future<bool> submitPhoneNumber({
     required String phoneNumber,
   });
 
   Future<RegisterResponseModel> verifyOtp({
     required String phoneNumber,
     required String verificationCode,
-    required String secretKey,
   });
 
   Future<bool> refreshAccessToken();
@@ -32,14 +31,14 @@ class UserService implements UserProvider {
   }
 
   @override
-  Future<String> submitPhoneNumber({required String phoneNumber}) async {
+  Future<bool> submitPhoneNumber({required String phoneNumber}) async {
     var registerDetails = UserRepository.submitPhoneNumber(
       phoneNumber: phoneNumber,
     );
 
     try {
-      var sharedSecret = await Api().postWithoutToken(registerDetails);
-      return sharedSecret;
+      var response = await Api().postWithoutToken(registerDetails);
+      return response;
     } on Exception catch (_) {
       throw FailedToSubmitPhoneNumberException();
     }
@@ -49,12 +48,10 @@ class UserService implements UserProvider {
   Future<RegisterResponseModel> verifyOtp({
     required String phoneNumber,
     required String verificationCode,
-    required String secretKey,
   }) async {
     var registerDetails = UserRepository.verifyOtp(
       phoneNumber: phoneNumber,
       verificationCode: verificationCode,
-      secretKey: secretKey,
     );
 
     var userDetail = await Api().postWithoutToken(registerDetails);
@@ -106,8 +103,9 @@ class UserService implements UserProvider {
   }
 
   @override
-  Future<void> hasTokenExpired() {
-    // TODO: implement hasTokenExpired
-    throw UnimplementedError();
+  Future<void> hasTokenExpired() async {
+    var tokenVerificationDetails = UserRepository.hasTokenExpired();
+
+    await Api().post(tokenVerificationDetails);
   }
 }
