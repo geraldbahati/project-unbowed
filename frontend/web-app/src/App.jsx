@@ -36,9 +36,11 @@ const App = () => {
     useEffect(() => {
         // Check if user is logged in, and redirect accordingly
         if (user) {
-            history.replace("/home"); // Redirect to /home if user is logged in
+            history.replace("/home");
+            history.go(1); // Redirect to /home if user is logged in
         } else {
-            history.replace("/"); // Redirect to / (landing page) if user is not logged in
+            history.replace("/");
+            history.go(1); // Redirect to / (landing page) if user is not logged in
         }
     }, [user, history]);
 

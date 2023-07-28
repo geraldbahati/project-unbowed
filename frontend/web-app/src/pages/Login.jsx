@@ -1,198 +1,124 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import {
-    Avatar,
-    Button,
-    CssBaseline,
-    TextField,
-    FormControlLabel,
-    Checkbox,
-    Link as MuiLink,
-    Grid,
-    Box,
-    Typography,
-    Container,
-} from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { LockPersonOutlined } from "@mui/icons-material";
+import QRCode, { QRCodeSVG } from "qrcode.react";
+import { HashLoader } from "react-spinners";
 
 import { userLogin } from "../features/auth/loginSlice";
 import { userLoginStatus } from "../features/auth/loginSlice";
 import { userLoginError } from "../features/auth/loginSlice";
 
-const Copyright = (props) => {
-    return (
-        <Typography
-            variant="body2"
-            color="text.secondary"
-            align="center"
-            style={{ bottom: 0 }}
-            {...props}
-        >
-            {"Copyright Unbowed ©"}
-            <MuiLink
-                color="inherit"
-                href="#"
-                style={{ textDecoration: "none" }}
-            >
-                Wizzoh
-            </MuiLink>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-};
-
-const theme = createTheme();
+import "../styles/Login.css";
+import { BASEURL } from "../assets/urls";
 
 const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [user, setUser] = useState({
-        username: "",
-        password: "",
-    });
+    const [sessionToken, setSessionToken] = useState(null);
+    const [user, setUser] = useState(null);
 
-    const [loginError, setLoginError] = useState("");
-    const [loginStatus, setLoginStatus] = useState("idle");
+    // Get the login status and error from the Redux store
+    const loginStatus = useSelector((state) => state.login.status);
+    const loginError = useSelector((state) => state.login.error);
 
-    const handleChange = (event) => {
-        const { name, value, checked, type } = event.target;
-        setUser((prevState) => {
-            return {
-                ...prevState,
-                [name]: type === "checkbox" ? checked : value,
-            };
-        });
-    };
+    useEffect(() => {
+        const fetchAcessToken = () => {
+            axios
+                .get(BASEURL + "user/request-session/")
+                .then((response) => {
+                    setSessionToken(response.data?.session_id);
+                })
+                .catch((error) => {
+                    console.log("Error fetching data: " + error);
+                });
+        };
 
-    const handleSumbit = (event) => {
-        event.preventDefault();
+        const checkTokenValidity = () => {
+            if (sessionToken) {
+                axios
+                    .get(BASEURL + `user/check-session/${sessionToken}`)
+                    .then((response) => {
+                        setUser(response.data);
 
-        //axios post logic
-        const data = new FormData(event.currentTarget);
-        try {
-            setLoginStatus("pending");
-            // dispatch(userLogin(user.username, user.password));
-            let username = data.get("username");
-            let password = data.get("password");
-            dispatch(userLogin({ username, password })).unwrap();
-            setUser({
-                username: "",
-                password: "",
-            });
-            const reNav = setTimeout(() => {
-                navigate("/");
-            }, 2000);
-        } catch (err) {
-            console.log(err);
-        } finally {
-            setLoginStatus("idle");
-        }
-    };
+                        dispatch(userLogin(response.data));
+                        if (!user) {
+                            navigate("/login");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("Error fetching data: " + error);
+                        throw error;
+                    });
+            }
+        };
+
+        fetchAcessToken();
+        const intervalId = setInterval(checkTokenValidity, 5000);
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container>
-                <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                        <LockPersonOutlined />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Hello, Welcome Back
-                    </Typography>
-                    <p style={{ textAlign: "center", padding: "5px 0" }}>
-                        Happy to see you again, to use your account please login
-                        first.
-                    </p>
-                    <Box
-                        component="form"
-                        onSubmit={handleSumbit}
-                        noValidate
-                        sx={{ mt: 1 }}
-                    >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
-                            autoFocus
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Password"
-                            name="password"
-                            type="password"
-                            id="password"
-                            autoFocus
-                            autoComplete="current-password"
-                        />
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        value="remember"
-                                        color="primary"
-                                    />
-                                }
-                                label="Remember me"
-                            />
-                            <MuiLink href="/register" variant="body2">
-                                {"Forgot Password"}
-                            </MuiLink>
+        <div className="login_main">
+            <div className="code_card">
+                {sessionToken ? (
+                    <QRCodeSVG
+                        value={sessionToken}
+                        size={256}
+                        imageSettings={{
+                            src: "https://thumbnail.imgbin.com/11/21/14/imgbin-react-javascript-library-github-backbone-qQ1Kftyd2FDCwKGQfN0e48FyC_t.jpg",
+                            x: undefined,
+                            y: undefined,
+                            height: 24,
+                            width: 24,
+                            excavate: true,
+                        }}
+                    />
+                ) : (
+                    <HashLoader color="#3888eb" />
+                )}
+            </div>
+            <div className="description_card">
+                <p className="description_title">
+                    Log in to Unbowed by QR Code
+                </p>
+                {/* <div className="description_steps">
+                        <div className="steps_shape">1</div>
+                        <div className="steps_text">
+                            Open Unbowed on your phone.
                         </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                margin: "10px 0",
-                            }}
-                        >
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                style={{
-                                    margin: "3px 0",
-                                    alignSelf: "center",
-                                }}
-                            >
-                                Sign in
-                            </Button>
+                    </div>
+                    <div className="description_steps">
+                        <div className="steps_shape">2</div>
+                        <div className="steps_text">
+                            Go to Settings, Devices, Link Desktop Device.
                         </div>
-
-                        <Grid item style={{ textAlign: "center" }}>
-                            <p>Don't have an account? </p>
-                            <MuiLink href="/register" variant="body2">
-                                {"Sign up"}
-                            </MuiLink>
-                        </Grid>
-                    </Box>
-                </Box>
-                {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
-            </Container>
-        </ThemeProvider>
+                    </div>
+                    <div className="description_steps">
+                        <div className="steps_shape">3</div>
+                        <div className="steps_text">
+                            Point your phone at this screen to confirm login.
+                        </div>
+                    </div> */}
+                <ol>
+                    <li>Open Unbowed App on your phone.</li>
+                    <li>Go to Settings, Devices, Link Desktop Device.</li>
+                    <li>Point your phone at this screen to confirm login.</li>
+                </ol>
+            </div>
+        </div>
     );
 };
 
 export default Login;
+// {sessionToken ? (
+//     <div>
+//         <QRCode value={sessionToken} />
+//     </div>
+// ) : (
+//     <div>
+//         <h1>Loading Session</h1>
+//         <HashLoader />
+//     </div>
+// )}

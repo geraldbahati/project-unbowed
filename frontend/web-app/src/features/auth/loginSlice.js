@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { encryptData, decryptData } from "../../utilities/encryption";
 
-const BASE_URL = "http://127.0.0.1:8000/dj-rest-auth/";
+import { BASEURL } from "../../assets/urls";
 
 const initialState = {
     user: {},
@@ -16,14 +16,14 @@ export const userLogin = createAsyncThunk(
     async (credentials) => {
         // console.log(credentials);
         try {
-            const response = await axios.post(BASE_URL + "login/", {
-                username: credentials.username,
-                password: credentials.password,
-            });
+            const response = await axios.get(
+                BASEURL + `user/check-session/${credentials.session_id}`
+            );
 
             return response.data;
         } catch (err) {
             console.log(err);
+            return err;
         }
     }
 );

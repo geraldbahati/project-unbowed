@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "http://127.0.0.1:8000/api/user/";
+import { encryptData, decryptData } from "../../utilities/encryption";
+import { BASEURL } from "../../assets/urls";
 
 const initialState = {
     user: {},
@@ -10,11 +11,11 @@ const initialState = {
 };
 
 export const userReg = createAsyncThunk(
-    "login/userLogin",
+    "signup/usersignup",
     async (credentials) => {
         try {
             const response = await axios.get(
-                BASE_URL + `get_user_details/${credentials.phone_number}`
+                BASEURL + `user/check-session/${credentials.phone_number}`
             );
 
             return response.data;
@@ -25,7 +26,7 @@ export const userReg = createAsyncThunk(
 );
 
 const regSlice = createSlice({
-    name: "login",
+    name: "register",
     initialState,
     reducers: {},
     extraReducers(builder) {
@@ -35,8 +36,12 @@ const regSlice = createSlice({
             })
             .addCase(userReg.fulfilled, (state, action) => {
                 state.status = "succeeded";
-                // console.log("Action payload is: " + action.payload);
+                // console.log("Login slice payload: " + action.payload);
                 state.user = action.payload;
+
+                // Encrypt user data before saving to local storage
+                const encryptedUser = encryptData(action.payload);
+                localStorage.setItem("User", encryptedUser);
                 // console.log(state.user);
             })
             .addCase(userReg.rejected, (state, action) => {
