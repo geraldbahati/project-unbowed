@@ -9,7 +9,7 @@ django_celery_results # for celery results
 django_celery_beat # for celery beat
 django-celery-results # for celery results
 celery # for celery
-django>=4.2.0 # for django
+django # for django
 django-channels # for channels
 selenium # for selenium
 twilio # for twilio
