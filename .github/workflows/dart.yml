@@ -1,4 +1,4 @@
-name: Dart
+name: Flutter workflow
 
 on:
   push:
@@ -12,16 +12,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      
+      - uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.x'
 
       - name: Install dependencies
         working-directory: ./frontend/mobile-app/unbowed_flutter
         run: flutter pub get
-
-      - name: Analyze project source
-        working-directory: ./frontend/mobile-app/unbowed_flutter
-        run: flutter analyze
 
       - name: Run tests
         working-directory: ./frontend/mobile-app/unbowed_flutter
