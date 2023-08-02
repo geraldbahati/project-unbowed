@@ -17,3 +17,4 @@ pyotp # for otp
 python-dotenv # for env
 africastalking # for africastalking
 fcm-django  # for push notifications
+daphne # for daphne
