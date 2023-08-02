@@ -102,7 +102,7 @@ def room(request, room_name):
     })
 
 
-class MessageListCreateAPIView(ListCreateAPIView):
+class MessageListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
     serializer_class = MessageSerializer
 
     def get_queryset(self):

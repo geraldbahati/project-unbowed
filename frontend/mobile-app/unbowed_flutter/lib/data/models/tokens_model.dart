@@ -9,8 +9,8 @@ Tokens tokensFromJson(String str) => Tokens.fromJson(json.decode(str));
 String tokensToJson(Tokens data) => json.encode(data.toJson());
 
 class Tokens {
-  final String refresh;
-  final String access;
+  String refresh;
+  String access;
 
   Tokens({
     required this.refresh,

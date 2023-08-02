@@ -17,7 +17,7 @@ import 'route_mapping.dart';
 
 class AppRouter {
   final AuthBloc _authBloc = AuthBloc(UserService());
-  final ChatBloc _chatBloc = ChatBloc(ChatService());
+  final ChatBloc _chatBloc = ChatBloc(provider: ChatService());
 
   Route onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {

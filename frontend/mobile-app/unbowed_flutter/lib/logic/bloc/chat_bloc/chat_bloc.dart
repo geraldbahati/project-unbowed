@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:unbowed_flutter/database/services/chatroom_service.dart';
@@ -8,166 +10,158 @@ import '../../../data/models/messages/message_receive.dart';
 import '../../../data/provider/chat_provider.dart';
 import '../../../database/models/chatroom_db_model.dart';
 import '../../../database/models/message_db_model.dart';
+import '../../../database/services/message_service.dart';
 import '../../../presentation/widgets/containers/chats/chat_logic.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  ChatBloc(ChatProvider provider) : super(ChatInitial()) {
-    on<LoadChats>((event, emit) async {
-      emit(ChatLoading(isLoading: true));
-      try {
-        final List<Message> messages;
+  final ChatProvider provider;
 
-        messages = await provider.loadChats(
+  ChatBloc({required this.provider}) : super(ChatInitial()) {
+    on<LoadChats>(_loadChats);
+    on<ReceiveChat>(_receiveChat);
+    on<ReceiveStoreChat>(_receiveStoreChat);
+    on<LoadChatRooms>(_loadChatRooms);
+    on<LoadDbChatRooms>(_loadDbChatRooms);
+    on<ReceiveChatRooms>(_receiveChatRooms);
+  }
+
+// Methods to handle events
+  Future<void> _loadChats(LoadChats event, Emitter<ChatState> emit) async {
+    {
+      // Instantiate the MessageDbService with the chatRoomId here
+      MessageDbService messageDbService =
+          MessageDbService(event.chatRoomId as int);
+      await messageDbService.init();
+
+      emit(ChatLoading());
+      try {
+        final List<Message> messages = await provider.loadChats(
           chatRoomId: event.chatRoomId,
         );
 
-        emit(ChatLoading(isLoading: false));
+        messageDbService.saveAllMessages(
+          messages: dbMessagesFromMessages(messages),
+        );
 
         for (Message message in messages.reversed) {
           add(ReceiveStoreChat(message: message));
         }
-      } catch (e) {
-        emit(ChatLoading(
-          isLoading: false,
-          exception: e as Exception,
-        ));
-      }
-    });
-
-    on<ReceiveChat>((event, emit) {
-      bool isSamePerson = false;
-
-      Message message = Message(
-        description: event.message.message,
-        sender: Sender(
-          username: event.message.username,
-        ),
-        created: event.message.created,
-      );
-
-      if (state is ChatReceived) {
-        final ChatReceived currentState = state as ChatReceived;
-        isSamePerson = currentState.chat.message.sender!.username ==
-            event.message.username;
-
-        if (isSamePerson) {
-          bool isFirst = currentState.chat.message.isFirst;
-          bool isMiddle = currentState.chat.message.isMiddle;
-          bool isLast = currentState.chat.message.isLast;
-
-          if (!(isFirst || isMiddle || isLast)) {
-            currentState.chat.message.isFirst = true;
-            message.isLast = true;
-          } else if (isFirst) {
-            message.isLast = true;
-          } else if (isLast) {
-            currentState.chat.message.isMiddle = true;
-            currentState.chat.message.isLast = false;
-            message.isLast = true;
-          } else {
-            currentState.chat.message.isFirst = false;
-            currentState.chat.message.isMiddle = false;
-            currentState.chat.message.isLast = true;
-          }
-        }
-      }
-
-      ChatLogic chat = ChatLogic(
-        message: message,
-        isSamePerson: isSamePerson,
-      );
-
-      emit(ChatReceived(chat: chat, shouldRefresh: isSamePerson));
-    });
-
-    on<ReceiveStoreChat>((event, emit) {
-      bool isSamePerson = false;
-
-      if (state is ChatReceived) {
-        final ChatReceived currentState = state as ChatReceived;
-        isSamePerson = currentState.chat.message.sender!.username ==
-            event.message.sender!.username;
-
-        if (isSamePerson) {
-          bool isFirst = currentState.chat.message.isFirst;
-          bool isMiddle = currentState.chat.message.isMiddle;
-          bool isLast = currentState.chat.message.isLast;
-
-          if (!(isFirst || isMiddle || isLast)) {
-            currentState.chat.message.isFirst = true;
-            event.message.isLast = true;
-          } else if (isFirst) {
-            event.message.isLast = true;
-          } else if (isLast) {
-            currentState.chat.message.isMiddle = true;
-            currentState.chat.message.isLast = false;
-            event.message.isLast = true;
-          } else {
-            currentState.chat.message.isFirst = false;
-            currentState.chat.message.isMiddle = false;
-            currentState.chat.message.isLast = true;
-          }
-        }
-      }
-
-      ChatLogic chat = ChatLogic(
-        message: event.message,
-        isSamePerson: isSamePerson,
-      );
-
-      emit(ChatReceived(chat: chat, shouldRefresh: isSamePerson));
-    });
-
-    on<LoadChatRooms>((event, emit) async {
-      emit(ChatRoomsLoading(isLoading: true));
-      try {
-        final List<ChatroomModel> chatRooms = await provider.laodChatrooms();
-        ChatroomDbService chatroomDbService = ChatroomDbService();
-        // chatroomDbService.deleteChatRoomAndParticipantTables();
-
-        chatroomDbService.init();
-
-        chatroomDbService.saveAllChatRooms(
-            chatRooms: dbChatroomsFromChatrooms(chatRooms));
-
-        emit(ChatRoomsLoading(isLoading: false));
-        emit(ChatRoomsLoaded(chatRooms: chatRooms));
       } on Exception catch (e) {
-        emit(ChatRoomsLoading(
-          isLoading: false,
-          exception: e,
-        ));
+        emit(ChatError(exception: e));
       }
-    });
+    }
+  }
 
-    on<LoadDbChatRooms>((event, emit) async {
-      emit(ChatRoomsLoading(isLoading: true));
-      try {
-        ChatroomDbService chatroomDbService = ChatroomDbService();
+  void _receiveChat(ReceiveChat event, Emitter<ChatState> emit) {
+    bool isSamePerson = false;
 
-        chatroomDbService.init();
+    Message message = Message(
+      description: event.message.message,
+      sender: Sender(
+        username: event.message.username,
+      ),
+      created: event.message.created,
+    );
 
-        emit(ChatRoomsLoading(isLoading: false));
+    if (state is ChatReceived) {
+      final ChatReceived currentState = state as ChatReceived;
+      isSamePerson =
+          currentState.chat.message.sender!.username == event.message.username;
 
-        chatroomDbService.chatRoomsStream.listen((chatRooms) {
-          add(ReceiveChatRooms(chatRooms: chatRooms));
-        });
-      } on Exception catch (e) {
-        emit(ChatRoomsLoading(
-          isLoading: false,
-          exception: e,
-        ));
+      if (isSamePerson) {
+        setChatMessagePosition(currentState.chat.message, message);
       }
-    });
+    }
 
-    on<ReceiveChatRooms>((event, emit) {
-      print("object");
-      emit(ChatRoomsLoaded(
-        chatRooms: dbChatroomsToChatrooms(event.chatRooms),
-      ));
-    });
+    ChatLogic chat = ChatLogic(
+      message: message,
+      isSamePerson: isSamePerson,
+    );
+
+    emit(ChatReceived(chat: chat, shouldRefresh: isSamePerson));
+  }
+
+  void _receiveStoreChat(ReceiveStoreChat event, Emitter<ChatState> emit) {
+    bool isSamePerson = false;
+
+    if (state is ChatReceived) {
+      final ChatReceived currentState = state as ChatReceived;
+      isSamePerson = currentState.chat.message.sender!.username ==
+          event.message.sender!.username;
+
+      if (isSamePerson) {
+        setChatMessagePosition(currentState.chat.message, event.message);
+      }
+    }
+
+    ChatLogic chat = ChatLogic(
+      message: event.message,
+      isSamePerson: isSamePerson,
+    );
+
+    emit(ChatReceived(chat: chat, shouldRefresh: isSamePerson));
+  }
+
+  Future<void> _loadChatRooms(
+      LoadChatRooms event, Emitter<ChatState> emit) async {
+    emit(ChatRoomsLoading());
+    try {
+      final List<ChatroomModel> chatRooms = await provider.loadChatrooms();
+      ChatroomDbService chatroomDbService = ChatroomDbService();
+      chatroomDbService.init();
+
+      chatroomDbService.saveAllChatRooms(
+          chatRooms: dbChatroomsFromChatrooms(chatRooms));
+
+      emit(ChatRoomsLoaded(chatRooms: chatRooms));
+    } on Exception catch (e) {
+      emit(ChatRoomsLoading(exception: e));
+    }
+  }
+
+  Future<void> _loadDbChatRooms(
+      LoadDbChatRooms event, Emitter<ChatState> emit) async {
+    emit(ChatRoomsLoading());
+    try {
+      ChatroomDbService chatroomDbService = ChatroomDbService();
+      chatroomDbService.init();
+
+      chatroomDbService.chatRoomsStream.listen((chatRooms) {
+        add(ReceiveChatRooms(chatRooms: chatRooms));
+      });
+    } on Exception catch (e) {
+      emit(ChatRoomsLoading(exception: e));
+    }
+  }
+
+  void _receiveChatRooms(ReceiveChatRooms event, Emitter<ChatState> emit) {
+    emit(ChatRoomsLoaded(
+      chatRooms: dbChatroomsToChatrooms(event.chatRooms),
+    ));
+  }
+
+  // utils
+  void setChatMessagePosition(Message oldMessage, Message newMessage) {
+    bool isFirst = oldMessage.isFirst;
+    bool isMiddle = oldMessage.isMiddle;
+    bool isLast = oldMessage.isLast;
+
+    if (!(isFirst || isMiddle || isLast)) {
+      oldMessage.isFirst = true;
+      newMessage.isLast = true;
+    } else if (isFirst) {
+      newMessage.isLast = true;
+    } else if (isLast) {
+      oldMessage.isMiddle = true;
+      oldMessage.isLast = false;
+      newMessage.isLast = true;
+    } else {
+      oldMessage.isFirst = false;
+      oldMessage.isMiddle = false;
+      oldMessage.isLast = true;
+    }
   }
 }

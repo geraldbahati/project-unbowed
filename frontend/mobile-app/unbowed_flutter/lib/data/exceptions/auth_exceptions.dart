@@ -11,6 +11,8 @@ class PasswordsDoNotMatchException implements Exception {}
 
 class UserNotRegisteredException implements Exception {}
 
+class UserTokenExpiredException implements Exception {}
+
 //generic exceptions
 
 class GenericAuthException implements Exception {}

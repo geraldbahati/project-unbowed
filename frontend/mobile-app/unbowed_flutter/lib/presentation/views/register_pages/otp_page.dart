@@ -77,25 +77,18 @@ class _OtpPageWidgetState extends State<OtpPageWidget> {
       otp += controller.text;
     }
 
-    String phoneNumber, secretKey;
+    String phoneNumber;
 
     if (context.read<AuthBloc>().state is AuthPhoneNumberSent) {
       phoneNumber =
           (context.read<AuthBloc>().state as AuthPhoneNumberSent).phoneNumber;
-      secretKey =
-          (context.read<AuthBloc>().state as AuthPhoneNumberSent).secretKey;
     } else {
-      print("Ukona error hapa");
       return;
     }
-    // String phoneNumber = context.read<AuthBloc>().state.phoneNumber;
-    // String secretKey = context.read<AuthBloc>().state.secretKey;
 
-    print(secretKey);
     context.read<AuthBloc>().add(
           VerifyOtpEvent(
             phoneNumber: phoneNumber,
-            secretKey: secretKey,
             verificationCode: otp,
           ),
         );
