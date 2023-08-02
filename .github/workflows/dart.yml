@@ -17,12 +17,12 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./frontend/mobile-app/unbowed_flutter
-        run: dart pub get
+        run: flutter pub get
 
       - name: Analyze project source
         working-directory: ./frontend/mobile-app/unbowed_flutter
-        run: dart analyze
+        run: flutter analyze
 
       - name: Run tests
         working-directory: ./frontend/mobile-app/unbowed_flutter
-        run: dart test
+        run: flutter test
