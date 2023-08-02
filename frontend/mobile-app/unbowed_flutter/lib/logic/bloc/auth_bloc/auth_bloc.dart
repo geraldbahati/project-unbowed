@@ -13,16 +13,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(UserProvider provider) : super(AuthInitial()) {
     on<SendPhoneNumberEvent>(
       (event, emit) async {
-        // TODO: implement event handler
-
         emit(AuthRegistering(
           exception: null,
           isLoading: true,
         ));
 
         try {
-          var secretKey =
-              await provider.submitPhoneNumber(phoneNumber: event.phoneNumber);
+          await provider.submitPhoneNumber(phoneNumber: event.phoneNumber);
 
           emit(AuthRegistering(
             exception: null,
@@ -31,7 +28,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
           emit(AuthPhoneNumberSent(
             phoneNumber: event.phoneNumber,
-            secretKey: secretKey,
           ));
         } on FailedToSubmitPhoneNumberException catch (e) {
           emit(AuthRegistering(
@@ -53,7 +49,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           var user = await provider.verifyOtp(
             phoneNumber: event.phoneNumber,
             verificationCode: event.verificationCode,
-            secretKey: event.secretKey,
           );
 
           emit(AuthRegistering(
@@ -83,6 +78,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ));
         } else {
           emit(AuthUnregistered());
+        }
+      },
+    );
+
+    on<RefreshTokenEvent>(
+      (event, emit) async {
+        emit(RefreshingAccessToken(
+          isLoading: true,
+        ));
+
+        try {
+          bool isRefreshed = await provider.refreshAccessToken();
+
+          emit(RefreshingAccessToken(
+            isLoading: false,
+          ));
+          emit(AccessTokenRefreshed(isAccessTokenRefreshed: isRefreshed));
+        } on Exception {
+          emit(RefreshingAccessToken(
+            isLoading: false,
+          ));
+        }
+      },
+    );
+
+    on<CheckIfUserTokenHasExpiredEvent>(
+      (event, emit) async {
+        emit(CheckingAccessToken(
+          isLoading: true,
+        ));
+        try {
+          await provider.hasTokenExpired();
+
+          emit(CheckingAccessToken(
+            isLoading: false,
+          ));
+        } on UserTokenExpiredException {
+          add(RefreshTokenEvent());
         }
       },
     );

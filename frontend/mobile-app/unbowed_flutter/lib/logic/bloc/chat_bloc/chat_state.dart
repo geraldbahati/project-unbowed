@@ -5,13 +5,13 @@ abstract class ChatState {}
 
 class ChatInitial extends ChatState {}
 
-class ChatLoading extends ChatState {
-  final Exception? exception;
-  final bool isLoading;
+class ChatLoading extends ChatState {}
 
-  ChatLoading({
-    this.exception,
-    required this.isLoading,
+class ChatError extends ChatState {
+  final Exception exception;
+
+  ChatError({
+    required this.exception,
   });
 }
 
@@ -27,11 +27,9 @@ class ChatReceived extends ChatState {
 
 class ChatRoomsLoading extends ChatState {
   final Exception? exception;
-  final bool isLoading;
 
   ChatRoomsLoading({
     this.exception,
-    required this.isLoading,
   });
 }
 

@@ -1,31 +1,65 @@
 import '../../data/models/messages/message_model.dart';
 import '../constants/db_config.dart';
 
+List<Message> dbMessagesToMessages(List<DatabaseMessageModel> dbMessages) {
+  return dbMessages.map((dbMessage) => dbMessageToMessage(dbMessage)).toList();
+}
+
 List<DatabaseMessageModel> dbMessagesFromMessages(List<Message> messages) {
-  return messages.map((message) {
-    DatabaseRoomModel room = DatabaseRoomModel(
-      id: message.room!.id,
-      name: message.room!.name!,
-      hostId: message.room!.host!.phoneNumber!, // assuming id is an int
-    );
+  return messages.map((message) => dbMessageFromMessage(message)).toList();
+}
 
-    DatabaseSenderModel sender = DatabaseSenderModel(
-      phoneNumber: message.sender!.phoneNumber!,
-      username: message.sender!.username!,
-    );
+DatabaseMessageModel dbMessageFromMessage(Message message) {
+  DatabaseRoomModel room = DatabaseRoomModel(
+    id: message.room!.id,
+    name: message.room!.name!,
+    hostId: message.room!.host!.phoneNumber!,
+  );
 
-    return DatabaseMessageModel(
-      id: message.id!,
-      messageUrl: message.messageUrl!,
-      editUrl: message.editUrl!,
-      room: room,
-      sender: sender,
-      description: message.description!,
-      updated: message.updated!,
-      created: message.created!,
-      isSyncedWithServer: true, // assuming messages from the server are synced
-    );
-  }).toList();
+  DatabaseSenderModel sender = DatabaseSenderModel(
+    phoneNumber: message.sender!.phoneNumber!,
+    username: message.sender!.username!,
+  );
+
+  return DatabaseMessageModel(
+    id: message.id!,
+    messageUrl: message.messageUrl!,
+    editUrl: message.editUrl!,
+    room: room,
+    sender: sender,
+    description: message.description!,
+    updated: message.updated!,
+    created: message.created!,
+    isSyncedWithServer: true, // assuming messages from the server are synced
+  );
+}
+
+Message dbMessageToMessage(DatabaseMessageModel dbMessage) {
+  Sender sender = Sender(
+    phoneNumber: dbMessage.sender.phoneNumber,
+    username: dbMessage.sender.username,
+  );
+
+  Room room = Room(
+    id: dbMessage.room.id,
+    name: dbMessage.room.name,
+    host: Sender(
+      phoneNumber: dbMessage.room.hostId,
+      username:
+          '', // Assuming the username is not available in the hostId field
+    ),
+  );
+
+  return Message(
+    id: dbMessage.id,
+    messageUrl: dbMessage.messageUrl,
+    editUrl: dbMessage.editUrl,
+    room: room,
+    sender: sender,
+    description: dbMessage.description,
+    updated: dbMessage.updated,
+    created: dbMessage.created,
+  );
 }
 
 class DatabaseMessageModel {

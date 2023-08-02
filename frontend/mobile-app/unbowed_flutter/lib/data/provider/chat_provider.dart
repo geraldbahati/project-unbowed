@@ -12,7 +12,7 @@ abstract class ChatProvider {
     required String chatRoomId,
   });
 
-  Future<List<ChatroomModel>> laodChatrooms();
+  Future<List<ChatroomModel>> loadChatrooms();
 
   Future<void> deleteChat({
     required String messageId,
@@ -49,7 +49,7 @@ class ChatService implements ChatProvider {
   }
 
   @override
-  Future<List<ChatroomModel>> laodChatrooms() async {
+  Future<List<ChatroomModel>> loadChatrooms() async {
     var chatRoomRepository = ChatRepository.loadChatrooms();
 
     try {
