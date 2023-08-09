@@ -4,6 +4,7 @@ import pyotp
 import uuid
 
 from .mobitech_service import MobiTech
+import datetime
 
 
 # !!!!!!!!! TODO! Handle exceptions lateer
@@ -37,6 +38,9 @@ def generate_and_send_otp(phone_number) -> bool:
    
 
 def verify_otp(phone_number, otp) -> bool:
+    '''
+    Verify the OTP code provided by the user
+    '''
     # Retrieve the shared_secret from cache
     shared_secret = cache.get(phone_number)
 
@@ -44,7 +48,7 @@ def verify_otp(phone_number, otp) -> bool:
         return False
 
     # Create a TOTP object using the shared secret
-    totp = pyotp.TOTP(shared_secret)
+    totp = pyotp.TOTP(shared_secret, interval=300)
     
     # Verify the provided OTP against the TOTP
     return totp.verify(otp)

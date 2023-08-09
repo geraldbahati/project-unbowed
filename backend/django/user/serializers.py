@@ -90,7 +90,6 @@ class SendOTPSerializer(serializers.Serializer):
 class VerifyOTPSerializer(serializers.Serializer):
     phone_number = serializers.CharField(max_length=15)
     verification_code = serializers.CharField(max_length=6)
-    secret_key = serializers.CharField(max_length=255)
 
 
 class AuthenticateQRCodeSerializer(serializers.Serializer):

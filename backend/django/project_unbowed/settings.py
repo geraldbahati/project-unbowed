@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -70,7 +70,10 @@ AUTH_USER_MODEL = 'user.CustomUser'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsPostCsrfMiddleware',
+
+    # corsheaders
+    'corsheaders.middleware.CorsMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,6 +84,15 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'project_unbowed.urls'
 
 CORS_URLS_REGEX = r'^/api/.*'
+# CORS_ALLOWED_ORIGINS = []
+
+# if DEBUG:
+#     CORS_ALLOWED_ORIGINS += [
+#         'http://localhost:56274',
+#         'http://127.0.0.1:56605'
+#     ]
+
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 TEMPLATES = [
@@ -144,7 +156,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -155,6 +167,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -254,4 +270,17 @@ AFRICASTALKING_API_KEY = os.getenv("AFRICASTALKING_API_KEY")
 
 
 #MOBI TECH
-MOBITECH_API_KEY = "4c2b79e2c314449d41b7025d88d02b18edff57eebbf2278552adbd91db49b807"
+MOBITECH_API_KEY = os.getenv("MOBITECH_API_KEY")
+
+
+# AWS S3 settings
+# AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+# AWS_STORAGE_BUCKET_NAME = 'artlife-production'
+# AWS_S3_REGION_NAME = 'eu-west-2'
+# AWS_S3_SIGNATURE_VERSION = 's3v4'
+# AWS_S3_FILE_OVERWRITE = False
+# AWS_DEFAULT_ACL = None
+# AWS_S3_VERIFY = False
+# AWS_S3_ENDPOINT_URL = 'https://artlife-production.s3.eu-west-2.amazonaws.com'
+

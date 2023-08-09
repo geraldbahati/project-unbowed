@@ -1,6 +1,6 @@
 class Config {
   static const String appName = 'ArtLife Project';
-  static const String domain = '192.168.0.103:8000';
+  static const String domain = '192.168.0.100:8000';
 
   static const String verifyOtpURL = '/api/user/verify-otp/';
   static const String sendNumberURL = '/api/user/send-otp/';

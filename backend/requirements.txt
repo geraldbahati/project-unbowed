@@ -17,3 +17,7 @@ pyotp # for otp
 python-dotenv # for env
 africastalking # for africastalking
 fcm-django  # for push notifications
+Pillow # for image processing
+asyncio # for async
+boto3 # for aws
+django-storages # for aws

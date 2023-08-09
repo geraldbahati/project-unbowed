@@ -49,10 +49,12 @@ class VerifyOTPView(GenericAPIView):
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
+        
         if serializer.is_valid():
             phone_number = serializer.validated_data['phone_number']
             otp = serializer.validated_data['verification_code']
-           
+
+            print(phone_number, otp)
 
             # Verify the OTP code
             if verify_otp(phone_number=phone_number, otp=otp):
@@ -76,6 +78,7 @@ class VerifyOTPView(GenericAPIView):
                 }
                 return Response(response)
             else:
+                print("not verified")
                 return Response({'error': 'Invalid OTP code.'}, status=status.HTTP_400_BAD_REQUEST)
             
         else:

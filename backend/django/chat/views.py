@@ -1,34 +1,33 @@
-
 from django.shortcuts import render
-from rest_framework.generics import RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
+from rest_framework.generics import (RetrieveAPIView, ListCreateAPIView, UpdateAPIView, DestroyAPIView)
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.parsers import FileUploadParser
+from rest_framework.response import Response
+from rest_framework import status
 
 from user.models import CustomUser
 from .models import Message, ChatRoom
 
 from .serializers import MessageSerializer, ChatRoomSerializer
-from api.mixins import StaffEditorPermissionMixin, OwnerOrReadOnlyPermissionMixin, AuthorisedPermissionMixin
+from api.mixins import (StaffEditorPermissionMixin, OwnerOrReadOnlyPermissionMixin, AuthorisedPermissionMixin)
 
 # Create your views here.
 
 
-class ChatRoomListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
+class ChatRoomListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin, StaffEditorPermissionMixin):
+    '''API view for listing and creating chatrooms'''
     queryset = ChatRoom.objects.all()
     serializer_class = ChatRoomSerializer
-    authentication_classes = [JWTAuthentication]
-
-
-    def get_queryset(self):
-        print(self.request.user)
-        return super().get_queryset()
     
     def perform_create(self, serializer):
-        host = self.request.user
+        creator = self.request.user
+        participants = CustomUser.objects.all() or None
 
-        participants = CustomUser.objects.all().exclude(id=host.id) or None
         
         serializer.save(
-            host=host,
+            creator=creator,
             participants=participants,
         )
 
@@ -111,8 +110,8 @@ class MessageListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
         return message_qs
 
     def perform_create(self, serializer):
-        user = self.request.user
-        # target_name = self.kwargs.get('target_name')
-        #! TODO have to work on this
-        chat_room = ChatRoom.objects.get(id=1) or None
-        serializer.save(host=user, chat_room=chat_room)
+
+        if serializer.validated_data:
+            user = self.request.user
+        
+            serializer.save(sender=user)
