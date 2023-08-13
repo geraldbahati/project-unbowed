@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,13 +40,15 @@ INSTALLED_APPS = [
     # 3rd party
     "daphne",
     'corsheaders',
-    # "channels",
     "africastalking",
     'django_celery_results',
     'django_celery_beat',
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
+    'channels',
+    'channels_redis',
+    'storages',
 
     # local
     "user.apps.UserConfig",
@@ -274,13 +275,20 @@ MOBITECH_API_KEY = os.getenv("MOBITECH_API_KEY")
 
 
 # AWS S3 settings
-# AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
-# AWS_STORAGE_BUCKET_NAME = 'artlife-production'
-# AWS_S3_REGION_NAME = 'eu-west-2'
-# AWS_S3_SIGNATURE_VERSION = 's3v4'
-# AWS_S3_FILE_OVERWRITE = False
-# AWS_DEFAULT_ACL = None
-# AWS_S3_VERIFY = False
-# AWS_S3_ENDPOINT_URL = 'https://artlife-production.s3.eu-west-2.amazonaws.com'
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = 'project-unbowed'
+AWS_S3_REGION_NAME = 'eu-west-2'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERIFY = True
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
 
+# AWS S3 static settings
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# The location to save uploaded files within the s3
+AWS_UPLOAD_LOCATION = ''

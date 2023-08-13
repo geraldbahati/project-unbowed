@@ -5,9 +5,9 @@ from celery import Celery
 from django.conf import settings
 from pytz import timezone
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cfehome.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project_unbowed.settings')
 
-app = Celery('cfehome')
+app = Celery('project_unbowed')
 # app.conf.enable_utc = False
 
 # app.conf.update(timezone = '')

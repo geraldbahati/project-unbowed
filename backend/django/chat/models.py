@@ -4,11 +4,11 @@ from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.db.models.query import QuerySet
 
-from .validators import validate_file_based_on_type
+from .validators import validate_file_type
+from .utils import get_upload_path
 from user.models import CustomUser
 
 # Create your models here.
-
 
 class MessageManager(models.Manager):
     def get_queryset(self) -> QuerySet:
@@ -165,9 +165,9 @@ class Message(models.Model):
     )
 
     file = models.FileField(
-        upload_to='chat_files/',
+        upload_to=get_upload_path,
         null=True, blank=True,
-        validators=[validate_file_based_on_type],
+        validators=[validate_file_type],
         help_text="File content for audio, image, video, and document messages"
     )
 
@@ -200,20 +200,20 @@ class Message(models.Model):
         ]
 
     def __str__(self) -> str:
-        if self.file_type == self.TEXT:
+        if self.message_type == self.TEXT:
             return self.text_content[0:50]
-        elif self.file_type == self.AUDIO:
+        elif self.message_type == self.AUDIO:
             return f"Audio from {self.sender.username}"
-        elif self.file_type == self.IMAGE:
+        elif self.message_type == self.IMAGE:
             return f"Image from {self.sender.username}"
-        elif self.file_type == self.VIDEO:
+        elif self.message_type == self.VIDEO:
             return f"Video from {self.sender.username}"
-        elif self.file_type == self.DOCUMENT:
+        elif self.message_type == self.DOCUMENT:
             return f"Document from {self.sender.username}"
 
     def clean(self):
-        """Ensure that the correct fields are populated based on file_type."""
-        if self.file_type == self.TEXT:
+        """Ensure that the correct fields are populated based on message_type."""
+        if self.message_type == self.TEXT:
             if self.file:
                 raise ValidationError(
                     "Text messages cannot have a file attached.")

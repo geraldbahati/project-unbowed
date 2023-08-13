@@ -6,7 +6,7 @@ from django.conf.urls import url
 from channels.auth import AuthMiddlewareStack
 from unittest.mock import ANY
 
-from .consumers import ChatConsumer
+from chat.consumers import ChatConsumer
 from chat.models import ChatRoom
 
 class ChatConsumerTest(TestCase):
@@ -54,3 +54,5 @@ class ChatConsumerTest(TestCase):
             'action': 'typing',
             'username': 'testuser',
         })
+
+

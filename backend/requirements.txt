@@ -7,17 +7,16 @@ channels # for websockets
 channels-redis # for redis
 django_celery_results # for celery results
 django_celery_beat # for celery beat
-django-celery-results # for celery results
 celery # for celery
 django>=4.2.0 # for django
 django-channels # for channels
 selenium # for selenium
-twilio # for twilio
-pyotp # for otp
 python-dotenv # for env
+pyotp # for otp
 africastalking # for africastalking
 fcm-django  # for push notifications
 Pillow # for image processing
 asyncio # for async
 boto3 # for aws
 django-storages # for aws
+python-magic # for file validation

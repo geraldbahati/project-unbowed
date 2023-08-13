@@ -132,6 +132,36 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 }
             )
 
+        if action == 'mark_as_read':
+            '''
+            text_data - JSON data sent from the frontend
+            '''
+            message_id = text_data_json['message_id']
+            
+            # Update the message status to Read
+            await self.update_message_status(message_id=message_id, status=Message.READ)
+
+            # Notify the sender that the message has been read
+            await self.channel_layer.group_send(
+                self.room_group_name,
+                {
+                    'type': 'message_status_update',
+                    'message_id': message_id,
+                    'status': 'Read',
+                }
+            )
+
+    async def message_status_update(self, event):
+        message_id = event['message_id']
+        status = event['status']
+
+        # Send message to WebSocket
+        await self.send(text_data=json.dumps({
+            'action': 'message_status_update',
+            'message_id': message_id,
+            'status': status,
+        }))
+
     async def stop_typing_timeout(self, username):
         # Notify the group that this user has stopped typing
         await self.channel_layer.group_send(
@@ -148,6 +178,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def chatroom_message(self, event):
         message = event['message']
+
+        # update the message status to 'delivered'
+        await self.update_message_status(message_id=message['id'], status=Message.DELIVERED)
 
         # Send message to WebSocket
         await self.send(text_data=json.dumps({
@@ -222,6 +255,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
         serialized_data = MessageSerializer(message).data
         return serialized_data
 
+    @database_sync_to_async
+    def update_message_status(self, message_id, status):
+        message = Message.objects.filter(id=message_id).first() or None
+
+        if message is not None:
+            message.status = status
+            message.save()
+        else:
+            raise Exception('Message does not exist')
 
 class ChatroomConsumer(AsyncWebsocketConsumer):
     async def connect(self):

@@ -1,51 +1,61 @@
+import magic
 from django.core.exceptions import ValidationError
-import os
-from django.apps import apps
 
 
+ACCEPTED_MIME_TYPES = [
+    # Images
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/bmp",
+    "image/svg+xml",
+    "image/webp",
+    
+    # Audio
+    "audio/mpeg",  # MP3 format
+    "audio/x-wav",
+    "audio/webm",  # WebM format
+    "audio/ogg",   # OGG format
+    "audio/aac",   # AAC format
+    "audio/flac",  # FLAC format
+    
+    # Videos
+    "video/mp4",
+    "video/x-matroska",  # MKV format
+    "video/webm",
+    "video/ogg",
+    "video/quicktime",   # MOV format
+    "video/3gpp",       # 3GP format
+    "video/3gpp2",      # 3G2 format
+    "video/avi",
+    "video/msvideo",
+    "video/x-msvideo",  # AVI format
+    "video/mpeg",
+    "video/x-flv",      # FLV format
 
-# Audio file validator
-def validate_audio_file_extension(value):
-    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
-    valid_extensions = ['.mp3', '.wav', '.ogg']
-    if not ext.lower() in valid_extensions:
-        raise ValidationError('Unsupported file extension.')
-    
-# Video file validator
-def validate_video_file_extension(value):
-    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
-    valid_extensions = ['.mp4', '.webm', '.ogg']
-    if not ext.lower() in valid_extensions:
-        raise ValidationError('Unsupported file extension.')
-    
-# Document file validator
-def validate_document_file_extension(value):
-    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
-    valid_extensions = ['.pdf', '.doc', '.docx', '.ppt', '.pptx', '.xls', '.xlsx']
-    if not ext.lower() in valid_extensions:
-        raise ValidationError('Unsupported file extension.')
-    
-# Image file validator
-def validate_image_file_extension(value):
-    ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
-    valid_extensions = ['.png', '.jpg', '.jpeg', '.gif']
-    if not ext.lower() in valid_extensions:
-        raise ValidationError('Unsupported file extension.')
-    
-# Message file validator
-def validate_file_based_on_type(file):
-    if file is None:
-        raise ValidationError('File is required')
-    else:
-        Message = apps.get_model('chat', 'Message')
-        instance = file.instance
+    # Documents
+    "text/plain",
+    "text/csv",
+    "text/rtf",
+    "text/html",
+    "application/pdf",
+    "application/msword",  # DOC format
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",  # DOCX format
+    "application/vnd.ms-excel",  # XLS format
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",  # XLSX format
+    "application/vnd.ms-powerpoint",  # PPT format
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation",  # PPTX format
+    "application/epub+zip",  # EPUB format
+    "application/zip",
+    "application/x-rar-compressed",  # RAR format
+    "application/x-tar",  # TAR format
+    "application/x-bzip2",  # BZ2 format
+]
 
-        if instance.message_type == Message.AUDIO:
-            validate_audio_file_extension(file)
-        elif instance.message_type == Message.IMAGE:
-            validate_image_file_extension(file)
-        elif instance.message_type == Message.VIDEO:
-            validate_video_file_extension(file)
-        elif instance.message_type == Message.DOCUMENT:
-            validate_document_file_extension(file)
-       
+def validate_file_type(upload):
+    file_type = magic.from_buffer(upload.read(1024), mime=True)
+
+    if file_type not in ACCEPTED_MIME_TYPES:
+        raise ValidationError("File type not supported.")
+    
+    upload.seek(0)  # Reset the file pointer to the beginning of the file

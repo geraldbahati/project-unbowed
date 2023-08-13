@@ -9,6 +9,7 @@ from rest_framework import status
 
 from user.models import CustomUser
 from .models import Message, ChatRoom
+from .utils import determine_file_category
 
 from .serializers import MessageSerializer, ChatRoomSerializer
 from api.mixins import (StaffEditorPermissionMixin, OwnerOrReadOnlyPermissionMixin, AuthorisedPermissionMixin)
@@ -112,6 +113,10 @@ class MessageListCreateAPIView(ListCreateAPIView, AuthorisedPermissionMixin):
     def perform_create(self, serializer):
 
         if serializer.validated_data:
-            user = self.request.user
+            file = serializer.validated_data.get("file") or None
+            serializer.validated_data["sender"] = self.request.user
+
+            if file is not None:
+                serializer.validated_data["message_type"] = determine_file_category(file)
         
-            serializer.save(sender=user)
+            serializer.save()
