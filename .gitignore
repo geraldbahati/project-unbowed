@@ -97,7 +97,6 @@ celerybeat-schedule.*
 *.sage.py 
 
 # Environments
-backend/unbowed-venv/
 backend/django/.env
 .env 
 .venv 
@@ -105,7 +104,8 @@ env/
 venv/ 
 ENV/ 
 env.bak/ 
-venv.bak/ 
+venv.bak/
+backend/unbowed-venv/
 
 # mkdocs documentation 
 /site 
